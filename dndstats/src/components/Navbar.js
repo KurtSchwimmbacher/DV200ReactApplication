@@ -1,5 +1,5 @@
 import "./Navbar.css";
-
+import logo from "./logo.png"
 // import link
 import { Link } from "react-router-dom";
 
@@ -9,9 +9,9 @@ function Navbar(){
             <ul className="navbar-list">
                 <li className="navbar-item">
                     <Link className="logo-link" to="/">
-                        Adventurer's
-                        {/* icon */}
-                        Almanac
+                        <h1>Adventurer's</h1>
+                        <img className="img-logo" src={ logo } alt="dice logo"></img>
+                        <h1>Almanac</h1>
                     </Link>
                 </li>
                 <li className="navbar-item">
