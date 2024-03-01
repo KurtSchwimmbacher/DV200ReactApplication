@@ -1,0 +1,40 @@
+import "./Navbar.css";
+
+// import link
+import { Link } from "react-router-dom";
+
+function Navbar(){
+    return(
+        <nav className="navbar">
+            <ul className="navbar-list">
+                <li className="navbar-item">
+                    <Link className="logo-link" to="/">
+                        Adventurer's
+                        {/* icon */}
+                        Almanac
+                    </Link>
+                </li>
+                <li className="navbar-item">
+                    <Link className="navbar-link" to="/">
+                        {/* icon */}
+                        Dashboard
+                    </Link>
+                </li>
+                <li className="navbar-item">
+                    <Link className="navbar-link" to="/compare">
+                        {/* icon */}
+                        Compare
+                    </Link>
+                </li>
+                <li className="navbar-item">
+                    <Link className="navbar-link" to="/timeline">
+                        {/* icon */}
+                        Timeline
+                    </Link>
+                </li>
+            </ul>
+        </nav>
+    );
+}
+
+export default Navbar;
