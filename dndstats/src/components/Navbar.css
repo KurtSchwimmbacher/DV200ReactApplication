@@ -1,0 +1,59 @@
+@font-face {
+    font-family: titleFont;
+    src: url(../fonts/Draconis.otf);
+  }
+
+.img-logo{
+    width: 48px;
+    text-align: center;
+}
+
+
+.logo-link{
+    font-family: titleFont;
+    font-weight: 100;
+    font-size: 24px;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.navbar{
+    position: absolute;    
+    width: 280px;
+    height: 100vh;
+    margin-top: -3vh;
+    padding-top: 30px;
+    background-color: #C73032;
+    color: #FAF9F6 ;
+}
+
+.navbar-list{
+    
+    list-style: none;
+}
+.navbar-item, .navbar-link, .logo-link{
+    text-decoration: none;
+    color: #FAF9F6;
+}
+
+.navbar-item{
+    margin-left: -60px;
+    text-align: center;
+    margin-bottom: 3vh;
+}
+
+.bg3-mode{
+    text-align: center;
+    margin-top: 15vh;
+}
+
+.line-brder{
+    width: 60%;
+    margin-left: 20%;
+    margin-bottom: 3vh;
+    border-bottom: 2px solid #FAF9F6;
+    border-radius: 5%;
+}

@@ -5,7 +5,7 @@ function Dashboard(){
     return(
         <>
             <Navbar />
-            <h1>This is a Dashboard page</h1>
+            <h1 className="dashboard-title">Adventurer's Almanac</h1>
         </>
     );
 }
