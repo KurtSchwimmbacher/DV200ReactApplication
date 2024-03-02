@@ -40,7 +40,9 @@
 }
 
 .navbar-item{
-    margin-left: -60px;
+    width: 60%;
+    margin-left: 10%;
+    
     text-align: center;
     margin-bottom: 3vh;
 }
@@ -56,4 +58,15 @@
     margin-bottom: 3vh;
     border-bottom: 2px solid #FAF9F6;
     border-radius: 5%;
+}
+
+.navbar-item:hover{
+    font-weight: bold;
+    border-bottom: 2px solid #FAF9F6;
+    cursor: pointer;
+}
+
+.nav-logo{
+    cursor: pointer;
+    border-bottom: none !important;
 }

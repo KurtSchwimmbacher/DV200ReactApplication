@@ -8,7 +8,7 @@ function Navbar(){
     return(
         <nav className="navbar">
             <ul className="navbar-list">
-                <li className="navbar-item">
+                <li className="navbar-item nav-logo">
                     <Link className="logo-link" to="/">
                         <h2>Adventurer's</h2>
                         <img className="img-logo" src={ logo } alt="dice logo"></img>
