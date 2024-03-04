@@ -21,9 +21,9 @@
 }
 
 .navbar{
-    position: absolute;    
-    width: 280px;
-    height: 100vh;
+    position: absolute !important;    
+    width: 15%;
+    height: 104vh;
     margin-top: -3vh;
     padding-top: 30px;
     background-color: #C73032;
@@ -31,7 +31,7 @@
 }
 
 .navbar-list{
-    
+    width: 100%;
     list-style: none;
 }
 .navbar-item, .navbar-link, .logo-link{

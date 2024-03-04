@@ -1,8 +1,16 @@
+@font-face {
+    font-family: titleFont;
+    src: url(../fonts/Draconis.otf);
+  }
+  
+
 .btn-con{
-    border-radius: 25px;
+    border-radius: 15px;
     text-align: center;
-    margin-left: 280px;
-    width: 280px;
     color: #FAF9F6;
-    height: 80px;
+    height: 65px;
+}
+
+.btn-title{
+    font-family: titleFont;
 }

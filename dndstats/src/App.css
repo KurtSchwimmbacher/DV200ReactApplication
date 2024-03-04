@@ -8,10 +8,16 @@ body{
 }
 
 .dashboard-title{
-  margin-left: 340px;
+  margin-left: 20%;
   font-family: titleFont;
   font-size: 96px;
   font-weight: 400;
   margin-top: 0;
   color: #383937;
+}
+
+.header-con{
+  width: 85% !important;
+  margin-left: 15% !important;
+  text-align: center;
 }
