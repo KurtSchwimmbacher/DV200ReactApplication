@@ -18,6 +18,8 @@ body{
 
 .header-con{
   width: 85% !important;
+  height: 25vh !important;
   margin-left: 15% !important;
   text-align: center;
 }
+

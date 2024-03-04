@@ -2,15 +2,19 @@ import "../App.css";
 import Navbar from "../components/Navbar";
 import HeaderBtn from "../components/HeaderBtn";
 
+
 // import bootstap
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 
-// import graphs
-import BarGraph from "../components/BarGraph";
+
+
+
 
 function Dashboard(){
+    
+
     return(
         <>
             <Navbar />
@@ -21,12 +25,11 @@ function Dashboard(){
                     <Col><HeaderBtn where="ViewSingle" /></Col>
                     <Col><HeaderBtn where = "ViewTimeline" /></Col>                    
                 </Row>
-                <Row>
-                    <Col>
-                    <BarGraph />
-                    </Col>
-                </Row>
             </Container>
+           
+           
+            
+
         </>
     );
 }

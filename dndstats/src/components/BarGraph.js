@@ -1,33 +1,11 @@
-import "../App.css"
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
+import React from "react";
+import { Bar } from 'react-chartjs-2'
+import {Chart as ChartJS} from 'chart.js/auto'
 
-// import chart.js
-import { Chart as ChartJS } from "chart.js/auto";
-import { Bar, Line, Pie } from "react-chartjs-2";
-
-
-function BarGraph() {
-  return (
-    <Bar
-        data={{
-            labels: ["Jan","Feb","Mar","Apr","May","Jun","Jul","Aug","Sep","Oct","Nov","Dec"],
-            datasets:[
-                {
-                  label: "Revenue",
-                  data:[200,300,400],
-                  backgroundColor: [
-                    '#51A1C5',
-                    '#AB6DAC',
-                    '#507F62'
-                  ],
-                },                
-            ]
-            
-        }}
-    />
-  );
+function BarGraph(chartData){
+    return(
+        <Bar data={chartData} />
+    );
 }
 
 export default BarGraph;
