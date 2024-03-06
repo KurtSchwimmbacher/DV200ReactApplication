@@ -5,7 +5,7 @@ function Timeline(){
     return(
         <>
             <Navbar />
-            <h1>This is a timeline</h1>
+            <h1 className="dashboard-title">Rising the Ranks!</h1>
         </>
     );
 }

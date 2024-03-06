@@ -28,9 +28,14 @@ body{
   height: 25vh !important;
   margin-left: 15% !important;
   text-align: center;
+  background-color: #FAF9F6;
 }
 
 .chart-container{
   border: none !important;
   box-shadow: none !important;
+}
+
+.car-title{
+  color: #ffffff !important;
 }

@@ -1,0 +1,27 @@
+[
+    {
+        "label": "Strength",
+        "Score": 10
+    },
+    {
+        "label": "Dexterity",
+        "Score": 15
+    },
+    {
+        "label": "Constitution",
+        "Score": 14
+    },
+    {
+        "label": "Intelligence",
+        "Score": 12
+    },
+    {
+        "label": "Wisdom",
+        "Score": 8
+    },
+    {
+        "label": "Charisma",
+        "Score": 17
+    }
+
+]

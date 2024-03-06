@@ -10,9 +10,7 @@ function Compare(){
     return(
         <>
             <Navbar />
-            <div style={{width: 700}}>
-             {/* <BarGraph chartData={graphData} /> */}
-           </div>
+            <h1 className="dashboard-title">Up in the Ring!</h1>
         </>
     );
 }
