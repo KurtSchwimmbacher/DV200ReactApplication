@@ -1,7 +1,7 @@
 import Carousel from 'react-bootstrap/Carousel';
 import "../App.css"
 
-// import images
+// import bg3 images
 import Karlach from "../assets/images/Karlach.png";
 import Astarion from "../assets/images/Astarion.png";
 import Gale from "../assets/images/Gale.png";
@@ -9,12 +9,64 @@ import Laezel from "../assets/images/Laezel.png";
 import Shadowheart from "../assets/images/Shadowheart.png";
 import Wyll from "../assets/images/Wyll.png";   
 
+// import dnd images
+import Bard from "../assets/images/Bard.png";
+import Cleric from "../assets/images/Cleric.png";
+import Druid from "../assets/images/Druid.png";
+import Fighter from "../assets/images/Fighter.png";
+import Monk from "../assets/images/Monk.png";
+import Paladin from "../assets/images/Paladin.png";
+import Ranger from "../assets/images/Ranger.png";
+import Rogue from "../assets/images/Rogue.png";
+import Sorcerer from "../assets/images/Sorcerer.png";
+import Warlock from "../assets/images/Warlock.png";
+import Wizard from "../assets/images/Wizard.png";
+import Barbarian from "../assets/images/Barbarian.png";
 
 function CarouselBento(props) {
     let infoObj = [];
 
     switch (props.content){
         case("Classes1"):
+
+        infoObj = [
+            {
+                id:1,
+                image: Bard,
+                title: "",
+                desc: ""
+            },
+            {
+                id:2,
+                image: Barbarian,
+                title: "",
+                desc: ""
+            },
+            {
+                id:3,
+                image: Cleric,
+                title: "",
+                desc: ""
+            },
+            {
+                id:4,
+                image: Druid,
+                title: "",
+                desc: ""
+            },
+            {
+                id:5,
+                image: Fighter,
+                title: "",
+                desc: ""
+            },
+            {
+                id:6,
+                image: Monk,
+                title: "",
+                desc: ""
+            }
+        ]
             
         
         break;
@@ -63,6 +115,44 @@ function CarouselBento(props) {
         break;
 
         case("Classes2"):
+        infoObj = [
+            {
+                id:1,
+                image: Paladin,
+                title: "",
+                desc: ""
+            },
+            {
+                id:2,
+                image: Ranger,
+                title: "",
+                desc: ""
+            },
+            {
+                id:3,
+                image: Rogue,
+                title: "",
+                desc: ""
+            },
+            {
+                id:4,
+                image: Sorcerer,
+                title: "",
+                desc: ""
+            },
+            {
+                id:5,
+                image: Warlock,
+                title: "",
+                desc: ""
+            },
+            {
+                id:6,
+                image: Wizard,
+                title: "",
+                desc: ""
+            }
+        ]
 
         break;
 

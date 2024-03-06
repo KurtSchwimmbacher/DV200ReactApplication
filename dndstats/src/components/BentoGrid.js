@@ -68,12 +68,13 @@ function BentoGrid() {
             <RadarChart chartData={radarGraphData} />
         </div>
         <div className="grid6 grid-con">
-            
+            <Carousel content= "Classes1" />
         </div>
         <div className="grid7 grid-con">
             <Carousel content= "BG3"/>
         </div>
         <div className="grid8 grid-con">
+            <Carousel content= "Classes2" />
         </div>
     </div>
   );
