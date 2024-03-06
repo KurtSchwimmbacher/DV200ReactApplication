@@ -1,3 +1,4 @@
+// src/components/Navbar.js
 import "./Navbar.css";
 import logo from "./logo.png"
 

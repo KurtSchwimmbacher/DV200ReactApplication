@@ -10,8 +10,10 @@
 }
 
 .wrapper div{
-    border: 3px solid black;
+    border: 1px solid #AAAAAA;
     border-radius: 10px;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.2);
+    padding: 5px;
 }
 
 .grid1{
@@ -52,4 +54,13 @@
 .grid8{
     grid-column: 7/10;
     grid-row: 5/7;
+}
+
+.chart-title{
+    text-align: center;
+    font-family: titleFont;
+}
+.graph-con{
+    width: 100%;
+    height: 100%;
 }

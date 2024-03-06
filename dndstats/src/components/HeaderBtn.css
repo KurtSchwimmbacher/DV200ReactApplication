@@ -11,6 +11,18 @@
     height: 65px;
 }
 
+.btn-con:hover{
+    cursor: pointer;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3) !important;
+    border: 2px solid #FAF9F6;
+}
+
 .btn-title{
     font-family: titleFont;
+}
+
+.btn-desc{
+    font-family: "bookmania", serif;
+    font-weight: 100;
+    margin-top: -5px;
 }

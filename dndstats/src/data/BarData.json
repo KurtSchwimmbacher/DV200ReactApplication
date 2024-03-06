@@ -1,0 +1,50 @@
+[
+    {
+        "label": "Jan",
+        "Sales": 15000
+    },
+    {
+        "label": "Feb",
+        "Sales": 18000
+    },
+    {
+        "label": "Mar",
+        "Sales": 20000
+    },
+    {
+        "label": "Apr",
+        "Sales": 22000
+    },
+    {
+        "label": "May",
+        "Sales": 25000
+    },
+    {
+        "label": "Jun",
+        "Sales": 32000
+    },
+    {
+        "label": "Jul",
+        "Sales": 26000
+    },
+    {
+        "label": "Aug",
+        "Sales": 18000
+    },
+    {
+        "label": "Sept",
+        "Sales": 14000
+    },
+    {
+        "label": "Oct",
+        "Sales": 11000
+    },
+    {
+        "label": "Nov",
+        "Sales": 10000
+    },
+    {
+        "label": "Dec",
+        "Sales": 8000
+    }
+]
