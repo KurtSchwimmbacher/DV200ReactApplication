@@ -7,6 +7,7 @@ import HeaderBtn from "../components/HeaderBtn";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import BentoGrid from "../components/BentoGrid";
 
 
 
@@ -24,6 +25,10 @@ function Dashboard(){
                     <Col><HeaderBtn where="Compare" /></Col>
                     <Col><HeaderBtn where="ViewSingle" /></Col>
                     <Col><HeaderBtn where = "ViewTimeline" /></Col>                    
+                </Row>
+
+                <Row>
+                <BentoGrid />
                 </Row>
             </Container>
            
