@@ -23,20 +23,17 @@
 }
 
 .navbar{  
-    position: -webkit-sticky !important;
-    position: sticky !important;
-    top: 1% !important; 
-    overflow: visible;
+    display: block !important;
     width: 15%;
-    height: 100vh;
-    padding-top: 30px;
+    height: 220vh;
+    padding-top: 30px; 
     background-color: #C73032;
     color: #FAF9F6 ;
 }
 
 .navbar-list{
     position: sticky;
-    top: 10%;
+    top: 15vh;
     width: 100%;
     list-style: none;
 }
@@ -54,6 +51,8 @@
 }
 
 .bg3-mode{
+    position: sticky;
+    top: 80%;
     text-align: center;
     margin-top: 15vh;
     margin-left: 10%;
@@ -78,3 +77,5 @@
     cursor: pointer;
     border-bottom: none !important;
 }
+
+
