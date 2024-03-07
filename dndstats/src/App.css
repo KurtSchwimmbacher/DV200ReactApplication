@@ -6,6 +6,7 @@
 
 body{
   background-color: #FAF9F6;
+  cursor: url('./cursor.gif'),auto;
 }
 
 .dashboard-title{

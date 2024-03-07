@@ -2,12 +2,12 @@ import "../App.css";
 import Navbar from "../components/Navbar";
 import HeaderBtn from "../components/HeaderBtn";
 
-
 // import bootstap
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BentoGrid from "../components/BentoGrid";
+
 
 
 
@@ -32,6 +32,9 @@ function Dashboard(){
                     as well. We use the data from the API to formulate graphs to 
                     compare several aspects of the classes, such as Hit Points 
                     and spells! 
+                </p>
+                <p className="dashboard-subtitle">
+                    Some exampls of the graphs we create using the ChartJS library are shown on our dashboard below!
                 </p>
                 <Container fluid="md" className="header-con">
                     <Row>

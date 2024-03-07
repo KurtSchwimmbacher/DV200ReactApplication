@@ -12,7 +12,7 @@
 }
 
 .btn-con:hover{
-    cursor: pointer;
+    cursor: url('../cursor_down.gif'),auto;
     box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.3) !important;
     border: 2px solid #FAF9F6;
 }
