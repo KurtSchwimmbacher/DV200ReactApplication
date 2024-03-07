@@ -7,7 +7,7 @@ function BarGraph({ chartData }) {
       <Bar
         data={chartData}
         options={{
-            aspectRatio: 1,
+            // aspectRatio: 1,
           plugins: {
             title: {
               display: true,

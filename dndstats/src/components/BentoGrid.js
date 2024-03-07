@@ -3,7 +3,7 @@ import React from "react";
 import "./BentoGrid.css";
 
 // import chart.js and charts
-import { Chart } from "chart.js/auto";
+import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { CategoryScale } from "chart.js/auto";
 import Piechart from "./graphs/Piechart";
 import BarGraph from "./graphs/BarGraph";
@@ -17,7 +17,9 @@ import RadarData from "../data/RadarData.json";
 // important other components
 import Carousel from "../components/Carousel";
 
-Chart.register(CategoryScale);
+ChartJS.register(CategoryScale);
+defaults.maintainAspectRatio = false;
+defaults.responsive = true;
 
 function BentoGrid() {
 
@@ -63,7 +65,11 @@ function BentoGrid() {
         <div className="grid3 grid-con">
             <Piechart chartData={piechartData} />
         </div>
-        <div className="grid4 grid-con">4</div>
+        <div className="grid4 grid-con">
+            <div className="pie-col"><Piechart chartData={piechartData} /></div>
+            <div className="pie-col"><Piechart chartData={piechartData} /></div>
+            <div className="pie-col"><Piechart chartData={piechartData} /></div>
+        </div>
         <div className="grid5 grid-con">
             <RadarChart chartData={radarGraphData} />
         </div>
