@@ -31,6 +31,24 @@ function BentoGrid() {
             backgroundColor: ["#51A1C5","#A184BC","#507F62","#C73032"],
         }]
     };
+
+    let pieChartOpt = {
+        plugins: {
+          title: {
+            display: true,
+            text: "Ratio of website traffic"
+          }
+        }, 
+        maintainAspectRatio : false,
+        aspectRatio : 0.3,
+      };
+
+      let miniPieChartOpt = { 
+        responsive : true,
+        maintainAspectRatio : false,
+        aspectRatio : 0.2,
+      };
+
     let bargraphData = {
         labels: BarData.map((data)=>data.label),
         datasets:[{
@@ -63,12 +81,15 @@ function BentoGrid() {
             <BarGraph chartData={bargraphData} />
         </div>
         <div className="grid3 grid-con">
-            <Piechart chartData={piechartData} />
+            <Piechart 
+            chartData={piechartData}
+            chartOpt = {pieChartOpt} 
+            />
         </div>
         <div className="grid4 grid-con">
-            <div className="pie-col"><Piechart chartData={piechartData} /></div>
-            <div className="pie-col"><Piechart chartData={piechartData} /></div>
-            <div className="pie-col"><Piechart chartData={piechartData} /></div>
+            <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
+            <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
+            <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
         </div>
         <div className="grid5 grid-con">
             <RadarChart chartData={radarGraphData} />

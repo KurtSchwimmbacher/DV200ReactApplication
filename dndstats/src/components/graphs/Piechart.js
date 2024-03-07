@@ -2,19 +2,12 @@
 import React from "react";
 import { Pie } from "react-chartjs-2";
 
-function Piechart({ chartData }) {
+function Piechart({ chartData,chartOpt }) {
   return (
     <div className="chart-container">
       <Pie
         data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: "Ratio of website traffic"
-            }
-          }, 
-        }}
+        options={chartOpt}
       />
     </div>
   );
