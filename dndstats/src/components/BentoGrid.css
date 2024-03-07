@@ -45,17 +45,18 @@
 .grid6{
     grid-column: 1/4;
     grid-row: 5/7;
+    height: max-content;
 }
 
 .grid7{
     grid-column: 4/7;
     grid-row: 5/7;
-    
 }
 
 .grid8{
     grid-column: 7/10;
     grid-row: 5/7;
+    height: fit-content;
 }
 
 .chart-title{

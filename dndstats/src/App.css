@@ -13,7 +13,7 @@ body{
   font-family: titleFont;
   font-size: 96px;
   font-weight: 400;
-  margin-top: -220vh;
+  margin-top: -210vh;
   color: #383937;
 }
 
@@ -37,5 +37,11 @@ body{
 }
 
 .car-title{
-  color: #ffffff !important;
+  font-family: titleFont;
+  font-size: 37px;
+  letter-spacing: 3px;
+}
+
+.car-capt{
+  font-family: "bookmania", serif !important;
 }

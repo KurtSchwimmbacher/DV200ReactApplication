@@ -33,38 +33,50 @@ function CarouselBento(props) {
             {
                 id:1,
                 image: Bard,
-                title: "",
-                desc: ""
+                title: "Bard",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:2,
                 image: Barbarian,
-                title: "",
-                desc: ""
+                title: "Barbarian",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:3,
                 image: Cleric,
-                title: "",
-                desc: ""
+                title: "Cleric",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:4,
                 image: Druid,
-                title: "",
-                desc: ""
+                title: "Druid",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:5,
                 image: Fighter,
-                title: "",
-                desc: ""
+                title: "Fighter",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:6,
                 image: Monk,
-                title: "",
-                desc: ""
+                title: "Monk",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             }
         ]
             
@@ -79,36 +91,48 @@ function CarouselBento(props) {
                     image: Astarion,
                     title: "Astarion",
                     desc: "Astarion is an Origin character and a companion in Baldur's Gate 3. He is a High Elf Rogue with the Charlatan background, specialising in Stealth and Sneak Attacks.",
+                    imgHeight: 500,
+                    color: "#ffffff"
                 },
                 {
                     id: 2,
                     image: Gale,
                     title: "Gale",
                     desc: "Gale, full name Gale Dekarios, is an origin character and a recruitable companion with the Sage background. He is a human Wizard first appearing during Act 1.",
+                    imgHeight: 500,
+                    color: "#ffffff"
                 },
                 {
                     id:3,
                     image: Laezel,
                     title: "Lae'zel",
-                    desc: "Lae'zel of crèche K'liir is an Origin character and a recruitable companion with the Soldier background. She is a githyanki and a Fighter first appearing during the Prologue."
+                    desc: "Lae'zel of crèche K'liir is an Origin character and a recruitable companion with the Soldier background. She is a githyanki and a Fighter first appearing during the Prologue.",
+                    imgHeight: 500,
+                    color: "#ffffff"
                 },
                 {
                     id:4,
                     image: Karlach,
                     title: "Karlach",
-                    desc:"Karlach, full name Karlach Cliffgate, is an Origin character and a recruitable companion with the Outlander background. She is a Zariel tiefling and a Barbarian first appearing during Act 1."
+                    desc:"Karlach, full name Karlach Cliffgate, is an Origin character and a recruitable companion with the Outlander background. She is a Zariel tiefling and a Barbarian first appearing during Act 1.",
+                    imgHeight: 500,
+                    color: "#ffffff"
                 },
                 {
                     id:5,
                     image:Shadowheart,
                     title: "Shadowheart",
-                    desc:"Shadowheart is an origin character and a recruitable companion with the Acolyte background. She is a high half-elf and a Trickery Domain Cleric first appearing during the Prologue."
+                    desc:"Shadowheart is an origin character and a recruitable companion with the Acolyte background. She is a high half-elf and a Trickery Domain Cleric first appearing during the Prologue.",
+                    imgHeight: 500,
+                    color: "#ffffff"
                 },
                 {
                     id:6,
                     image: Wyll,
                     title: "Wyll",
-                    desc: "Wyll, full name Wyllyam Ravengard, is an Origin character and a recruitable companion with the Folk Hero background. He is a human and a Warlock with The Fiend pact first appearing during Act 1."
+                    desc: "Wyll, full name Wyllyam Ravengard, is an Origin character and a recruitable companion with the Folk Hero background. He is a human and a Warlock with The Fiend pact first appearing during Act 1.",
+                    imgHeight: 500,
+                    color: "#ffffff"
                 }
             ]
 
@@ -119,38 +143,50 @@ function CarouselBento(props) {
             {
                 id:1,
                 image: Paladin,
-                title: "",
-                desc: ""
+                title: "Paladin",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:2,
                 image: Ranger,
-                title: "",
-                desc: ""
+                title: "Ranger",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:3,
                 image: Rogue,
-                title: "",
-                desc: ""
+                title: "Rogue",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:4,
                 image: Sorcerer,
-                title: "",
-                desc: ""
+                title: "Sorcerer",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:5,
                 image: Warlock,
-                title: "",
-                desc: ""
+                title: "Warlock",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             },
             {
                 id:6,
                 image: Wizard,
-                title: "",
-                desc: ""
+                title: "Wizard",
+                desc: "",
+                imgHeight: 300,
+                color: "#383937"
             }
         ]
 
@@ -170,13 +206,13 @@ function CarouselBento(props) {
     {infoObj.map(item => (
         <Carousel.Item key={item.id}>
         <img
-            className="d-block w-100"
+            className="d-block w-100" style={{height:item.imgHeight}}
             src={item.image}
             alt={item.title}
         />
-        <Carousel.Caption className='car-title'>
-            <h3>{item.title}</h3>
-            <p>{item.desc}</p>
+        <Carousel.Caption >
+            <h3 className='car-title' style={{color: item.color}}>{item.title}</h3>
+            <p className='car-capt' style={{color: item.color}}>{item.desc}</p>
         </Carousel.Caption>
         </Carousel.Item>
      ))}
