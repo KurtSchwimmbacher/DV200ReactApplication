@@ -20,7 +20,7 @@ function Dashboard(){
         <>
         <div className="dash-layout">
             <div className="side-bar">
-                <Navbar />
+                <Navbar where={"Dash"} />
             </div>
             <div className="page-content">
                     

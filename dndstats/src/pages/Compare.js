@@ -9,8 +9,8 @@ import Col from 'react-bootstrap/Col';
 function Compare(){
     return(
         <>
-            <Navbar />
-            <h1 className="dashboard-title">Up in the Ring!</h1>
+            <Navbar where={"Compare"} />
+            <h1 className="comp-title">Up in the Ring!</h1>
         </>
     );
 }

@@ -5,9 +5,29 @@ import logo from "./logo.png"
 // import link
 import { Link } from "react-router-dom";
 
-function Navbar(){
+function Navbar(props){
+
+    let navHeight = "";
+
+    switch (props.where){
+        case("Dash"):
+            navHeight = "210vh"
+        break;
+    
+        case("Compare"):
+            navHeight = "110vh"
+        break;
+
+        case("Timeline"):
+            navHeight = "110vh"
+        break;
+
+        default:
+        break;
+    }
+
     return(
-        <nav className="navbar">
+        <nav className="navbar" style={{height: navHeight}}>
             <ul className="navbar-list">
                 <li className="navbar-item nav-logo">
                     <Link className="logo-link" to="/">
