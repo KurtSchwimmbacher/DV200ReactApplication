@@ -8,11 +8,13 @@ import { CategoryScale } from "chart.js/auto";
 import Piechart from "./graphs/Piechart";
 import BarGraph from "./graphs/BarGraph";
 import RadarChart from "./graphs/RadarChart";
+import LineGraph from "./graphs/LineGraph";
 
 // import data
 import PieData from "../data/PieData.json";
 import BarData from "../data/BarData.json";
 import RadarData from "../data/RadarData.json";
+import LineData from "../data/LineData.json";
 
 // important other components
 import Carousel from "../components/Carousel";
@@ -72,10 +74,22 @@ function BentoGrid() {
       }
 
 
+      let lineGraphData = {
+        labels: LineData.map((data)=>data.label),
+        datasets: [{
+            label: "Character Stats",
+            data: LineData.map((data)=>data.data),
+            backgroundColor: '#51A1C5',
+            tension: 0.1
+        }]
+        
+      }
+
+
   return (
     <div className="wrapper">
         <div className="grid1 grid-con">
-
+          <LineGraph chartData={lineGraphData} />
         </div>
         <div className="grid2 grid-con">
             <BarGraph chartData={bargraphData} />
