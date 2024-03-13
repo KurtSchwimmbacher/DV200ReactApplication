@@ -39,11 +39,13 @@ const fetchData = async () => {
 function BentoGrid() {
 
   const [dataObject, setDataObject] = useState(""); 
+  const [loaded, setLoaded] = React.useState(false);
     
   useEffect(() => {
     const fetchDataAndMap = async () => {
       try {
         const rawData = await fetchData();
+        setLoaded(true);
         console.log(rawData)
         let lineGraphData = {
           labels: rawData?.map((data)=>data.level),
@@ -130,9 +132,10 @@ function BentoGrid() {
   return (
     <div className="wrapper">
         <div className="grid1 grid-con">
-          <LineGraph chartData={dataObject}
+          {/* <LineGraph chartData={dataObject}
           chartOpt={lineChartOpt}
-          />
+          /> */}
+          {loaded && < LineGraph chartData={dataObject} chartOpt={lineChartOpt} />}
         </div>
         <div className="grid2 grid-con">
             <BarGraph chartData={bargraphData} />
