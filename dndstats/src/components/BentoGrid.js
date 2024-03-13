@@ -37,10 +37,10 @@ defaults.responsive = true;
 
 
 // this is a function to fetch the data from the API => update to handle all graph api calls on dash
-const fetchData = async () => {
+const fetchData = async (classParam) => {
   try {
     // uses axios to make API call 
-    const response = await Axios.get('https://www.dnd5eapi.co/api/classes/barbarian/levels');
+    const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}/levels`);
     // returns data from api call
     return response.data;
   } catch (error) {
@@ -62,7 +62,7 @@ function BentoGrid() {
     const fetchDataAndMap = async () => {
       try {
         // calls function to fetch api data
-        const rawData = await fetchData();
+        const rawData = await fetchData("barbarian");
         // when api data is fetched the loader is set to true, this avoids a null reading error
         setLoaded(true);
 

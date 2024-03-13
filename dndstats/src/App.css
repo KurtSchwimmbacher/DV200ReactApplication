@@ -13,7 +13,7 @@ body{
   background-color: #FAF9F6;
 }
 
-.dashboard-title{
+.dashboard-title,.comp-title,.timeline-title {
   margin-left: 20%;
   font-family: titleFont;
   font-size: 96px;
@@ -22,14 +22,13 @@ body{
   color: #383937;
   background-color: #FAF9F6;
 }
-.comp-title, .timeline-title{
-  margin-left: 20%;
-  font-family: titleFont;
-  font-size: 96px;
-  font-weight: 400;
+
+.comp-title{
+  margin-top: -330vh;
+}
+
+.timeline-title{
   margin-top: -110vh;
-  color: #383937;
-  background-color: #FAF9F6;
 }
 
 .dashboard-subtitle{

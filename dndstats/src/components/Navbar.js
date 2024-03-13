@@ -15,7 +15,7 @@ function Navbar(props){
         break;
     
         case("Compare"):
-            navHeight = "110vh"
+            navHeight = "330vh"
         break;
 
         case("Timeline"):
