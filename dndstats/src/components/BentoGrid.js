@@ -14,11 +14,11 @@ import LineGraph from "./graphs/LineGraph";
 import PieData from "../data/PieData.json";
 import BarData from "../data/BarData.json";
 import RadarData from "../data/RadarData.json";
-import LineData from "../data/LineData.json";
 
 // important other components
 import Carousel from "../components/Carousel";
-
+import { useState, useEffect } from "react";
+import Axios from 'axios'
 
 ChartJS.register(CategoryScale);
 defaults.maintainAspectRatio = false;
@@ -26,7 +26,39 @@ defaults.responsive = true;
 
 function BentoGrid() {
 
+  const [apiData, setApiData] = useState("");
 
+    
+      useEffect(() =>{
+        
+        Axios.get("https://www.dnd5eapi.co/api/classes/barbarian/levels").then((response)=>{         
+            
+            let lineGraphData = {
+              labels: response.data.map((data)=>data.level),
+              datasets: [{
+                label: "prof bonus over levels",
+                data: response.data.map((data)=>data.prof_bonus),
+                backgroundColor: '#51A1C5',
+                tension: 0.1
+              }]
+            };
+            setApiData(lineGraphData);
+          }).catch((error)=>{
+            console.log("There is an issue retrieving data from the api")
+          })
+      });
+
+      let lineChartOpt = {
+        plugins:{
+          title: {
+            display: true,
+            text: "Proficiency Bonus of a Barbarian over levels"
+          }
+        },
+        responsive : true,
+        maintainAspectRatio : false,
+        aspectRatio : 0.2,
+      };
 
     let piechartData = {
         labels: PieData.map((data)=>data.label),
@@ -77,22 +109,14 @@ function BentoGrid() {
       }
 
 
-      let lineGraphData = {
-        labels: LineData.map((data)=>data.label),
-        datasets: [{
-            label: "Character Stats",
-            data: LineData.map((data)=>data.data),
-            backgroundColor: '#51A1C5',
-            tension: 0.1
-        }]
-        
-      }
 
 
   return (
     <div className="wrapper">
         <div className="grid1 grid-con">
-          <LineGraph chartData={lineGraphData} />
+          <LineGraph chartData={apiData} 
+          chartOpt={lineChartOpt}
+          />
         </div>
         <div className="grid2 grid-con">
             <BarGraph chartData={bargraphData} />

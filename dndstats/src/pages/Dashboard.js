@@ -1,14 +1,13 @@
 import "../App.css";
 import Navbar from "../components/Navbar";
 import HeaderBtn from "../components/HeaderBtn";
-import Axios from 'axios'
+
 
 // import bootstap
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BentoGrid from "../components/BentoGrid";
-import { useState, useEffect } from "react";
 
 
 
@@ -18,19 +17,7 @@ import { useState, useEffect } from "react";
 
 function Dashboard(){
 
-    const [apiData, setApiData] = useState("");
-
-    
-      useEffect(() =>{
-        
-        Axios.get("https://www.dnd5eapi.co/api/classes/barbarian/levels").then((response)=>{
-            console.log(response.data)
-             response.data.forEach(element => {
-                setApiData(element.level)
-             });
-            
-          })
-      })
+  
 
     return(
         <>
@@ -55,7 +42,6 @@ function Dashboard(){
                 
                 <Container fluid="md" className="header-con">
                     <Row>
-                    {apiData}
                         <Col><HeaderBtn where="Compare" /></Col>
                         <Col><HeaderBtn where="BG3" /></Col>
                         <Col><HeaderBtn where = "ViewTimeline" /></Col>                   
