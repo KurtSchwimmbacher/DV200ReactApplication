@@ -20,13 +20,15 @@ function Dashboard(){
 
     const [apiData, setApiData] = useState("");
 
-    // const getApiData = () =>[
-
-    //   ]
     
       useEffect(() =>{
-        Axios.get("https://www.dnd5eapi.co/api/subclasses/berserker").then((response)=>{
-            setApiData(response.data.class.name + " : " + response.data.name)
+        
+        Axios.get("https://www.dnd5eapi.co/api/classes/barbarian/levels").then((response)=>{
+            console.log(response.data)
+             response.data.forEach(element => {
+                setApiData(element.level)
+             });
+            
           })
       })
 
@@ -53,7 +55,6 @@ function Dashboard(){
                 
                 <Container fluid="md" className="header-con">
                     <Row>
-                    {/* <button onClick={getApiData}> Log API DATA </button> */}
                     {apiData}
                         <Col><HeaderBtn where="Compare" /></Col>
                         <Col><HeaderBtn where="BG3" /></Col>

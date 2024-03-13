@@ -19,11 +19,14 @@ import LineData from "../data/LineData.json";
 // important other components
 import Carousel from "../components/Carousel";
 
+
 ChartJS.register(CategoryScale);
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 
 function BentoGrid() {
+
+
 
     let piechartData = {
         labels: PieData.map((data)=>data.label),
