@@ -8,7 +8,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BentoGrid from "../components/BentoGrid";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 
@@ -20,12 +20,15 @@ function Dashboard(){
 
     const [apiData, setApiData] = useState("");
 
-    const getApiData = () =>[
-        Axios.get("https://www.dnd5eapi.co/api/subclasses/berserker").then((response)=>{
-          setApiData(response.data.class.name + " : " + response.data.name)
-        })
-      ]
+    // const getApiData = () =>[
+
+    //   ]
     
+      useEffect(() =>{
+        Axios.get("https://www.dnd5eapi.co/api/subclasses/berserker").then((response)=>{
+            setApiData(response.data.class.name + " : " + response.data.name)
+          })
+      })
 
     return(
         <>
@@ -50,7 +53,7 @@ function Dashboard(){
                 
                 <Container fluid="md" className="header-con">
                     <Row>
-                    <button onClick={getApiData}> Log API DATA </button>
+                    {/* <button onClick={getApiData}> Log API DATA </button> */}
                     {apiData}
                         <Col><HeaderBtn where="Compare" /></Col>
                         <Col><HeaderBtn where="BG3" /></Col>
