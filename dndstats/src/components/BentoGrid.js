@@ -13,7 +13,7 @@ import Axios from 'axios';
 import { Chart as ChartJS, defaults } from "chart.js/auto";
 import { CategoryScale } from "chart.js/auto";
 
-// import all the charts
+// import all the chart components
 import Piechart from "./graphs/Piechart";
 import BarGraph from "./graphs/BarGraph";
 import RadarChart from "./graphs/RadarChart";
