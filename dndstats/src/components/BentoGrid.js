@@ -24,41 +24,57 @@ ChartJS.register(CategoryScale);
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 
+
+const fetchData = async () => {
+  try {
+    const response = await Axios.get('https://www.dnd5eapi.co/api/classes/barbarian/levels');
+    return response.data;
+  } catch (error) {
+    console.error('Error fetching data:', error);
+    throw error;
+  }
+};
+
+
 function BentoGrid() {
 
-  const [apiData, setApiData] = useState("");
-
+  const [dataObject, setDataObject] = useState(""); 
     
-      useEffect(() =>{
-        
-        Axios.get("https://www.dnd5eapi.co/api/classes/barbarian/levels").then((response)=>{         
-            
-            let lineGraphData = {
-              labels: response.data.map((data)=>data.level),
-              datasets: [{
-                label: "prof bonus over levels",
-                data: response.data.map((data)=>data.prof_bonus),
-                backgroundColor: '#51A1C5',
-                tension: 0.1
-              }]
-            };
-            setApiData(lineGraphData);
-          }).catch((error)=>{
-            console.log("There is an issue retrieving data from the api")
-          })
-      });
+  useEffect(() => {
+    const fetchDataAndMap = async () => {
+      try {
+        const rawData = await fetchData();
+        console.log(rawData)
+        let lineGraphData = {
+          labels: rawData?.map((data)=>data.level),
+          datasets: [{
+            label: "prof bonus over levels",
+            data: rawData?.map((data)=>data.prof_bonus),
+            backgroundColor: '#51A1C5',
+            tension: 0.1
+          }]
+        };
+        console.log(lineGraphData)
+        setDataObject(lineGraphData);
+      } catch (error) {
+        // Handle error
+      }
+    };
 
-      let lineChartOpt = {
-        plugins:{
-          title: {
-            display: true,
-            text: "Proficiency Bonus of a Barbarian over levels"
-          }
-        },
-        responsive : true,
-        maintainAspectRatio : false,
-        aspectRatio : 0.2,
-      };
+    fetchDataAndMap();
+  }, []);
+
+  let lineChartOpt = {
+    plugins:{
+      title: {
+        display: true,
+        text: "Proficiency Bonus of a Barbarian over levels"
+      }
+    },
+    responsive : true,
+    maintainAspectRatio : false,
+    aspectRatio : 0.2,
+  };
 
     let piechartData = {
         labels: PieData.map((data)=>data.label),
@@ -114,7 +130,7 @@ function BentoGrid() {
   return (
     <div className="wrapper">
         <div className="grid1 grid-con">
-          <LineGraph chartData={apiData} 
+          <LineGraph chartData={dataObject}
           chartOpt={lineChartOpt}
           />
         </div>

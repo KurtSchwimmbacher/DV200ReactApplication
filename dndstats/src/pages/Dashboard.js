@@ -17,7 +17,6 @@ import BentoGrid from "../components/BentoGrid";
 
 function Dashboard(){
 
-  
 
     return(
         <>
