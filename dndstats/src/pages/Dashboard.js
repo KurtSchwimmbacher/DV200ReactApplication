@@ -1,12 +1,15 @@
 import "../App.css";
 import Navbar from "../components/Navbar";
 import HeaderBtn from "../components/HeaderBtn";
+import Axios from 'axios'
 
 // import bootstap
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import BentoGrid from "../components/BentoGrid";
+import { useState } from "react";
+
 
 
 
@@ -14,6 +17,14 @@ import BentoGrid from "../components/BentoGrid";
 
 
 function Dashboard(){
+
+    const [apiData, setApiData] = useState("");
+
+    const getApiData = () =>[
+        Axios.get("https://www.dnd5eapi.co/api/subclasses/berserker").then((response)=>{
+          setApiData(response.data.class.name + " : " + response.data.name)
+        })
+      ]
     
 
     return(
@@ -36,11 +47,14 @@ function Dashboard(){
                 <p className="dashboard-subtitle">
                     Some exampls of the graphs we create using the ChartJS library are shown on our dashboard below!
                 </p>
+                
                 <Container fluid="md" className="header-con">
                     <Row>
+                    <button onClick={getApiData}> Log API DATA </button>
+                    {apiData}
                         <Col><HeaderBtn where="Compare" /></Col>
                         <Col><HeaderBtn where="BG3" /></Col>
-                        <Col><HeaderBtn where = "ViewTimeline" /></Col>                    
+                        <Col><HeaderBtn where = "ViewTimeline" /></Col>                   
                     </Row>
 
                     <Row>
