@@ -61,3 +61,12 @@ body{
 .car-capt{
   font-family: "bookmania", serif !important;
 }
+
+.carousel-img{
+  margin: 0 auto;
+  width: auto;
+}
+
+.carousel-control-prev:hover, .carousel-control-next:hover{
+  cursor: url('./cursor_down.gif'),auto;
+}

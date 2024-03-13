@@ -1,0 +1,58 @@
+@font-face {
+    font-family: titleFont;
+    src: url(../fonts/Draconis.otf);
+  }
+
+
+.compare-sh{
+    margin-top: 5vh;
+    font-family: titleFont;
+    color: #383937;
+}
+  
+
+.classChoice{
+    height: 50vh;
+    width: 100%;
+    align-content: center;
+    border-radius: 10px;
+    border: 1px solid #AAAAAA;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+}
+
+.bar-chart-main{
+    width: 80%;
+    margin-left: 10%;
+    height: 55vh;
+    margin-top: 5vh;
+    align-content: center;
+    border-radius: 10px;
+    border: 1px solid #AAAAAA;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+}
+
+.two-chart{
+    width: 90%;
+    margin-left: 5%;
+    height: 50vh;
+    margin-top: 5vh;
+    align-content: center;
+    border-radius: 10px;
+    border: 1px solid #AAAAAA;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+}
+
+.three-chart{
+    width: 90%;
+    margin-left: 5%;
+    height: 50vh;
+    margin-top: 5vh;
+    align-content: center;
+    border-radius: 10px;
+    border: 1px solid #AAAAAA;
+    box-shadow: 2px 4px 4px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+}

@@ -4,6 +4,9 @@ import Navbar from "../components/Navbar";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import CompareCon from "../components/CompareCon";
+
+
 
 
 function Compare(){
@@ -11,6 +14,8 @@ function Compare(){
         <>
             <Navbar where={"Compare"} />
             <h1 className="comp-title">Up in the Ring!</h1>
+
+            <CompareCon />
         </>
     );
 }

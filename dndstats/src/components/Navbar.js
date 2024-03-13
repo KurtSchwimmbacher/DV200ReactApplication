@@ -37,20 +37,21 @@ function Navbar(props){
                     </Link>
                 </li>
                 <li className="navbar-item">
+              
                     <Link className="navbar-link" to="/">
-                        {/* icon */}
+                        <i class='bx bx-home-alt'></i>
                         Dashboard
                     </Link>
                 </li>
                 <li className="navbar-item">
                     <Link className="navbar-link" to="/compare">
-                        {/* icon */}
+                        <i class='bx bx-bar-chart' ></i>                    
                         Compare
                     </Link>
                 </li>
                 <li className="navbar-item">
                     <Link className="navbar-link" to="/timeline">
-                        {/* icon */}
+                        <i class='bx bx-line-chart' ></i>
                         Timeline
                     </Link>
                 </li>
