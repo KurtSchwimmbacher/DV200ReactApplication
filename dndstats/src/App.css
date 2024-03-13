@@ -9,6 +9,10 @@ body{
   cursor: url('./cursor.gif'),auto;
 }
 
+.page-content{
+  background-color: #FAF9F6;
+}
+
 .dashboard-title{
   margin-left: 20%;
   font-family: titleFont;
@@ -16,6 +20,7 @@ body{
   font-weight: 400;
   margin-top: -210vh;
   color: #383937;
+  background-color: #FAF9F6;
 }
 .comp-title, .timeline-title{
   margin-left: 20%;
@@ -24,12 +29,14 @@ body{
   font-weight: 400;
   margin-top: -110vh;
   color: #383937;
+  background-color: #FAF9F6;
 }
 
 .dashboard-subtitle{
   margin-left: 20%;
   font-family: "bookmania", serif;
   color: #383937;
+  background-color: #FAF9F6;
 }
 
 .header-con{
