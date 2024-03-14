@@ -3,6 +3,8 @@ import React from "react";
 import { useState, useEffect } from "react";
 import "./CompareCon.css";
 
+// import axios
+import Axios from 'axios';
 // import chart.js 
 // defaults can be used to change global settings for all graphs  
 import { Chart as ChartJS, defaults } from "chart.js/auto";
@@ -24,8 +26,25 @@ ChartJS.register(CategoryScale);
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 
+const fetchData = async (classParam) =>{
+    try{
+        // uses axios to make API call 
+        const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
+        // returns data from api call
+        return response.data;
+    }
+    catch (error){
+        console.error('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 function CompareCon (){
+
+      // use states are used to store the data from the API (top) and to only load data from the API when it is fetched (bottom)
+        const [dataObject, setDataObject] = useState(""); 
+        const [loaded, setLoaded] = React.useState(false);
 
     return(
         <>

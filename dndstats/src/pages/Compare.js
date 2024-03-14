@@ -16,6 +16,7 @@ function Compare(){
             <h1 className="comp-title">Up in the Ring!</h1>
 
             <CompareCon />
+            
         </>
     );
 }
