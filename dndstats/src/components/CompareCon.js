@@ -66,9 +66,13 @@ function CompareCon (){
         const [profBarData, setProfBarData] = useState(""); 
         const [profBarOpt, setProfBarOpt] = useState("");
 
+        const [healthBarData, setHealthBarData] = useState(""); 
+        const [healthBarOpt, setHealthBarOpt] = useState("");
+
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
+        const [loadedHealthBar, setLoadedHealthBar] = React.useState(false);
 
         useEffect(()=>{
 
@@ -166,19 +170,15 @@ function CompareCon (){
                     for(let i = 0; i< allSkills.length; i++){
                         for(let j = 0; j <arrayOfSkills.length; j++){
                             if(allSkills[i] === arrayOfSkills[j]){
-                                console.log("they match")
                                 dataClass1[i] = 1;
                             }
                         }
                         for(let j = 0; j < arrayOfSkillsComp.length;j++){
                             if(allSkills[i] === arrayOfSkillsComp[j]){
-                                console.log("they match")
                                 dataClass2[i] = 1;
                             }
                         }
-                    }
-                    console.log(dataClass1)
-                    
+                    }                    
 
                     // map data
                     let profBarGraphData = {
@@ -226,12 +226,56 @@ function CompareCon (){
                 }
             }
 
+            const populateHealthBarGraph = async (chosenClass,competingClass) =>{
+                try{
+                    const rawDataChosen= await fetchClassData(chosenClass);
+                    const rawDataCompeting = await fetchClassData(competingClass); 
+
+                    
+                    let class1Name = rawDataChosen.name;
+                    let class2Name = rawDataCompeting.name;
+                    
+                    let class1HP = rawDataChosen.hit_die+5;
+                    let class2HP = rawDataCompeting.hit_die+5;
+                    console.log(class1HP , class2HP)
+
+                    // map data
+                    let healthBarGraphData = {
+                        labels: [class1Name + "Max Health" , class2Name + "Max Health"],
+                        datasets:[{
+                            label: "Respective Highest Possible Health Scores",
+                            // replace with api data
+                            data: [class1HP,class2HP],
+                            backgroundColor: ["#2A50A1","#AB6DAC"],
+                            borderRadius:2
+                        }]
+                    }
+
+                    let healthBarGraphOpt = { 
+                        responsive: true,
+                        maintainAspectRatio :false,
+                        plugins: {
+                            title: {
+                              display: true,
+                              text: "Comparison of Highest Possible Health Scores at level 1"
+                            }
+                          }, 
+                    }
+                    setHealthBarData(healthBarGraphData);
+                    setHealthBarOpt(healthBarGraphOpt);
+                    setLoadedHealthBar(true);
+                }
+                catch{
+
+                }
+            }
             
             
 
             // call the function to fetch api data (it was written above but not called)
             populateBuildRadarChart(selectedClass1,selectedClass2);
             populateProfBarGraph(selectedClass1,selectedClass2);
+            populateHealthBarGraph(selectedClass1,selectedClass2);
         },[selectedClass1,selectedClass2]);
 
     return(
@@ -296,7 +340,8 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="three-chart">
-                            <p>Bar Graph for Health</p>
+                            {/* <p>Bar Graph for Health</p> */}
+                            {loadedHealthBar && <BarGraph chartData={healthBarData} chartOpt={healthBarOpt} />}
                         </div>
                     </Col>
                 </Row>
