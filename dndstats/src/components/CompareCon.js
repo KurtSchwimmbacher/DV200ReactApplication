@@ -56,7 +56,7 @@ function CompareCon (){
 
     // replace with data chosen by user
     let selectedClass1 = "wizard";
-    let selectedClass2 = "bard";
+    let selectedClass2 = "barbarian";
 
       // use states are used to store the data from the API (top) and to only load data from the API when it is fetched (bottom)
         const [buildRadarData, setbuildRadarData] = useState(""); 
@@ -149,28 +149,35 @@ function CompareCon (){
                     let class1Name = rawDataChosen.name;
                     let class2Name = rawDataCompeting.name;
 
-                    let classSkills = rawDataChosen.proficiency_choices[0].from.options.map((data)=>data.item.name);
-                    let allSkills = skillsList.data.results.map((data)=>data.name);
+                    let dataClass1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+                    let dataClass2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+
+                    let arrayOfSkills = rawDataChosen.proficiency_choices[0].from.options.map((data)=>data.item.name)
+                    for(let i = 0; i < arrayOfSkills.length; i++){
+                        arrayOfSkills[i] = arrayOfSkills[i].split(":")[1].substring(1,arrayOfSkills[i].length);
+                    }
                     
-                    let dataArr = [];
-                    for(let i = 0; i < 18; i++){
-                        dataArr[i] = 0;
+                    let arrayOfSkillsComp = rawDataCompeting.proficiency_choices[0].from.options.map((data)=>data.item.name)
+                    for(let i = 0; i < arrayOfSkillsComp.length; i++){
+                        arrayOfSkillsComp[i] = arrayOfSkillsComp[i].split(":")[1].substring(1,arrayOfSkillsComp[i].length);
                     }
 
-                    for(let i = 0; i < classSkills.length; i++){
-                        let temp = classSkills[i].split(":");
-                        classSkills[i] = temp[1].substring(1,classSkills[i].length);
-                    }
-
-
-                    for(let i = 0; i <allSkills.length; i++){
-                        for(let j = 0; j < classSkills.length; j++){
-                            if(allSkills[i] === classSkills[j]){
-                                dataArr[i] = 1;
+                    let allSkills =  skillsList.data.results.map((data)=>data.name);
+                    for(let i = 0; i< allSkills.length; i++){
+                        for(let j = 0; j <arrayOfSkills.length; j++){
+                            if(allSkills[i] === arrayOfSkills[j]){
+                                console.log("they match")
+                                dataClass1[i] = 1;
+                            }
+                        }
+                        for(let j = 0; j < arrayOfSkillsComp.length;j++){
+                            if(allSkills[i] === arrayOfSkillsComp[j]){
+                                console.log("they match")
+                                dataClass2[i] = 1;
                             }
                         }
                     }
-                    console.log(dataArr);
+                    console.log(dataClass1)
                     
 
                     // map data
@@ -179,28 +186,35 @@ function CompareCon (){
                         datasets:[{
                             label: `${class1Name} Possible Skill Proficiencies`,
                             // replace with api data
-                            data: dataArr,
+                            data: dataClass1,
                             backgroundColor: "#2A50A1",
                             borderRadius:2
                         },
                         {
                             label: `${class2Name}  Possible Skill Proficiencies`,
                             // replace with api data
-                            data: [10,13,15,10,12,16],
+                            data: dataClass2,
                             backgroundColor: "#AB6DAC",
                             borderRadius:2
                         }]
                     }
 
-                    let profBarGraphOpt = {
+                    let profBarGraphOpt = { 
+                        scales:{
+                            r: {
+                                min: 0,
+                                max: 1,
+                                stepSize: 1,
+                              }
+                        },
+                        responsive: true,
+                        maintainAspectRatio :false,
                         plugins: {
                             title: {
                               display: true,
                               text: "Comparison of Skill Proficiency Choices"
                             }
                           }, 
-                          maintainAspectRatio : false,
-                          aspectRatio : 1,
                     }
 
                     setProfBarData(profBarGraphData);
