@@ -31,6 +31,7 @@ const fetchData = async (classParam) =>{
         // uses axios to make API call 
         const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
         // returns data from api call
+        console.log(response.data)
         return response.data;
     }
     catch (error){
@@ -39,12 +40,73 @@ const fetchData = async (classParam) =>{
     }
 }
 
+const fetchAbilityScores = async () =>{
+    try{
+        let response = await Axios.get(`https://www.dnd5eapi.co/api/ability-scores`);
+        console.log(response);
+        return response.results;
+    }
+    catch (error){
+        console.error.apply('Error fetching data:', error);
+        throw error;
+    }
+}
+
 
 function CompareCon (){
+
+    let selectedClass1 = "barbarian";
+    let selectedClass2 = "bard";
 
       // use states are used to store the data from the API (top) and to only load data from the API when it is fetched (bottom)
         const [dataObject, setDataObject] = useState(""); 
         const [loaded, setLoaded] = React.useState(false);
+        const [dataOpt, setDataOpt] = useState("");
+
+        useEffect(()=>{
+
+
+            const fetchDataAndMap = async (chosenClass) =>{
+                try{
+                    // call the fetch data function
+                    const abilityScores = await fetchAbilityScores();
+                    const rawData = await fetchData(chosenClass);
+                    
+                    let abilityVals =rawData.saving_throws?.map((data)=>data.name)
+
+                    // map data
+                    let statRadar = {
+                        labels:  ["STR","DEX","CON","INT","WIS","CHA"],
+                        datasets:[{
+                            label: "Recommended stat for class",
+                            data: [15,10,15,10,10,10],
+                            backgroundColor: 'rgba(81, 161, 197, 0.4)',
+                            borderColor: "#51A1C5",
+                            tension: 0.1
+                        }]
+                    };
+                    let statRadarOpt = {
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: `Barbarian main ability scores`
+                          }
+                        }, 
+                        maintainAspectRatio : false,
+                        aspectRatio : 0.3,
+                      };
+
+                    setDataObject(statRadar);
+                    setDataOpt(statRadarOpt);
+                    // data is loaded => set loaded to true
+                    setLoaded(true);
+                }
+                catch(error){
+                }
+            }
+            // call the function to fetch api data (it was written above but not called)
+            fetchDataAndMap(selectedClass1);
+        },[]);
 
     return(
         <>
@@ -75,7 +137,8 @@ function CompareCon (){
                 <Row>
                     <Col>
                         <div className="two-chart">
-                            <p>RadarChart for stats</p>
+                            {/* <p>RadarChart for stats</p> */}
+                            {loaded && < RadarChart chartData={dataObject} chartOpt={dataOpt} />}
                         </div>
                     </Col>
                     <Col>

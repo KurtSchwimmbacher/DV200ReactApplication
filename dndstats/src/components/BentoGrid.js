@@ -42,6 +42,7 @@ const fetchData = async (classParam) => {
     // uses axios to make API call 
     const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}/levels`);
     // returns data from api call
+    console.log(response.data)
     return response.data;
   } catch (error) {
     console.error('Error fetching data:', error);

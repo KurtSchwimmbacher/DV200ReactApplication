@@ -2,19 +2,12 @@
 import React from "react";
 import { Radar } from "react-chartjs-2";
 
-function RadarChart({ chartData }) {
+function RadarChart({ chartData,chartOpt }) {
   return (
     <div className="chart-container">
       <Radar
         data={chartData}
-        options={{
-          plugins: {
-            title: {
-              display: true,
-              text: "Ratio of website traffic"
-            }
-          }, 
-        }}
+        options={chartOpt}
       />
     </div>
   );
