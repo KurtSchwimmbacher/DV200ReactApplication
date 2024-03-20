@@ -235,18 +235,26 @@ function CompareCon (){
                     let class1Name = rawDataChosen.name;
                     let class2Name = rawDataCompeting.name;
                     
-                    let class1HP = rawDataChosen.hit_die+5;
-                    let class2HP = rawDataCompeting.hit_die+5;
-                    console.log(class1HP , class2HP)
+                    let class1HPMax = rawDataChosen.hit_die+5;
+                    let class2HPMax = rawDataCompeting.hit_die+5;
+                    let class1HPAvg = (rawDataChosen.hit_die/2)+1+1;
+                    let class2HPAvg = (rawDataCompeting.hit_die/2)+1+1;
 
                     // map data
                     let healthBarGraphData = {
-                        labels: [class1Name + "Max Health" , class2Name + "Max Health"],
+                        labels: ["Max Health" , "Average Health"],
                         datasets:[{
-                            label: "Respective Highest Possible Health Scores",
+                            label: `${class1Name} Health Stats`,
                             // replace with api data
-                            data: [class1HP,class2HP],
-                            backgroundColor: ["#2A50A1","#AB6DAC"],
+                            data: [class1HPMax,class1HPAvg],
+                            backgroundColor: "#2A50A1",
+                            borderRadius:2
+                        },
+                        {
+                            label: `${class2Name} Health Stats`,
+                            // replace with api data
+                            data: [class2HPMax,class2HPAvg],
+                            backgroundColor: "#AB6DAC",
                             borderRadius:2
                         }]
                     }
@@ -257,7 +265,7 @@ function CompareCon (){
                         plugins: {
                             title: {
                               display: true,
-                              text: "Comparison of Highest Possible Health Scores at level 1"
+                              text: "Comparison of Health Scores at level 1"
                             }
                           }, 
                     }
