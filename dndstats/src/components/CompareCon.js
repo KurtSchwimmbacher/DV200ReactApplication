@@ -26,7 +26,7 @@ ChartJS.register(CategoryScale);
 defaults.maintainAspectRatio = false;
 defaults.responsive = true;
 
-const fetchData = async (classParam) =>{
+const fetchClassData = async (classParam) =>{
     try{
         // uses axios to make API call 
         const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
@@ -40,11 +40,10 @@ const fetchData = async (classParam) =>{
     }
 }
 
-const fetchAbilityScores = async () =>{
+const fetchExtraData = async (endpoint) =>{
     try{
-        let response = await Axios.get(`https://www.dnd5eapi.co/api/ability-scores`);
-        console.log(response);
-        return response.results;
+        let response = await Axios.get(`https://www.dnd5eapi.co/api/${endpoint}`);
+        return response;
     }
     catch (error){
         console.error.apply('Error fetching data:', error);
@@ -53,59 +52,150 @@ const fetchAbilityScores = async () =>{
 }
 
 
+
 function CompareCon (){
 
-    let selectedClass1 = "barbarian";
+    // replace with data chosen by user
+    let selectedClass1 = "wizard";
     let selectedClass2 = "bard";
 
       // use states are used to store the data from the API (top) and to only load data from the API when it is fetched (bottom)
-        const [dataObject, setDataObject] = useState(""); 
+        const [buildRadarData, setbuildRadarData] = useState(""); 
+        const [buildRadarOpt, setbuildRadarOpt] = useState("");
+
+        // for bar graphs
+        const [profBarData, setProfBarData] = useState(""); 
+        const [profBarOpt, setProfBarOpt] = useState("");
+
+        // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
-        const [dataOpt, setDataOpt] = useState("");
+        const [noData, setNoData] = React.useState(false);
+        
 
         useEffect(()=>{
+            setLoaded(false);
+            setNoData(false);
 
-
-            const fetchDataAndMap = async (chosenClass) =>{
+            const populateBuildRadarChart = async (chosenClass,competingClass) =>{
                 try{
                     // call the fetch data function
-                    const abilityScores = await fetchAbilityScores();
-                    const rawData = await fetchData(chosenClass);
+                    const abilityScores = await fetchExtraData("ability-scores");
+                    const rawDataChosen= await fetchClassData(chosenClass);
+                    const rawDataCompeting = await fetchClassData(competingClass);
                     
-                    let abilityVals =rawData.saving_throws?.map((data)=>data.name)
+                    let class1Name = rawDataChosen.name;
+                    let class2Name = rawDataCompeting.name;
+                    // 
+                    // let abilityVals =rawData.saving_throws?.map((data)=>data.name)
 
                     // map data
                     let statRadar = {
-                        labels:  ["STR","DEX","CON","INT","WIS","CHA"],
+                        labels:  abilityScores.data.results.map((data)=>data.name),
                         datasets:[{
-                            label: "Recommended stat for class",
+                            label: `${class1Name} Recommended Ability Scores`,
+                            // replace with api data
                             data: [15,10,15,10,10,10],
-                            backgroundColor: 'rgba(81, 161, 197, 0.4)',
-                            borderColor: "#51A1C5",
+                            backgroundColor: 'rgba(42, 80, 161, 0.2)',
+                            borderColor: "#2A50A1",
+                            tension: 0.1
+                        },
+                        {
+                            label: `${class2Name} Recommended Ability Scores`,
+                            // replace with api data
+                            data: [10,13,15,10,12,16],
+                            backgroundColor: 'rgba(171, 109, 172, 0.2)',
+                            borderColor: "#AB6DAC",
                             tension: 0.1
                         }]
                     };
                     let statRadarOpt = {
+                        scales:{
+                            r: {
+                                ticks: {
+                                    color: 'black',
+                                    backdropColor: "#FAF9F6"
+                                },
+                                min: 0,
+                                max: 20,
+                                stepSize: 1,
+                              }
+                        },
                         plugins: {
                           title: {
                             display: true,
-                            text: `Barbarian main ability scores`
+                            text: `Comparison of Classes Recommended Stat Builds`
                           }
-                        }, 
+                        },
                         maintainAspectRatio : false,
                         aspectRatio : 0.3,
-                      };
+                    };
+                      
 
-                    setDataObject(statRadar);
-                    setDataOpt(statRadarOpt);
+                    // set data into use states
+                    setbuildRadarData(statRadar);
+                    setbuildRadarOpt(statRadarOpt);
                     // data is loaded => set loaded to true
                     setLoaded(true);
                 }
                 catch(error){
+                    setLoaded(false);
+                    setNoData(true);
                 }
             }
+
+            const populateProfBarGraph = async (chosenClass,competingClass) =>{
+                try{
+                    // collects all data required from api
+                    const skillsList = await fetchExtraData("skills");
+                    const rawDataChosen= await fetchClassData(chosenClass);
+                    const rawDataCompeting = await fetchClassData(competingClass); 
+
+                    console.log(skillsList)
+                    let class1Name = rawDataChosen.name;
+                    let class2Name = rawDataCompeting.name;
+
+                    // map data
+                    let profBarGraphData = {
+                        labels: skillsList.data.results.map((data)=>data.name),
+                        datasets:[{
+                            label: `${class1Name} Possible Skill Proficiencies`,
+                            // replace with api data
+                            data: [15,10,15,10,10,10],
+                            backgroundColor: "#2A50A1",
+                            borderRadius:2
+                        },
+                        {
+                            label: `${class2Name}  Possible Skill Proficiencies`,
+                            // replace with api data
+                            data: [10,13,15,10,12,16],
+                            backgroundColor: "#AB6DAC",
+                            borderRadius:2
+                        }]
+                    }
+
+                    let profBarGraphOpt = {
+                        plugins: {
+                            title: {
+                              display: true,
+                              text: "Comparison of Skill Proficiency Choices"
+                            }
+                          }, 
+                          maintainAspectRatio : false,
+                          aspectRatio : 1,
+                    }
+
+                    setProfBarData(profBarGraphData);
+                    setProfBarOpt(profBarGraphOpt);
+                }
+                catch (error){
+                    setLoaded(false);
+                    setNoData(true);
+                }
+            }
+
             // call the function to fetch api data (it was written above but not called)
-            fetchDataAndMap(selectedClass1);
+            populateBuildRadarChart(selectedClass1,selectedClass2);
+            populateProfBarGraph(selectedClass1,selectedClass2);
         },[]);
 
     return(
@@ -121,12 +211,12 @@ function CompareCon (){
                 </Row>
                 <Row>
                     <Col>
-                    <div className="classChoice">
+                    <div className="classChoice class1">
                         <p>opt1</p>
                     </div>
                     </Col>
                     <Col>
-                    <div className="classChoice">
+                    <div className="classChoice class2">
                         <p>opt2</p>
                     </div>
                     </Col>
@@ -138,7 +228,8 @@ function CompareCon (){
                     <Col>
                         <div className="two-chart">
                             {/* <p>RadarChart for stats</p> */}
-                            {loaded && < RadarChart chartData={dataObject} chartOpt={dataOpt} />}
+                            {loaded && < RadarChart chartData={buildRadarData} chartOpt={buildRadarOpt} />}
+                            {noData && <h4>No Data has been selected</h4>}
                         </div>
                     </Col>
                     <Col>
@@ -163,7 +254,9 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="three-chart">
-                            <p>Bar Graph for Proficiency</p>
+                            {/* <p>Bar Graph for Proficiency</p> */}
+                            {loaded && <BarGraph chartData={profBarData} chartOpt={profBarOpt} />}
+                            {noData && <h4>No Data has been selected</h4>}
                         </div>
                     </Col>
                     <Col>
