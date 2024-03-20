@@ -31,7 +31,7 @@ const fetchClassData = async (classParam) =>{
         // uses axios to make API call 
         const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
         // returns data from api call
-        console.log(response.data)
+        
         return response.data;
     }
     catch (error){
@@ -52,7 +52,6 @@ const fetchExtraData = async (endpoint) =>{
 }
 
 
-
 function CompareCon (){
 
     // replace with data chosen by user
@@ -69,12 +68,9 @@ function CompareCon (){
 
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
-        const [noData, setNoData] = React.useState(false);
-        
+        const [loadedProfBar, setLoadedProfBar] = React.useState(false);
 
         useEffect(()=>{
-            setLoaded(false);
-            setNoData(false);
 
             const populateBuildRadarChart = async (chosenClass,competingClass) =>{
                 try{
@@ -138,8 +134,7 @@ function CompareCon (){
                     setLoaded(true);
                 }
                 catch(error){
-                    setLoaded(false);
-                    setNoData(true);
+                    
                 }
             }
 
@@ -150,9 +145,33 @@ function CompareCon (){
                     const rawDataChosen= await fetchClassData(chosenClass);
                     const rawDataCompeting = await fetchClassData(competingClass); 
 
-                    console.log(skillsList)
+                    
                     let class1Name = rawDataChosen.name;
                     let class2Name = rawDataCompeting.name;
+
+                    let classSkills = rawDataChosen.proficiency_choices[0].from.options.map((data)=>data.item.name);
+                    let allSkills = skillsList.data.results.map((data)=>data.name);
+                    
+                    let dataArr = [];
+                    for(let i = 0; i < 18; i++){
+                        dataArr[i] = 0;
+                    }
+
+                    for(let i = 0; i < classSkills.length; i++){
+                        let temp = classSkills[i].split(":");
+                        classSkills[i] = temp[1].substring(1,classSkills[i].length);
+                    }
+
+
+                    for(let i = 0; i <allSkills.length; i++){
+                        for(let j = 0; j < classSkills.length; j++){
+                            if(allSkills[i] === classSkills[j]){
+                                dataArr[i] = 1;
+                            }
+                        }
+                    }
+                    console.log(dataArr);
+                    
 
                     // map data
                     let profBarGraphData = {
@@ -160,7 +179,7 @@ function CompareCon (){
                         datasets:[{
                             label: `${class1Name} Possible Skill Proficiencies`,
                             // replace with api data
-                            data: [15,10,15,10,10,10],
+                            data: dataArr,
                             backgroundColor: "#2A50A1",
                             borderRadius:2
                         },
@@ -186,17 +205,20 @@ function CompareCon (){
 
                     setProfBarData(profBarGraphData);
                     setProfBarOpt(profBarGraphOpt);
+                    setLoadedProfBar(true);
                 }
                 catch (error){
-                    setLoaded(false);
-                    setNoData(true);
+                    
                 }
             }
+
+            
+            
 
             // call the function to fetch api data (it was written above but not called)
             populateBuildRadarChart(selectedClass1,selectedClass2);
             populateProfBarGraph(selectedClass1,selectedClass2);
-        },[]);
+        },[selectedClass1,selectedClass2]);
 
     return(
         <>
@@ -229,7 +251,6 @@ function CompareCon (){
                         <div className="two-chart">
                             {/* <p>RadarChart for stats</p> */}
                             {loaded && < RadarChart chartData={buildRadarData} chartOpt={buildRadarOpt} />}
-                            {noData && <h4>No Data has been selected</h4>}
                         </div>
                     </Col>
                     <Col>
@@ -255,8 +276,8 @@ function CompareCon (){
                     <Col>
                         <div className="three-chart">
                             {/* <p>Bar Graph for Proficiency</p> */}
-                            {loaded && <BarGraph chartData={profBarData} chartOpt={profBarOpt} />}
-                            {noData && <h4>No Data has been selected</h4>}
+                            {loadedProfBar && <BarGraph chartData={profBarData} chartOpt={profBarOpt} />}
+                            
                         </div>
                     </Col>
                     <Col>
