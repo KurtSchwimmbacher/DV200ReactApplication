@@ -66,6 +66,20 @@ body{
   width: auto;
 }
 
-.carousel-control-prev:hover, .carousel-control-next:hover{
-  cursor: url('./cursor_down.gif'),auto;
+.carousel-control-prev:hover, .carousel-control-next:hover, .slct-class-btn:hover{
+  cursor: url('./cursor_down.gif'),auto !important;
+}
+
+
+.slct-class-btn{
+  width: 300px;
+  height: 300px;
+  border: none !important;
+  background-image: url("assets/Icons/plus-circle-svgrepo-com.svg");
+  background-position: center;
+  background-size: cover;
+}
+
+.classModal{
+  width: 100% !important;
 }

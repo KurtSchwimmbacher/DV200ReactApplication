@@ -20,6 +20,7 @@ import LineGraph from "./graphs/LineGraph";
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import Modal from "./Modal";
 
 ChartJS.register(CategoryScale);
 // global chart settings, they fit in the containers better with these defaults set this way.
@@ -73,6 +74,7 @@ function CompareCon (){
         const [loaded, setLoaded] = React.useState(false);
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
         const [loadedHealthBar, setLoadedHealthBar] = React.useState(false);
+        
 
         useEffect(()=>{
 
@@ -277,7 +279,7 @@ function CompareCon (){
 
                 }
             }
-            
+
             
 
             // call the function to fetch api data (it was written above but not called)
@@ -300,12 +302,12 @@ function CompareCon (){
                 <Row>
                     <Col>
                     <div className="classChoice class1">
-                        <p>opt1</p>
+                        <Modal />
                     </div>
                     </Col>
                     <Col>
                     <div className="classChoice class2">
-                        <p>opt2</p>
+                        <Modal />
                     </div>
                     </Col>
                 </Row>
