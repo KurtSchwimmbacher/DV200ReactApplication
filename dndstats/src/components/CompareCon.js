@@ -98,7 +98,7 @@ function CompareCon (){
                             // replace with api data
                             data: [15,10,15,10,10,10],
                             backgroundColor: 'rgba(42, 80, 161, 0.2)',
-                            borderColor: "#2A50A1",
+                            borderColor: "#51A1C5",
                             tension: 0.1
                         },
                         {
@@ -189,7 +189,7 @@ function CompareCon (){
                             label: `${class1Name} Possible Skill Proficiencies`,
                             // replace with api data
                             data: dataClass1,
-                            backgroundColor: "#2A50A1",
+                            backgroundColor: "#51A1C5",
                             borderRadius:2
                         },
                         {
@@ -249,7 +249,7 @@ function CompareCon (){
                             label: `${class1Name} Health Stats`,
                             // replace with api data
                             data: [class1HPMax,class1HPAvg],
-                            backgroundColor: "#2A50A1",
+                            backgroundColor: "#51A1C5",
                             borderRadius:2
                         },
                         {
