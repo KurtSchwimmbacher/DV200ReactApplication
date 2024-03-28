@@ -51,12 +51,19 @@ const fetchExtraData = async (endpoint) =>{
     }
 }
 
-
 function CompareCon (){
 
+    const handleClassSelect1 = (selectedClassName) => {
+        setSelectedClass1(selectedClassName);
+      };
+    
+      const handleClassSelect2 = (selectedClassName) => {
+        setSelectedClass2(selectedClassName);
+      };
+
     // replace with data chosen by user
-    let selectedClass1 = "wizard";
-    let selectedClass2 = "barbarian";
+    // let selectedClass1 = "wizard";
+    // let selectedClass2 = "barbarian";
 
       // use states are used to store the data from the API (top) and to only load data from the API when it is fetched (bottom)
         const [buildRadarData, setbuildRadarData] = useState(""); 
@@ -74,6 +81,9 @@ function CompareCon (){
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
         const [loadedHealthBar, setLoadedHealthBar] = React.useState(false);
         
+        // to store the selected classes
+        const [selectedClass1, setSelectedClass1] = useState("Select a Class");
+        const [selectedClass2, setSelectedClass2] = useState("Select a Class");
 
         useEffect(()=>{
 
@@ -279,12 +289,13 @@ function CompareCon (){
                 }
             }
 
-            
+            const class1 = selectedClass1.toLowerCase();
+            const class2 = selectedClass2.toLowerCase();
 
             // call the function to fetch api data (it was written above but not called)
-            populateBuildRadarChart(selectedClass1,selectedClass2);
-            populateProfBarGraph(selectedClass1,selectedClass2);
-            populateHealthBarGraph(selectedClass1,selectedClass2);
+            populateBuildRadarChart(class1,class2);
+            populateProfBarGraph(class1,class2);
+            populateHealthBarGraph(class1,class2);
         },[selectedClass1,selectedClass2]);
 
     return(
@@ -292,21 +303,21 @@ function CompareCon (){
             <Container fluid="md" className="header-con">
                 <Row>
                     <Col>
-                        <h2 className="compare-sh">Class 1</h2>
+                        <h2 className="compare-sh">{selectedClass1}</h2>
                     </Col>
                     <Col>
-                        <h2 className="compare-sh">Class 2</h2>
+                        <h2 className="compare-sh">{selectedClass2}</h2>
                     </Col>
                 </Row>
                 <Row>
                     <Col>
                     <div className="classChoice class1">
-                        <Modal />
+                        <Modal onClassSelect={handleClassSelect1} />
                     </div>
                     </Col>
                     <Col>
                     <div className="classChoice class2">
-                        <Modal />
+                        <Modal onClassSelect={handleClassSelect2} />
                     </div>
                     </Col>
                 </Row>

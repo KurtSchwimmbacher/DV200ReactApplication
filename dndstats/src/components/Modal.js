@@ -9,7 +9,7 @@ import defaultModalButton from "../assets/Icons/plus-circle-svgrepo-com.svg";
 
 import Card from 'react-bootstrap/Card';
 
-function ModalComp() {
+function ModalComp(props) {
   const [show, setShow] = useState(false);
   const [classes, setClasses] = useState([]);
   // State to store the selected class image
@@ -26,10 +26,10 @@ function ModalComp() {
   const handleShow = () => setShow(true);
 
   const handleCardClick = (className, imageUrl) => {
-    // Log the class name when the card is clicked
-    console.log(className); 
     // Set the selected class image
     setSelectedClassImage(imageUrl); 
+    // Pass the selected class name to the parent component
+    props.onClassSelect(className); 
     handleClose(); 
   };
 
