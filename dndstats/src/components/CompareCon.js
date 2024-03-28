@@ -14,7 +14,6 @@ import { CategoryScale } from "chart.js/auto";
 import Piechart from "./graphs/Piechart";
 import BarGraph from "./graphs/BarGraph";
 import RadarChart from "./graphs/RadarChart";
-import LineGraph from "./graphs/LineGraph";
 
 // import bootstap
 import Container from 'react-bootstrap/Container';

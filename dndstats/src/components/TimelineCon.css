@@ -1,0 +1,14 @@
+@font-face {
+    font-family: titleFont;
+    src: url(../fonts/Draconis.otf);
+  }
+
+.linegraph-con{
+    height: 70vh;
+    width: 100%;
+    align-content: center;
+    border-radius: 10px;
+    border: 1px solid #AAAAAA;
+    box-shadow: 8px 8px 8px rgba(0, 0, 0, 0.4);
+    padding: 5px;
+}

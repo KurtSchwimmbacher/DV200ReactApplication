@@ -106,3 +106,26 @@ body{
   cursor: url('./cursor_down.gif'),auto;
   border: 2px solid #51A1C5;
 }
+
+
+.dropdown-timeline-pg{
+  width: 60%;
+  padding: 5px;
+  padding-top: 7px;
+  margin-bottom: 2vh;
+  margin-left: 27.5%;
+
+  border: none !important;
+  outline: none;
+  border-radius: 3px;
+  color: #FAF9F6 !important;
+  background-color: #51A1C5;
+
+  font-family: "bookmania", serif;
+
+  cursor: url('./cursor.gif'),auto;
+}
+
+.dropdown-timeline-pg:hover{
+  cursor: url('./cursor_down.gif'),auto;
+}

@@ -28,10 +28,10 @@ function ModalComp() {
     }, [active]);
 
     const handleCardClick = (className) => {
-      console.log(className);
-      const timeOutClose = setTimeout(()=>{
-        handleClose()
-      },400)
+      // console.log(className);
+      // const timeOutClose = setTimeout(()=>{
+      //   handleClose()
+      // },400)
     };
 
 
@@ -47,14 +47,18 @@ function ModalComp() {
         <Modal.Body onClick={(e)=>{
           console.log(e.target.value)
         }}>
-            {classes.map(item => (
+            {classes 
+            ? classes.map((item) => {
+                return(
                   <Card key={item.name} className='modal-card'  onClickCapture={handleCardClick(item.name)} >
                     <Card.Img variant="top" src={require(`../assets/images/${item.name}.png`)} />
                       <Card.Body>
                           <Card.Title>{item.name}</Card.Title>
                       </Card.Body>
                   </Card>
-            ))}
+                )
+            })
+            : null}
         </Modal.Body>
         <Modal.Footer>
           <Button variant="secondary" onClick={handleClose}>
