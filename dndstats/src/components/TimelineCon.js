@@ -30,7 +30,7 @@ function TimelineCon (props){
             <Row>
                 <Col>
                     <div className="linegraph-con">
-                        {/* <LineGraph chartData={props.lineGraphData} chartOpt={props.lineGraphOpt} /> */}
+                        <LineGraph chartData={props.lineGraphData} chartOpt={props.lineGraphOpt} />
                     </div>
                 </Col>
             </Row>

@@ -24,6 +24,8 @@ function Timeline(){
     const [classes,setClasses] = useState([]);
     const [classChoice, setClassChoice] = useState("");
 
+    const [loaded,setLoaded] = useState(false);
+
     useEffect(() => {
         const url = "https://www.dnd5eapi.co/api/classes";
         axios.get(url).then((response)=>{
@@ -34,9 +36,72 @@ function Timeline(){
             try{
                 const classData = await fetchLevelData(chosenClass);
                 console.log(classData);
+
+                // map data
+                let linegraphData = {
+                    labels: classData.map((data)=>data.level),
+                    datasets:[{
+                        label: "",
+                        // replace with api data
+                        data: classData.map((data)=>data.spellcasting.cantrips_known),
+                        backgroundColor: "#51A1C5",
+                        borderRadius:2
+                    }]
+                }
+                let lineChartOpt = {
+                    scales:{
+                        y: {
+                            min: 0
+                          }
+                    },
+                    plugins:{
+                      title: {
+                        display: true,
+                        text: `Data Over levels for ${chosenClass}`
+                      }
+                    },
+                    responsive : true,
+                    maintainAspectRatio : false,
+                    aspectRatio : 0.2,
+                  };
+                setData(linegraphData);
+                setOptions(lineChartOpt);
+                setLoaded(true);
             }
             catch{
-                
+                const classData = await fetchLevelData(chosenClass);
+                console.log(classData);
+
+                // map data
+                let linegraphData = {
+                    labels: classData.map((data)=>data.level),
+                    datasets:[{
+                        label: "",
+                        // replace with api data
+                        data: "",
+                        backgroundColor: "#51A1C5",
+                        borderRadius:2
+                    }]
+                }
+                let lineChartOpt = {
+                    scales:{
+                        y: {
+                            min: 0
+                          }
+                    },
+                    plugins:{
+                      title: {
+                        display: true,
+                        text: `There was an error displaying the information`
+                      }
+                    },
+                    responsive : true,
+                    maintainAspectRatio : false,
+                    aspectRatio : 0.2,
+                  };
+                setData(linegraphData);
+                setOptions(lineChartOpt);
+                setLoaded(true);
             }
         }
 
@@ -64,7 +129,7 @@ function Timeline(){
                 })
                 : null}
             </select>
-            <TimelineCon lineGraphData={data} lineGraphOpt={options} />
+            {loaded && <TimelineCon lineGraphData={data} lineGraphOpt={options} />}
         </>
     );
 }
