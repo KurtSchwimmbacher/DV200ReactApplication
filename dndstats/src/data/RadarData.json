@@ -1,27 +1,136 @@
-[
-    {
-        "label": "Strength",
-        "Score": 10
-    },
-    {
-        "label": "Dexterity",
-        "Score": 15
-    },
-    {
-        "label": "Constitution",
-        "Score": 14
-    },
-    {
-        "label": "Intelligence",
-        "Score": 12
-    },
-    {
-        "label": "Wisdom",
-        "Score": 8
-    },
-    {
-        "label": "Charisma",
-        "Score": 17
-    }
-
-]
+{
+    "classes": [
+      {
+        "class": "Barbarian",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 8 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 14 },
+          { "stat": "Int", "recommended_score": 10 },
+          { "stat": "Str", "recommended_score": 16 },
+          { "stat": "Wis", "recommended_score": 12 }
+        ]
+      },
+      {
+        "class": "Bard",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 16 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 14 },
+          { "stat": "Int", "recommended_score": 12 },
+          { "stat": "Str", "recommended_score": 8 },
+          { "stat": "Wis", "recommended_score": 10 }
+        ]
+      },
+      {
+        "class": "Cleric",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 12 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 10 },
+          { "stat": "Int", "recommended_score": 8 },
+          { "stat": "Str", "recommended_score": 14 },
+          { "stat": "Wis", "recommended_score": 16 }
+        ]
+      },
+      {
+        "class": "Druid",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 10 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 14 },
+          { "stat": "Int", "recommended_score": 12 },
+          { "stat": "Str", "recommended_score": 8 },
+          { "stat": "Wis", "recommended_score": 16 }
+        ]
+      },
+      {
+        "class": "Fighter",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 8 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 14 },
+          { "stat": "Int", "recommended_score": 10 },
+          { "stat": "Str", "recommended_score": 16 },
+          { "stat": "Wis", "recommended_score": 12 }
+        ]
+      },
+      {
+        "class": "Monk",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 8 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 16 },
+          { "stat": "Int", "recommended_score": 10 },
+          { "stat": "Str", "recommended_score": 12 },
+          { "stat": "Wis", "recommended_score": 14 }
+        ]
+      },
+      {
+        "class": "Paladin",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 14 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 10 },
+          { "stat": "Int", "recommended_score": 8 },
+          { "stat": "Str", "recommended_score": 16 },
+          { "stat": "Wis", "recommended_score": 12 }
+        ]
+      },
+      {
+        "class": "Ranger",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 8 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 16 },
+          { "stat": "Int", "recommended_score": 10 },
+          { "stat": "Str", "recommended_score": 12 },
+          { "stat": "Wis", "recommended_score": 14 }
+        ]
+      },
+      {
+        "class": "Rogue",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 8 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 16 },
+          { "stat": "Int", "recommended_score": 14 },
+          { "stat": "Str", "recommended_score": 10 },
+          { "stat": "Wis", "recommended_score": 12 }
+        ]
+      },
+      {
+        "class": "Sorcerer",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 16 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 14 },
+          { "stat": "Int", "recommended_score": 12 },
+          { "stat": "Str", "recommended_score": 8 },
+          { "stat": "Wis", "recommended_score": 10 }
+        ]
+      },
+      {
+        "class": "Warlock",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 16 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 14 },
+          { "stat": "Int", "recommended_score": 12 },
+          { "stat": "Str", "recommended_score": 8 },
+          { "stat": "Wis", "recommended_score": 10 }
+        ]
+      },
+      {
+        "class": "Wizard",
+        "stats": [
+          { "stat": "Cha", "recommended_score": 10 },
+          { "stat": "Con", "recommended_score": 14 },
+          { "stat": "Dex", "recommended_score": 14 },
+          { "stat": "Int", "recommended_score": 16 },
+          { "stat": "Str", "recommended_score": 8 },
+          { "stat": "Wis", "recommended_score": 12 }
+        ]
+      }
+    ]
+  }

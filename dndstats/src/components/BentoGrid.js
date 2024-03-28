@@ -126,17 +126,6 @@ function BentoGrid() {
         }]
       }
 
-    let radarGraphData = {
-        labels: RadarData.map((data)=>data.label),
-        datasets: [{
-            label: "Character Stats",
-            data: RadarData.map((data)=>data.Score),
-            backgroundColor: 'rgba(81, 161, 197, 0.4)',
-            borderColor: "#51A1C5",
-            tension: 0.1
-        }]
-        
-      }
 // =======================================================
 
 // option objects for other charts
@@ -178,7 +167,7 @@ function BentoGrid() {
         <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
       </div>
       <div className="grid5 grid-con">
-        <RadarChart chartData={radarGraphData} />
+       <p>add stat radar graph</p>
       </div>
       <div className="grid6 grid-con">
         <Carousel content= "Classes1" />

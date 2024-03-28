@@ -21,6 +21,9 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Modal from "./Modal";
 
+
+import recommendedStatsData from '../data/RadarData.json';
+
 ChartJS.register(CategoryScale);
 // global chart settings, they fit in the containers better with these defaults set this way.
 defaults.maintainAspectRatio = false;
@@ -89,36 +92,36 @@ function CompareCon (){
 
             const populateBuildRadarChart = async (chosenClass,competingClass) =>{
                 try{
+                    const classDataChosen = recommendedStatsData.classes.find(cls => cls.class === chosenClass);
+                    const classDataCompete = recommendedStatsData.classes.find(cls => cls.class === competingClass);
                     // call the fetch data function
                     const abilityScores = await fetchExtraData("ability-scores");
-                    const rawDataChosen= await fetchClassData(chosenClass);
-                    const rawDataCompeting = await fetchClassData(competingClass);
                     
-                    let class1Name = rawDataChosen.name;
-                    let class2Name = rawDataCompeting.name;
-                    // 
-                    // let abilityVals =rawData.saving_throws?.map((data)=>data.name)
-
-                    // map data
-                    let statRadar = {
-                        labels:  abilityScores.data.results.map((data)=>data.name),
-                        datasets:[{
-                            label: `${class1Name} Recommended Ability Scores`,
-                            // replace with api data
-                            data: [15,10,15,10,10,10],
+                    console.log(classDataChosen)
+                    
+                        // Extract the recommended stats from the class data
+                        const data1 = classDataChosen.stats.map(stat => stat.recommended_score);
+                        const data2 = classDataCompete.stats.map(stat => stat.recommended_score);
+                  
+                        // Map the data to the format required by Chart.js for a radar chart
+                        let radarChartData = {
+                          labels:  abilityScores.data.results.map((data)=>data.name),
+                          datasets: [{
+                            label: `${chosenClass} Recommended Ability Scores`,
+                            data: data1,
                             backgroundColor: 'rgba(42, 80, 161, 0.2)',
                             borderColor: "#51A1C5",
                             tension: 0.1
-                        },
-                        {
-                            label: `${class2Name} Recommended Ability Scores`,
-                            // replace with api data
-                            data: [10,13,15,10,12,16],
+                          },
+                          {
+                            label: `${competingClass} Recommended Ability Scores`,
+                            data: data2,
                             backgroundColor: 'rgba(171, 109, 172, 0.2)',
                             borderColor: "#AB6DAC",
                             tension: 0.1
-                        }]
-                    };
+                          }]
+                        }
+                   
                     let statRadarOpt = {
                         scales:{
                             r: {
@@ -143,7 +146,7 @@ function CompareCon (){
                       
 
                     // set data into use states
-                    setbuildRadarData(statRadar);
+                    setbuildRadarData(radarChartData);
                     setbuildRadarOpt(statRadarOpt);
                     // data is loaded => set loaded to true
                     setLoaded(true);
@@ -164,8 +167,8 @@ function CompareCon (){
                     let class1Name = rawDataChosen.name;
                     let class2Name = rawDataCompeting.name;
 
-                    let dataClass1 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
-                    let dataClass2 = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
+                    let dataClass1 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
+                    let dataClass2 = [-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1];
 
                     let arrayOfSkills = rawDataChosen.proficiency_choices[0].from.options.map((data)=>data.item.name)
                     for(let i = 0; i < arrayOfSkills.length; i++){
@@ -212,11 +215,11 @@ function CompareCon (){
 
                     let profBarGraphOpt = { 
                         scales:{
-                            r: {
-                                min: 0,
+                            y: {
+                                min: -1,
                                 max: 1,
                                 stepSize: 1,
-                              }
+                              },                              
                         },
                         responsive: true,
                         maintainAspectRatio :false,
@@ -293,7 +296,7 @@ function CompareCon (){
             const class2 = selectedClass2.toLowerCase();
 
             // call the function to fetch api data (it was written above but not called)
-            populateBuildRadarChart(class1,class2);
+            populateBuildRadarChart(selectedClass1,selectedClass2);
             populateProfBarGraph(class1,class2);
             populateHealthBarGraph(class1,class2);
         },[selectedClass1,selectedClass2]);
