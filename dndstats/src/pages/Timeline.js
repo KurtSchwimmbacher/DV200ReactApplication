@@ -23,7 +23,7 @@ function Timeline(){
     const [data, setData] = useState("");
     const [options, setOptions] = useState("");
     const [classes,setClasses] = useState([]);
-    const [classChoice, setClassChoice] = useState("");
+    const [classChoice, setClassChoice] = useState("barbarian");
 
     const [loaded,setLoaded] = useState(false);
 
@@ -42,9 +42,9 @@ function Timeline(){
                 let linegraphData = {
                     labels: classData.map((data)=>data.level),
                     datasets:[{
-                        label: "",
+                        label: "Data over Level",
                         // replace with api data
-                        data: classData.map((data)=>data.spellcasting.cantrips_known),
+                        data: classData.map((data)=>data.prof_bonus),
                         backgroundColor: "#51A1C5",
                         borderRadius:2
                     }]
