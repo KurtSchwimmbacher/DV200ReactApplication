@@ -3,6 +3,7 @@ import "../App.css";
 import Navbar from "../components/Navbar";
 import TimelineCon from "../components/TimelineCon";
 import axios from "axios";
+import Footer from "../components/Footer";
 
 const fetchLevelData = async (className) =>{
     try{
@@ -130,6 +131,7 @@ function Timeline(){
                 : null}
             </select>
             {loaded && <TimelineCon lineGraphData={data} lineGraphOpt={options} />}
+            <Footer where={"Timeline"} />
         </>
     );
 }

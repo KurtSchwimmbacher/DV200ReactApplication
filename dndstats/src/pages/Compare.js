@@ -5,6 +5,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import CompareCon from "../components/CompareCon";
+import Footer from "../components/Footer";
 
 
 
@@ -17,6 +18,7 @@ function Compare(){
 
             <CompareCon />
             
+            <Footer where={"Compare"} />
         </>
     );
 }

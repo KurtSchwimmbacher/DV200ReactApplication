@@ -19,7 +19,7 @@ function Navbar(props){
         break;
 
         case("Timeline"):
-            navHeight = "110vh"
+            navHeight = "120vh"
         break;
 
         default:

@@ -28,7 +28,7 @@ body{
 }
 
 .timeline-title{
-  margin-top: -110vh;
+  margin-top: -120vh;
 }
 
 .dashboard-subtitle{
@@ -128,4 +128,18 @@ body{
 
 .dropdown-timeline-pg:hover{
   cursor: url('./cursor_down.gif'),auto;
+}
+
+footer{
+  width: 85%;
+  margin-left: 15%;
+  margin-bottom: 0px !important;
+  height: 15vh;
+  background-color: #383937;
+  color: #FAF9F6;
+
+  padding-left: 5%;
+  padding-top: 20px;
+
+  font-family: titleFont;
 }
