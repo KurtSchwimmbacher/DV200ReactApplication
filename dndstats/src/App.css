@@ -71,14 +71,7 @@ body{
 }
 
 
-.slct-class-btn{
-  width: 300px;
-  height: 300px;
-  border: none !important;
-  background-image: url("assets/Icons/plus-circle-svgrepo-com.svg");
-  background-position: center;
-  background-size: cover;
-}
+
 
 .classModal{
   width: 100% !important;
