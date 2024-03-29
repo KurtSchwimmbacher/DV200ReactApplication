@@ -23,6 +23,7 @@ import Modal from "./Modal";
 
 
 import recommendedStatsData from '../data/RadarData.json';
+import RangeSlider from "./RangeSlider";
 
 ChartJS.register(CategoryScale);
 // global chart settings, they fit in the containers better with these defaults set this way.
@@ -34,8 +35,9 @@ const fetchClassData = async (classParam) =>{
         // uses axios to make API call 
         const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
         // returns data from api call
-        
+        console.log(response.data)
         return response.data;
+        
     }
     catch (error){
         console.error('Error fetching data:', error);
@@ -62,6 +64,15 @@ function CompareCon (){
     
       const handleClassSelect2 = (selectedClassName) => {
         setSelectedClass2(selectedClassName);
+      };
+
+
+
+      const [sliderValue, setSliderValue] = useState(1);
+
+      // Function to handle changes in the slider value
+      const handleSliderChange = (value) => {
+        setSliderValue(value);
       };
 
 
@@ -246,10 +257,10 @@ function CompareCon (){
                     let class1Name = rawDataChosen.name;
                     let class2Name = rawDataCompeting.name;
                     
-                    let class1HPMax = rawDataChosen.hit_die+5+1;
-                    let class2HPMax = rawDataCompeting.hit_die+5+1;
-                    let class1HPAvg = (rawDataChosen.hit_die)+1+1;
-                    let class2HPAvg = (rawDataCompeting.hit_die)+1+1;
+                    let class1HPMax = (rawDataChosen.hit_die+5+1)*sliderValue;
+                    let class2HPMax = (rawDataCompeting.hit_die+5+1)*sliderValue;
+                    let class1HPAvg = ((rawDataChosen.hit_die)+1+1)*sliderValue;
+                    let class2HPAvg = ((rawDataCompeting.hit_die)+1+1)*sliderValue;
 
                     // map data
                     let healthBarGraphData = {
@@ -276,7 +287,7 @@ function CompareCon (){
                         plugins: {
                             title: {
                               display: true,
-                              text: "Comparison of Health Scores at level 1"
+                              text: `Comparison of Health Scores at level ${sliderValue} `
                             }
                           }, 
                     }
@@ -288,6 +299,7 @@ function CompareCon (){
 
                 }
             }
+            
 
             const class1 = selectedClass1.toLowerCase();
             const class2 = selectedClass2.toLowerCase();
@@ -296,7 +308,7 @@ function CompareCon (){
             populateBuildRadarChart(selectedClass1,selectedClass2);
             populateProfBarGraph(class1,class2);
             populateHealthBarGraph(class1,class2);
-        },[selectedClass1,selectedClass2]);
+        },[selectedClass1,selectedClass2,sliderValue]);
 
     return(
         <>
@@ -319,6 +331,11 @@ function CompareCon (){
                     <div className="classChoice class2">
                         <Modal onClassSelect={handleClassSelect2} />
                     </div>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col className="range-slider-con">
+                        <RangeSlider value={sliderValue} onChange={handleSliderChange} />
                     </Col>
                 </Row>
 
@@ -360,7 +377,6 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="three-chart">
-                            {/* <p>Bar Graph for Health</p> */}
                             {loadedHealthBar && <BarGraph chartData={healthBarData} chartOpt={healthBarOpt} />}
                         </div>
                     </Col>

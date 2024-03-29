@@ -12,7 +12,7 @@ function Footer(props){
         break;
     
         case("Compare"):
-            footerMargin = "273vh";
+            footerMargin = "280vh";
         break;
 
         case("Timeline"):

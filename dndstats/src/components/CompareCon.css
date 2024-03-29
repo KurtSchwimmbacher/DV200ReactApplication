@@ -71,3 +71,10 @@
     align-items: center;
     justify-content: center;
 }
+
+.range-slider-con{
+    margin-top: 45px !important;
+    margin-bottom: -45px !important;
+    color: #383937 !important;
+}
+

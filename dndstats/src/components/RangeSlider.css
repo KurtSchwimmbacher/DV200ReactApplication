@@ -1,0 +1,40 @@
+@font-face {
+    font-family: titleFont;
+    src: url(../fonts/Draconis.otf);
+  }
+
+  
+.slider-title{
+    font-family: titleFont;
+}
+
+.slider-val{
+    font-family: "bookmania", serif;
+}
+
+.range-slider {
+    width: 60%;
+    height: 20px;
+    border-radius: 5px;
+  }
+
+.range-slider::-webkit-slider-runnable-track {
+    background: #faf9f6;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 25px;
+    height: auto;
+    border: 1px solid #383937;
+  }
+
+  .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 10px;
+    overflow: visible;
+    cursor: pointer;
+    box-shadow:  -2px 1px 8px #000000, calc(-100vw - 7px) 0 0 100vw #AB6DAC;
+  }
+
+
