@@ -64,9 +64,6 @@ function CompareCon (){
         setSelectedClass2(selectedClassName);
       };
 
-    // replace with data chosen by user
-    // let selectedClass1 = "wizard";
-    // let selectedClass2 = "barbarian";
 
       // use states are used to store the data from the API (top) and to only load data from the API when it is fetched (bottom)
         const [buildRadarData, setbuildRadarData] = useState(""); 
@@ -249,10 +246,10 @@ function CompareCon (){
                     let class1Name = rawDataChosen.name;
                     let class2Name = rawDataCompeting.name;
                     
-                    let class1HPMax = rawDataChosen.hit_die+5;
-                    let class2HPMax = rawDataCompeting.hit_die+5;
-                    let class1HPAvg = (rawDataChosen.hit_die/2)+1+1;
-                    let class2HPAvg = (rawDataCompeting.hit_die/2)+1+1;
+                    let class1HPMax = rawDataChosen.hit_die+5+1;
+                    let class2HPMax = rawDataCompeting.hit_die+5+1;
+                    let class1HPAvg = (rawDataChosen.hit_die)+1+1;
+                    let class2HPAvg = (rawDataCompeting.hit_die)+1+1;
 
                     // map data
                     let healthBarGraphData = {
