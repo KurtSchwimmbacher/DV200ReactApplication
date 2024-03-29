@@ -12,29 +12,36 @@
     font-family: "bookmania", serif;
 }
 
-.range-slider {
-    width: 60%;
-    height: 20px;
-    border-radius: 5px;
-  }
-
-.range-slider::-webkit-slider-runnable-track {
-    background: #faf9f6;
-    width: 100%;
-    overflow: hidden;
-    border-radius: 25px;
-    height: auto;
-    border: 1px solid #383937;
-  }
-
-  .range-slider::-webkit-slider-thumb {
+  /* Sliders styling */
+  input[type=range]::-webkit-slider-thumb {
     -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border-radius: 10px;
-    overflow: visible;
+    pointer-events: all;
+    width: 20px;
+    height: 20px;
+    background-color: #507F62;
+    border-radius: 50%;
     cursor: pointer;
-    box-shadow:  -2px 1px 8px #000000, calc(-100vw - 7px) 0 0 100vw #AB6DAC;
   }
-
-
+  
+  
+  /* Slider interact styling */
+  input[type=range]::-webkit-slider-thumb:hover {
+    background: #AB6DAC;
+  }
+  
+  
+  input[type=range]::-webkit-slider-thumb:active {
+    box-shadow: inset 0 0 3px #AB6DAC, 0 0 7px #AB6DAC;
+    -webkit-box-shadow: inset 0 0 3px #AB6DAC, 0 0 7px #AB6DAC;
+  }
+  
+  
+  input[type="range"] {
+    -webkit-appearance: none; 
+    appearance: none;
+    height: 7px;
+    border-radius: 15px;
+    width: 60%;
+    background-color: #51A1C5;
+    pointer-events: none;
+  }
