@@ -49,7 +49,16 @@ const fetchData = async (classParam) => {
     throw error;
   }
 };
-
+const fetchClassSpelllist = async (className,level) =>{
+  try{
+      let response = await Axios.get(`https://api.open5e.com/v1/spells/?dnd_class__icontains=${className}&spell_level=${level}`);
+      return response;
+  }
+  catch (error){
+      console.error.apply('Error fetching data:', error);
+      throw error;
+  }
+}
 
 function BentoGrid() {
 
@@ -59,7 +68,12 @@ function BentoGrid() {
 
   const [barGraphObj, setBarGraphObj] = useState("");
   const [barGraphOpt, setBarGraphOpt] = useState("");
+  const [spellPieObj, setSpellPieObj] = useState("");
+  const [spellPieOpt, setSpellPieOpt] = useState("");
+  const [spellPieObj2, setSpellPieObj2] = useState("");
+  const [spellPieOpt2, setSpellPieOpt2] = useState("");
   const[loadedbar, setLoadedBar] = useState(false);
+  const[loadedSpellPie, setLoadedSpellPie] = useState(false);
     
   // React Hook essentially tells component that it needs to do something after it is rendered, in this case load the graph using api data
   useEffect(() => {
@@ -138,6 +152,113 @@ function BentoGrid() {
         
       }
     }
+
+    const fetchDataAndMapSpellPie = async () => {
+      try {
+        let spellList = (await fetchClassSpelllist("Sorcerer",1)).data.results;
+        let spellList2 = (await fetchClassSpelllist("Cleric",1)).data.results;
+        
+        const class1Name = "Sorcerer";
+        const class2Name = "Cleric";
+        const spellSchoolName = ["Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation"];
+
+        const spellSchoolData = [
+            {school : "abjuration",count : 0},
+            {school : "conjuration",count : 0},
+            {school : "divination",count : 0},
+            {school : "enchantment",count : 0},
+            {school : "evocation",count : 0},
+            {school : "illusion",count : 0},
+            {school : "necromancy",count : 0},
+            {school : "transmutation",count : 0},
+        ];
+        const spellSchoolData2 = [
+            {school : "abjuration",count : 0},
+            {school : "conjuration",count : 0},
+            {school : "divination",count : 0},
+            {school : "enchantment",count : 0},
+            {school : "evocation",count : 0},
+            {school : "illusion",count : 0},
+            {school : "necromancy",count : 0},
+            {school : "transmutation",count : 0},
+        ];
+        
+        // map data
+        spellSchoolData.forEach(school =>{
+            spellList.forEach(spell=>{
+                if(school.school === spell.school.toLowerCase()){
+                    school.count ++;
+                }                        
+            })
+        })
+        spellSchoolData2.forEach(school =>{
+            spellList2.forEach(spell=>{
+                if(school.school === spell.school.toLowerCase()){
+                    school.count ++;
+                }                        
+            })
+        })
+        
+
+         // Chart.js data
+        const spellPieChartData = {
+            labels: spellSchoolName,
+            datasets: [{
+                label: `${class1Name} Spell Ratio`,
+                data: spellSchoolData.map(school => school.count),
+                backgroundColor: ["#2A50A1", "#AB6DAC", "#507F62", "#51A1C5", "#8ED8B7", "#C899F4", "#F0F097", "#91A1B2"],
+                borderRadius: 2
+            }]
+        };
+
+         // Chart.js data
+         const spellPieChartData2 = {
+            labels: spellSchoolName,
+            datasets: [{
+                label: `${class2Name} Spell Ratio`,
+                data: spellSchoolData2.map(school => school.count),
+                backgroundColor:["#2A50A1", "#AB6DAC", "#507F62", "#51A1C5", "#8ED8B7", "#C899F4", "#F0F097", "#91A1B2"],
+                borderRadius: 2
+            }]
+        };
+
+        // Chart.js options
+        const spellPieChartOptions = {
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Spell Schools for ${class1Name} level 1`
+                }
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 3,
+            response : true,
+        };
+        // Chart.js options
+        const spellPieChartOptions2 = {
+            plugins: {
+                title: {
+                    display: true,
+                    text: `Spell Schools for ${class2Name} level 1`
+                }
+            },
+            maintainAspectRatio: false,
+            aspectRatio: 3,
+            response : true,
+        };
+
+
+
+      setSpellPieObj(spellPieChartData);
+      setSpellPieOpt(spellPieChartData2);
+      setSpellPieObj2(spellPieChartOptions);
+      setSpellPieOpt2(spellPieChartOptions2);
+      setLoadedSpellPie(true);
+    } catch (error) {
+        
+    }
+    }
+
     // call the function to fetch api data (it was written above but not called)
     fetchDataAndMap();
     fetchDataAndMapBarGraph();
@@ -175,11 +296,6 @@ function BentoGrid() {
         aspectRatio : 0.3,
       };
 
-      let miniPieChartOpt = { 
-        responsive : true,
-        maintainAspectRatio : false,
-        aspectRatio : 0.2,
-      };
 // 
   return (
     // this forms the base for a css grid that will be manipulated into a Bento Grid
@@ -197,9 +313,8 @@ function BentoGrid() {
         {/* <Piechart chartData={piechartData} chartOpt = {pieChartOpt} /> */}
       </div>
       <div className="grid4 grid-con">
-        {/* <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
-        <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
-        <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div> */}
+        <div className="pie-col"><Piechart chartData={spellPieObj} chartOpt={spellPieOpt} /></div>
+        <div className="pie-col"><Piechart chartData={spellPieObj2} chartOpt={spellPieObj2} /></div>
       </div>
       <div className="grid5 grid-con">
        <p>add stat radar graph</p>

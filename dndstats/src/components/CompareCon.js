@@ -481,9 +481,6 @@ function CompareCon (){
                         })
                     })
                     
-                   
-
-                    console.log(spellSchoolData)
 
                      // Chart.js data
                     const spellPieChartData = {
@@ -512,7 +509,7 @@ function CompareCon (){
                         plugins: {
                             title: {
                                 display: true,
-                                text: `Spell Schools for ${class1Name} ${sliderValue}`
+                                text: `Spell Schools for ${class1Name} level ${sliderValue}`
                             }
                         },
                         maintainAspectRatio: false,
@@ -524,7 +521,7 @@ function CompareCon (){
                         plugins: {
                             title: {
                                 display: true,
-                                text: `Spell Schools for ${class2Name} ${sliderValue}`
+                                text: `Spell Schools for ${class2Name} level ${sliderValue}`
                             }
                         },
                         maintainAspectRatio: false,
