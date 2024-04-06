@@ -20,10 +20,6 @@ import RadarChart from "./graphs/RadarChart";
 import LineGraph from "./graphs/LineGraph";
 
 
-// import data ==> to be removed
-import PieData from "../data/PieData.json";
-import BarData from "../data/BarData.json";
-import RadarData from "../data/RadarData.json";
 
 // important bootstrap components where needed
 import Carousel from "../components/Carousel";
@@ -155,11 +151,9 @@ function BentoGrid() {
 
     const fetchDataAndMapSpellPie = async () => {
       try {
-        let spellList = (await fetchClassSpelllist("Sorcerer",1)).data.results;
-        let spellList2 = (await fetchClassSpelllist("Cleric",1)).data.results;
+        let spellList = (await fetchClassSpelllist("sorcerer",1)).data.results;
+        let spellList2 = (await fetchClassSpelllist("cleric", 1)).data.results;
         
-        const class1Name = "Sorcerer";
-        const class2Name = "Cleric";
         const spellSchoolName = ["Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation"];
 
         const spellSchoolData = [
@@ -204,7 +198,7 @@ function BentoGrid() {
         const spellPieChartData = {
             labels: spellSchoolName,
             datasets: [{
-                label: `${class1Name} Spell Ratio`,
+                label: `Sorcerer Spell Ratio`,
                 data: spellSchoolData.map(school => school.count),
                 backgroundColor: ["#2A50A1", "#AB6DAC", "#507F62", "#51A1C5", "#8ED8B7", "#C899F4", "#F0F097", "#91A1B2"],
                 borderRadius: 2
@@ -215,7 +209,7 @@ function BentoGrid() {
          const spellPieChartData2 = {
             labels: spellSchoolName,
             datasets: [{
-                label: `${class2Name} Spell Ratio`,
+                label: `Cleric Spell Ratio`,
                 data: spellSchoolData2.map(school => school.count),
                 backgroundColor:["#2A50A1", "#AB6DAC", "#507F62", "#51A1C5", "#8ED8B7", "#C899F4", "#F0F097", "#91A1B2"],
                 borderRadius: 2
@@ -227,7 +221,7 @@ function BentoGrid() {
             plugins: {
                 title: {
                     display: true,
-                    text: `Spell Schools for ${class1Name} level 1`
+                    text: `Spell Schools for Sorcerer level 1`
                 }
             },
             maintainAspectRatio: false,
@@ -239,7 +233,7 @@ function BentoGrid() {
             plugins: {
                 title: {
                     display: true,
-                    text: `Spell Schools for ${class2Name} level 1`
+                    text: `Spell Schools for Cleric level 1`
                 }
             },
             maintainAspectRatio: false,
@@ -255,13 +249,14 @@ function BentoGrid() {
       setSpellPieOpt2(spellPieChartOptions2);
       setLoadedSpellPie(true);
     } catch (error) {
-        
+
     }
     }
 
     // call the function to fetch api data (it was written above but not called)
     fetchDataAndMap();
     fetchDataAndMapBarGraph();
+    fetchDataAndMapSpellPie();
   }, []);
 
 
@@ -283,18 +278,6 @@ function BentoGrid() {
 
 // =======================================================
 
-// option objects for other charts
-      let pieChartOpt = {
-        response : true,
-        plugins: {
-          title: {
-            display: true,
-            text: "Ratio of website traffic"
-          }
-        }, 
-        maintainAspectRatio : false,
-        aspectRatio : 0.3,
-      };
 
 // 
   return (
@@ -313,8 +296,12 @@ function BentoGrid() {
         {/* <Piechart chartData={piechartData} chartOpt = {pieChartOpt} /> */}
       </div>
       <div className="grid4 grid-con">
-        <div className="pie-col"><Piechart chartData={spellPieObj} chartOpt={spellPieOpt} /></div>
-        <div className="pie-col"><Piechart chartData={spellPieObj2} chartOpt={spellPieObj2} /></div>
+        <div className="pie-col">
+          {loadedSpellPie && <Piechart chartData={spellPieObj} chartOpt={spellPieOpt} />}
+        </div>
+        <div className="pie-col">
+          {loadedSpellPie && <Piechart chartData={spellPieObj2} chartOpt={spellPieOpt2} />}
+        </div>
       </div>
       <div className="grid5 grid-con">
        <p>add stat radar graph</p>
