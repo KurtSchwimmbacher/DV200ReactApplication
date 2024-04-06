@@ -35,7 +35,6 @@ const fetchClassData = async (classParam) =>{
         // uses axios to make API call 
         const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
         // returns data from api call
-        console.log(response.data)
         return response.data;
         
     }
@@ -87,10 +86,14 @@ function CompareCon (){
         const [healthBarData, setHealthBarData] = useState(""); 
         const [healthBarOpt, setHealthBarOpt] = useState("");
 
+        const [multiBarData, setMultiBarData] = useState(""); 
+        const [multiBarOpt, setMultiBarOpt] = useState("");
+
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
         const [loadedHealthBar, setLoadedHealthBar] = React.useState(false);
+        const [loadedMultiBar, setLoadedMutliBar] = React.useState(false);
         
         // to store the selected classes
         const [selectedClass1, setSelectedClass1] = useState("Select a Class");
@@ -105,7 +108,7 @@ function CompareCon (){
                     // call the fetch data function
                     const abilityScores = await fetchExtraData("ability-scores");
                     
-                    console.log(classDataChosen)
+                    
                     
                         // Extract the recommended stats from the class data
                         const data1 = classDataChosen.stats.map(stat => stat.recommended_score);
@@ -248,7 +251,124 @@ function CompareCon (){
                 }
             }
 
-            const populateHealthBarGraph = async (chosenClass,competingClass) =>{
+            const populateMulticlassGraph = async (chosenClass,competingClass) =>{
+                try{
+                    const abilityScores = await fetchExtraData("ability-scores");
+
+                    const rawDataChosen= await fetchClassData(chosenClass);
+                    const rawDataCompeting = await fetchClassData(competingClass); 
+
+                    
+                    let class1Name = rawDataChosen.name;
+                    let class2Name = rawDataCompeting.name;
+
+                    // Extract proficiency requirements
+                    const chosenPrerequisites = rawDataChosen.multi_classing.prerequisites;
+                    const competingPrerequisites = rawDataCompeting.multi_classing.prerequisites;
+                  
+                    // Prepare data for the chart
+                    const proficiencyLabelsChosen = chosenPrerequisites.map(prerequisite => prerequisite.ability_score.name);
+                    const proficiencyLabelsCompeting = competingPrerequisites.map(prerequisite => prerequisite.ability_score.name);
+
+                    // console.log(proficiencyLabelsChosen)
+                    console.log(proficiencyLabelsCompeting)
+
+                    // Initialize an array to hold multiclass requirements
+                    const multiclassRequirementsChosen = [1, 1, 1, 1, 1, 1];
+                    const multiclassRequirementsCompeting = [1, 1, 1, 1, 1, 1];
+
+                     // Fill in the multiclass requirements for the class
+                     chosenPrerequisites.forEach(prerequisite => {
+                        const index = prerequisite.ability_score.index;
+                        switch (index) {
+                        case 'cha':
+                            multiclassRequirementsChosen[0] = prerequisite.minimum_score;
+                            break;
+                        case 'con':
+                            multiclassRequirementsChosen[1] = prerequisite.minimum_score;
+                            break;
+                        case 'dex':
+                            multiclassRequirementsChosen[2] = prerequisite.minimum_score;
+                            break;
+                        case 'int':
+                            multiclassRequirementsChosen[3] = prerequisite.minimum_score;
+                            break;
+                        case 'str':
+                            multiclassRequirementsChosen[4] = prerequisite.minimum_score;
+                            break;
+                        case 'wis':
+                            multiclassRequirementsChosen[5] = prerequisite.minimum_score;
+                            break;
+                        default:
+                            break;
+                        }
+                    });
+                    // Fill in the multiclass requirements for the class
+                    competingPrerequisites.forEach(prerequisite => {
+                        const index = prerequisite.ability_score.index;
+                        switch (index) {
+                        case 'cha':
+                            multiclassRequirementsCompeting[0] = prerequisite.minimum_score;
+                            break;
+                        case 'con':
+                            multiclassRequirementsCompeting[1] = prerequisite.minimum_score;
+                            break;
+                        case 'dex':
+                            multiclassRequirementsCompeting[2] = prerequisite.minimum_score;
+                            break;
+                        case 'int':
+                            multiclassRequirementsCompeting[3] = prerequisite.minimum_score;
+                            break;
+                        case 'str':
+                            multiclassRequirementsCompeting[4] = prerequisite.minimum_score;
+                            break;
+                        case 'wis':
+                            multiclassRequirementsCompeting[5] = prerequisite.minimum_score;
+                            break;
+                        default:
+                            break;
+                        }
+                    });
+
+                    // map data
+                    let multiBarGraphData = {
+                        labels: abilityScores.data.results.map((data)=>data.name),
+                        datasets:[{
+                            label: class1Name + " Minimum " +proficiencyLabelsChosen + " stat required",
+                            // replace with api data
+                            data: multiclassRequirementsChosen ,
+                            backgroundColor: "#51A1C5",
+                            borderRadius:2
+                        },
+                        {
+                            label: class2Name + " Minimum " +proficiencyLabelsCompeting + " stat required",
+                            // replace with api data
+                            data: multiclassRequirementsCompeting,
+                            backgroundColor: "#AB6DAC",
+                            borderRadius:2
+                        }]
+                    }
+
+                    let multiBarGraphOpt = { 
+                        responsive: true,
+                        maintainAspectRatio :false,
+                        plugins: {
+                            title: {
+                              display: true,
+                              text: `Comparison of Mutliclass Requirements`
+                            }
+                          }, 
+                    }
+                    setMultiBarData(multiBarGraphData);
+                    setMultiBarOpt(multiBarGraphOpt);
+                    setLoadedMutliBar(true);
+                }
+                catch{
+
+                }
+            }
+
+            const populateHealthBarGraph = async(chosenClass,competingClass) =>{
                 try{
                     const rawDataChosen= await fetchClassData(chosenClass);
                     const rawDataCompeting = await fetchClassData(competingClass); 
@@ -308,6 +428,7 @@ function CompareCon (){
             populateBuildRadarChart(selectedClass1,selectedClass2);
             populateProfBarGraph(class1,class2);
             populateHealthBarGraph(class1,class2);
+            populateMulticlassGraph(class1, class2);
         },[selectedClass1,selectedClass2,sliderValue]);
 
     return(
@@ -365,7 +486,7 @@ function CompareCon (){
                 <Row>
                     <Col>
                         <div className="three-chart">
-                            <p>Bar Graph for race and class</p>
+                            {loadedMultiBar && <BarGraph chartData={multiBarData} chartOpt={multiBarOpt} />}
                         </div>
                     </Col>
                     <Col>
