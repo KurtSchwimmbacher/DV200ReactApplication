@@ -40,7 +40,7 @@ defaults.responsive = true;
 const fetchData = async (classParam) => {
   try {
     // uses axios to make API call 
-    const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}/levels`);
+    const response = await Axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
     // returns data from api call
     console.log(response.data)
     return response.data;
@@ -56,6 +56,10 @@ function BentoGrid() {
   // use states are used to store the data from the API (top) and to only load data from the API when it is fetched (bottom)
   const [dataObject, setDataObject] = useState(""); 
   const [loaded, setLoaded] = React.useState(false);
+
+  const [barGraphObj, setBarGraphObj] = useState("");
+  const [barGraphOpt, setBarGraphOpt] = useState("");
+  const[loadedbar, setLoadedBar] = useState(false);
     
   // React Hook essentially tells component that it needs to do something after it is rendered, in this case load the graph using api data
   useEffect(() => {
@@ -63,7 +67,7 @@ function BentoGrid() {
     const fetchDataAndMap = async () => {
       try {
         // calls function to fetch api data
-        const rawData = await fetchData("barbarian");
+        const rawData = await fetchData("barbarian/levels");
         // when api data is fetched the loader is set to true, this avoids a null reading error
         setLoaded(true);
 
@@ -85,8 +89,58 @@ function BentoGrid() {
       }
     };
 
+    const fetchDataAndMapBarGraph = async () => {
+      try {
+        const rawDataChosen= await fetchData('barbarian');
+      const rawDataCompeting = await fetchData('cleric');
+
+      let class1Name = rawDataChosen.name;
+      let class2Name = rawDataCompeting.name;
+      
+      let class1HPMax = (rawDataChosen.hit_die+5+1);
+      let class2HPMax = (rawDataCompeting.hit_die+5+1);
+      let class1HPAvg = ((rawDataChosen.hit_die)+1+1);
+      let class2HPAvg = ((rawDataCompeting.hit_die)+1+1);
+
+       // map data
+      let healthBarGraphData = {
+        labels: ["Max Health" , "Average Health"],
+        datasets:[{
+            label: `${class1Name} Health Stats`,
+            // replace with api data
+            data: [class1HPMax,class1HPAvg],
+            backgroundColor: "#51A1C5",
+            borderRadius:2
+        },
+        {
+            label: `${class2Name} Health Stats`,
+            // replace with api data
+            data: [class2HPMax,class2HPAvg],
+            backgroundColor: "#AB6DAC",
+            borderRadius:2
+        }]
+      }
+
+      let healthBarGraphOpt = { 
+        responsive: true,
+        maintainAspectRatio :false,
+        plugins: {
+          title: {
+            display: true,
+            text: `Comparison of Health Scores at level 1 `
+          }
+        }, 
+      }
+      setBarGraphObj(healthBarGraphData);
+      setBarGraphOpt(healthBarGraphOpt);
+      setLoadedBar(true);
+      } catch (error) {
+        
+      }
+    }
     // call the function to fetch api data (it was written above but not called)
     fetchDataAndMap();
+    fetchDataAndMapBarGraph();
   }, []);
 
 
@@ -105,31 +159,12 @@ function BentoGrid() {
     aspectRatio : 0.2,
   };
 
-  // to be removed
-  // =======================================================
-    let piechartData = {
-        labels: PieData.map((data)=>data.label),
-        datasets: [{
-            label: "Count",
-            data: PieData.map((data)=>data.traffic),
-            backgroundColor: ["#51A1C5","#A184BC","#507F62","#C73032"],
-        }]
-    };
-
-    let bargraphData = {
-        labels: BarData.map((data)=>data.label),
-        datasets:[{
-          label: "Monthly Sales",
-          data: BarData.map((data)=>data.Sales),
-          backgroundColor: ["#51A1C5","#A184BC","#507F62","#C73032"],
-          borderRadius:2
-        }]
-      }
 
 // =======================================================
 
 // option objects for other charts
       let pieChartOpt = {
+        response : true,
         plugins: {
           title: {
             display: true,
@@ -156,15 +191,15 @@ function BentoGrid() {
         {loaded && < LineGraph chartData={dataObject} chartOpt={lineChartOpt} />}
       </div>
       <div className="grid2 grid-con">
-        <BarGraph chartData={bargraphData} />
+        {loadedbar && <BarGraph chartData={barGraphObj} chartOpt={barGraphOpt} />}
       </div>
       <div className="grid3 grid-con">
-        <Piechart chartData={piechartData} chartOpt = {pieChartOpt} />
+        {/* <Piechart chartData={piechartData} chartOpt = {pieChartOpt} /> */}
       </div>
       <div className="grid4 grid-con">
+        {/* <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
         <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
-        <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
-        <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div>
+        <div className="pie-col"><Piechart chartData={piechartData} chartOpt={miniPieChartOpt} /></div> */}
       </div>
       <div className="grid5 grid-con">
        <p>add stat radar graph</p>

@@ -55,6 +55,17 @@ const fetchExtraData = async (endpoint) =>{
     }
 }
 
+const fetchClassSpelllist = async (className,level) =>{
+    try{
+        let response = await Axios.get(`https://api.open5e.com/v1/spells/?dnd_class__icontains=${className}&spell_level=${level}`);
+        return response;
+    }
+    catch (error){
+        console.error.apply('Error fetching data:', error);
+        throw error;
+    }
+}
+
 function CompareCon (){
 
     const handleClassSelect1 = (selectedClassName) => {
@@ -89,11 +100,15 @@ function CompareCon (){
         const [multiBarData, setMultiBarData] = useState(""); 
         const [multiBarOpt, setMultiBarOpt] = useState("");
 
+        const [spellPieData, setSpellPieData] = useState(""); 
+        const [spellPieOpt, setSpellPieOpt] = useState("");
+
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
         const [loadedHealthBar, setLoadedHealthBar] = React.useState(false);
         const [loadedMultiBar, setLoadedMutliBar] = React.useState(false);
+        const [loadedSpellPie, setLoadedSpellPie] = React.useState(false);
         
         // to store the selected classes
         const [selectedClass1, setSelectedClass1] = useState("Select a Class");
@@ -270,9 +285,6 @@ function CompareCon (){
                     const proficiencyLabelsChosen = chosenPrerequisites.map(prerequisite => prerequisite.ability_score.name);
                     const proficiencyLabelsCompeting = competingPrerequisites.map(prerequisite => prerequisite.ability_score.name);
 
-                    // console.log(proficiencyLabelsChosen)
-                    console.log(proficiencyLabelsCompeting)
-
                     // Initialize an array to hold multiclass requirements
                     const multiclassRequirementsChosen = [1, 1, 1, 1, 1, 1];
                     const multiclassRequirementsCompeting = [1, 1, 1, 1, 1, 1];
@@ -420,6 +432,82 @@ function CompareCon (){
                 }
             }
             
+            const populateSpellPieChart = async(chosenClass) =>{
+                try{
+                    const chosenSpellList = await fetchClassSpelllist(chosenClass,1);
+                    console.log(chosenSpellList.dada.results)
+                    let class1Name = chosenClass;
+                    class1Name = class1Name.substring(0,1).toUpperCase() + class1Name.substring(1)
+
+                    const spellSchools = ["Abjuration","Conjuration","Divination","Enchantment","Evocation","Illusion","Necromancy","Transmutation"];
+
+                    const classCountSpellsInSchool = [
+                        {
+                            school : "Abjuration",
+                            count : 0
+                        },
+                        {
+                            school : "Conjuration",
+                            count : 0
+                        },
+                        {
+                            school : "Divination",
+                            count : 0
+                        },
+                        {
+                            school : "Enchantment",
+                            count : 0
+                        },
+                        {
+                            school : "Evocation",
+                            count : 0
+                        },
+                        {
+                            school : "Illusion",
+                            count : 0
+                        },
+                        {
+                            school : "Necromancy",
+                            count : 0
+                        },
+                        {
+                            school : "Transmutation",
+                            count : 0
+                        },
+                    ];
+
+                    
+                    // map data
+                    let spellPieChartData = {
+                        labels: spellSchools,
+                        datasets:[{
+                            label: `${class1Name} Spell Ratio`,
+                            // replace with api data
+                            data: classCountSpellsInSchool.map(school => school.count),
+                            backgroundColor: ["#51A1C5","#507F62","#72469B","#AB6DAC"],
+                            borderRadius:2
+                        }]
+                    }
+
+                    let spellPieChartOpt = { 
+                        response : true,
+                        plugins: {
+                          title: {
+                            display: true,
+                            text: "Ratio of Spell Schools in Spell List"
+                          }
+                        }, 
+                        maintainAspectRatio : false,
+                        aspectRatio : 0.3, 
+                    }
+                    setSpellPieData(spellPieChartData);
+                    setSpellPieOpt(spellPieChartOpt);
+                    setLoadedSpellPie(true);
+                }
+                catch{
+
+                }
+            }
 
             const class1 = selectedClass1.toLowerCase();
             const class2 = selectedClass2.toLowerCase();
@@ -429,6 +517,8 @@ function CompareCon (){
             populateProfBarGraph(class1,class2);
             populateHealthBarGraph(class1,class2);
             populateMulticlassGraph(class1, class2);
+            populateSpellPieChart(class1);
+            populateSpellPieChart(class2);
         },[selectedClass1,selectedClass2,sliderValue]);
 
     return(
@@ -479,7 +569,8 @@ function CompareCon (){
                 <Row>
                     <Col>
                         <div className="bar-chart-main">
-                            <p>Bar Graph for spells</p>
+                             {/* <p>Bar Graph for Proficiency</p> */}
+                             {loadedProfBar && <BarGraph chartData={profBarData} chartOpt={profBarOpt} />}
                         </div>
                     </Col>
                 </Row>
@@ -491,9 +582,7 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="three-chart">
-                            {/* <p>Bar Graph for Proficiency</p> */}
-                            {loadedProfBar && <BarGraph chartData={profBarData} chartOpt={profBarOpt} />}
-                            
+                            <p>bar graph for spells</p>
                         </div>
                     </Col>
                     <Col>
@@ -506,7 +595,7 @@ function CompareCon (){
                 <Row>
                     <Col>
                         <div className="two-chart">
-                            <p>Pie Chart for spells</p>
+                            {loadedSpellPie && <Piechart chartData={spellPieData} chartOpt={spellPieOpt} />}
                         </div>
                     </Col>
                     <Col>
