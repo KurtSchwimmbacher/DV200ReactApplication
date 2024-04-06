@@ -100,8 +100,10 @@ function CompareCon (){
         const [multiBarData, setMultiBarData] = useState(""); 
         const [multiBarOpt, setMultiBarOpt] = useState("");
 
-        const [spellPieData, setSpellPieData] = useState(""); 
-        const [spellPieOpt, setSpellPieOpt] = useState("");
+        const [spellPieData1, setSpellPieData1] = useState(""); 
+        const [spellPieOpt1, setSpellPieOpt1] = useState("");
+        const [spellPieData2, setSpellPieData2] = useState(""); 
+        const [spellPieOpt2, setSpellPieOpt2] = useState("");
 
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
@@ -115,6 +117,7 @@ function CompareCon (){
         const [selectedClass2, setSelectedClass2] = useState("Select a Class");
 
         useEffect(()=>{
+            
 
             const populateBuildRadarChart = async (chosenClass,competingClass) =>{
                 try{
@@ -432,82 +435,70 @@ function CompareCon (){
                 }
             }
             
-            const populateSpellPieChart = async(chosenClass) =>{
-                try{
-                    const chosenSpellList = await fetchClassSpelllist(chosenClass,1);
-                    console.log(chosenSpellList.dada.results)
-                    let class1Name = chosenClass;
-                    class1Name = class1Name.substring(0,1).toUpperCase() + class1Name.substring(1)
+            const populateSpellPie = async(chosenClass) =>{
+                try {
+                    let spellList = (await fetchClassSpelllist(chosenClass,sliderValue)).data.results;
+                    console.log(spellList)
+                    
+                    const class1Name = chosenClass.charAt(0).toUpperCase() + chosenClass.slice(1);
+                    const spellSchoolName = ["Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation"];
 
-                    const spellSchools = ["Abjuration","Conjuration","Divination","Enchantment","Evocation","Illusion","Necromancy","Transmutation"];
-
-                    const classCountSpellsInSchool = [
-                        {
-                            school : "Abjuration",
-                            count : 0
-                        },
-                        {
-                            school : "Conjuration",
-                            count : 0
-                        },
-                        {
-                            school : "Divination",
-                            count : 0
-                        },
-                        {
-                            school : "Enchantment",
-                            count : 0
-                        },
-                        {
-                            school : "Evocation",
-                            count : 0
-                        },
-                        {
-                            school : "Illusion",
-                            count : 0
-                        },
-                        {
-                            school : "Necromancy",
-                            count : 0
-                        },
-                        {
-                            school : "Transmutation",
-                            count : 0
-                        },
+                    const spellSchoolData = [
+                        {school : "abjuration",count : 0},
+                        {school : "conjuration",count : 0},
+                        {school : "divination",count : 0},
+                        {school : "enchantment",count : 0},
+                        {school : "evocation",count : 0},
+                        {school : "illusion",count : 0},
+                        {school : "necromancy",count : 0},
+                        {school : "transmutation",count : 0},
                     ];
-
                     
                     // map data
-                    let spellPieChartData = {
-                        labels: spellSchools,
-                        datasets:[{
+                    spellSchoolData.forEach(school =>{
+                        spellList.forEach(spell=>{
+                            if(school.school === spell.school.toLowerCase()){
+                                school.count ++;
+                            }                        
+                        })
+                    })
+                   
+
+                    console.log(spellSchoolData)
+
+                     // Chart.js data
+                    const spellPieChartData = {
+                        labels: spellSchoolName,
+                        datasets: [{
                             label: `${class1Name} Spell Ratio`,
-                            // replace with api data
-                            data: classCountSpellsInSchool.map(school => school.count),
-                            backgroundColor: ["#51A1C5","#507F62","#72469B","#AB6DAC"],
-                            borderRadius:2
+                            data: spellSchoolData.map(school => school.count),
+                            backgroundColor: ["#51A1C5", "#507F62", "#72469B", "#AB6DAC", "#F79D84", "#FFD800", "#FFD800", "#CC0000"],
+                            borderRadius: 2
                         }]
-                    }
+                    };
 
-                    let spellPieChartOpt = { 
-                        response : true,
+                    // Chart.js options
+                    const spellPieChartOptions = {
                         plugins: {
-                          title: {
-                            display: true,
-                            text: "Ratio of Spell Schools in Spell List"
-                          }
-                        }, 
-                        maintainAspectRatio : false,
-                        aspectRatio : 0.3, 
-                    }
-                    setSpellPieData(spellPieChartData);
-                    setSpellPieOpt(spellPieChartOpt);
-                    setLoadedSpellPie(true);
-                }
-                catch{
+                            title: {
+                                display: true,
+                                text: "Ratio of Spell Schools in Spell List"
+                            }
+                        },
+                        maintainAspectRatio: false,
+                        aspectRatio: 0.3,
+                    };
 
+
+
+                setSpellPieData1(spellPieChartData);
+                setSpellPieOpt1(spellPieChartOptions)
+                setLoadedSpellPie(true);
+                } catch (error) {
+                    
                 }
             }
+            
 
             const class1 = selectedClass1.toLowerCase();
             const class2 = selectedClass2.toLowerCase();
@@ -517,8 +508,8 @@ function CompareCon (){
             populateProfBarGraph(class1,class2);
             populateHealthBarGraph(class1,class2);
             populateMulticlassGraph(class1, class2);
-            populateSpellPieChart(class1);
-            populateSpellPieChart(class2);
+            populateSpellPie(class1);
+
         },[selectedClass1,selectedClass2,sliderValue]);
 
     return(
@@ -595,7 +586,7 @@ function CompareCon (){
                 <Row>
                     <Col>
                         <div className="two-chart">
-                            {loadedSpellPie && <Piechart chartData={spellPieData} chartOpt={spellPieOpt} />}
+                            {loadedSpellPie && <Piechart chartData={spellPieData1} chartOpt={spellPieOpt1} />}
                         </div>
                     </Col>
                     <Col>
