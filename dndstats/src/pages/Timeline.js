@@ -68,38 +68,38 @@ function Timeline(){
                         };
                         break;
                     case 'Maximum Possible Health':
-                        const healthArr = [1]; // Start with a base health of 1
 
-                        for (let i = 1; i < 20; i++) { // Assuming 20 levels
-                            const levelHealth = (classGeneralData.hit_die + 5 + 1) * i; // Calculate health gained at current level
-                            healthArr.push(levelHealth + healthArr[i - 1]); // Add current level's health to previous level's total
-                        }
-                        
-                        const linegraphData = {
-                            labels: classData.map(data => data.level),
-                            datasets: [{
+
+                    const healthArr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]; // Initialize array with base health
+
+                    for (let i = 1; i < healthArr.length; i++) {
+                        healthArr[i] = (classGeneralData.hit_die + 5 + 1) * i + healthArr[i - 1]; // Calculate health gained at current level and add to previous total
+                        console.log(healthArr[i]); // Logging for debugging purposes
+                    }
+                        linegraphData = {
+                            labels: classData.map((data)=>data.level),
+                            datasets:[{
                                 label: "Data Over Levels",
                                 data: healthArr,
                                 backgroundColor: "#51A1C5",
-                                borderRadius: 2
+                                borderRadius:2
                             }]
                         };
-                        
-                        const lineChartOpt = {
-                            scales: {
+                        lineChartOpt = {
+                            scales:{
                                 y: {
                                     min: 0
-                                }
+                                  }
                             },
-                            plugins: {
+                            plugins:{
                                 title: {
                                     display: true,
                                     text: `${graphParameter} Over levels for ${chosenClass}`
                                 }
                             },
-                            responsive: true,
-                            maintainAspectRatio: false,
-                            aspectRatio: 0.2,
+                            responsive : true,
+                            maintainAspectRatio : false,
+                            aspectRatio : 0.2,
                         };
                         break;
                     default:
