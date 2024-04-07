@@ -243,11 +243,11 @@ function BentoGrid() {
 
 
 
-      setSpellPieObj(spellPieChartData);
-      setSpellPieOpt(spellPieChartData2);
-      setSpellPieObj2(spellPieChartOptions);
-      setSpellPieOpt2(spellPieChartOptions2);
-      setLoadedSpellPie(true);
+        setSpellPieObj(spellPieChartData);
+        setSpellPieOpt(spellPieChartOptions);
+        setSpellPieObj2(spellPieChartData2);
+        setSpellPieOpt2(spellPieChartOptions2);
+        setLoadedSpellPie(true);
     } catch (error) {
 
     }

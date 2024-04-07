@@ -5,9 +5,9 @@ import TimelineCon from "../components/TimelineCon";
 import axios from "axios";
 import Footer from "../components/Footer";
 
-const fetchLevelData = async (className) =>{
+const fetchLevelData = async (classParam) =>{
     try{
-        const response = await axios.get(`https://www.dnd5eapi.co/api/classes/${className}/levels`);
+        const response = await axios.get(`https://www.dnd5eapi.co/api/classes/${classParam}`);
         return response.data;
     }
     catch (error){
@@ -32,8 +32,10 @@ function Timeline(){
 
         const mapDataFromAPI = async (chosenClass) =>{
             try{
-                const classData = await fetchLevelData(chosenClass);
-        
+                const classData = await fetchLevelData(chosenClass +"/levels");
+
+                const classGeneralData = await fetchLevelData(chosenClass)
+
                 let linegraphData = {};
                 let lineChartOpt = {};
         
@@ -65,8 +67,40 @@ function Timeline(){
                             aspectRatio : 0.2,
                         };
                         break;
-                    case 'some_other_parameter':
-                        // Handle mapping for another parameter
+                    case 'Maximum Possible Health':
+                        const healthArr = [1]; // Start with a base health of 1
+
+                        for (let i = 1; i < 20; i++) { // Assuming 20 levels
+                            const levelHealth = (classGeneralData.hit_die + 5 + 1) * i; // Calculate health gained at current level
+                            healthArr.push(levelHealth + healthArr[i - 1]); // Add current level's health to previous level's total
+                        }
+                        
+                        const linegraphData = {
+                            labels: classData.map(data => data.level),
+                            datasets: [{
+                                label: "Data Over Levels",
+                                data: healthArr,
+                                backgroundColor: "#51A1C5",
+                                borderRadius: 2
+                            }]
+                        };
+                        
+                        const lineChartOpt = {
+                            scales: {
+                                y: {
+                                    min: 0
+                                }
+                            },
+                            plugins: {
+                                title: {
+                                    display: true,
+                                    text: `${graphParameter} Over levels for ${chosenClass}`
+                                }
+                            },
+                            responsive: true,
+                            maintainAspectRatio: false,
+                            aspectRatio: 0.2,
+                        };
                         break;
                     default:
                         // Handle default case
