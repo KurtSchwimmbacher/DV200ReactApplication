@@ -97,6 +97,9 @@ function CompareCon (){
         const [profBarData, setProfBarData] = useState(""); 
         const [profBarOpt, setProfBarOpt] = useState("");
 
+        const [saveBarData, setSaveBarData] = useState(""); 
+        const [saveBarOpt, setSaveBarOpt] = useState("");
+
         const [healthBarData, setHealthBarData] = useState(""); 
         const [healthBarOpt, setHealthBarOpt] = useState("");
 
@@ -116,18 +119,15 @@ function CompareCon (){
         const [featureBarData, setFeatureBarData] = useState(""); 
         const [featureBarOpt, setFeatureBarOpt] = useState("");
 
-        const [saveRadarData,setSaveRadarData] = useState("");
-        const [saveRadarOpt, setSaveRadarOpt] = useState("");
-
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
+        const [loadedSaveBar, setLoadedSaveBar] = React.useState(false);
         const [loadedHealthBar, setLoadedHealthBar] = React.useState(false);
         const [loadedMultiBar, setLoadedMutliBar] = React.useState(false);
         const [loadedSpellPie, setLoadedSpellPie] = React.useState(false);
         const [loadedFeatureBar, setLoadedFeatureBar] = React.useState(false);
         const [loadedProfDonut, setLoadedProfDonut] = React.useState(false);
-        const [loadedSaveRadar, setLoadedSaveRadar] = React.useState(false);
         
         // to store the selected classes
         const [selectedClass1, setSelectedClass1] = useState("Select a Class");
@@ -677,57 +677,83 @@ function CompareCon (){
                 }
             }
 
+            const populateSavingThrowsBar = async (chosenClass,competingClass) =>{
+                try{
+                    // collects all data required from api
+                    const skillsList = await fetchExtraData("ability-scores");
+                    const rawDataChosen= await fetchClassData(chosenClass);
+                    const rawDataCompeting = await fetchClassData(competingClass); 
 
-            const populateSaveRadar = async (chosenClass,competingClass) =>{
-                try {
-                    const rawDataChosen = await fetchClassData(chosenClass);
-                    const rawDataCompeting = await fetchClassData(competingClass);
+                    
+                    let class1Name = rawDataChosen.name;
+                    let class2Name = rawDataCompeting.name;
 
-                    const races = await fetchExtraData("races");
-                    const class1Name = rawDataChosen.name;
-                    const class2Name = rawDataCompeting.name;
+                    let dataClass1 = [0,0,0,0,0,0];
+                    let dataClass2 = [0,0,0,0,0,0];
 
-                    let raceBonus = [1,1,1,1,1,1,1,1,1]
+                    let arrayOfSkills = rawDataChosen.saving_throws.map((data)=>data.name)
+                    
+                    let arrayOfSkillsComp = rawDataCompeting.saving_throws.map((data)=>data.name)
+                    
 
-                let polarAreaData = {
-                    labels: races.data.results.map((data)=>data.name),
-                        datasets: [{
-                            label: ` Spell Ratio`,
-                            data: [1,1,1,1,1,1,1,1,1],
-                            backgroundColor: 'rgba(171,109,172, 0.6)',
-                            borderColor: "#AB6DAC",
-                            borderRadius: 2
-                        }]
-                }
-
-                let polarAreaOpt = {
-                    scales:{
-                        r: {
-                            ticks: {
-                                color: 'black',
-                                backdropColor: "#FAF9F6"
-                            },
-                            min: 0,
-                            max: 3,
-                            stepSize: 1,
-                          }
-                    },
-                    plugins: {
-                        title: {
-                            display: true,
-                            text: `Races that pair best with ${class1Name} `
+                    let allSkills =  skillsList.data.results.map((data)=>data.name);
+                    for(let i = 0; i< allSkills.length; i++){
+                        for(let j = 0; j <arrayOfSkills.length; j++){
+                            if(allSkills[i] === arrayOfSkills[j]){
+                                dataClass1[i] = 1;
+                            }
                         }
-                    },
-                    maintainAspectRatio: false,
-                    aspectRatio: 3,
-                    response : true,
-                };
+                        for(let j = 0; j < arrayOfSkillsComp.length;j++){
+                            if(allSkills[i] === arrayOfSkillsComp[j]){
+                                dataClass2[i] = 1;
+                            }
+                        }
+                    }                    
 
-                setSaveRadarData(polarAreaData);
-                setSaveRadarOpt(polarAreaOpt)
-                setLoadedSaveRadar(true);
+                    // map data
+                    let saveBarGraphData = {
+                        labels: skillsList.data.results.map((data)=>data.name),
+                        datasets:[{
+                            label: `${class1Name} Saving Throws`,
+                            
+                            data: dataClass1,
+                            backgroundColor: "#51A1C5",
+                            borderRadius:2
+                        },
+                        {
+                            label: `${class2Name} Saving Throws`,
+                            
+                            data: dataClass2,
+                            backgroundColor: "#AB6DAC",
+                            borderRadius:2,
+                        }]
+                    }
 
-                } catch (error) {
+                    let saveBarGraphOpt = { 
+                        indexAxis: 'y',
+                        indexAxis: 'y', 
+                        scales:{
+                            x: {
+                                min: 0,
+                                max: 1,
+                                stepSize: 1,
+                              },                              
+                        },
+                        responsive: true,
+                        maintainAspectRatio :false,
+                        plugins: {
+                            title: {
+                              display: true,
+                              text: "Comparison of Saving Throws"
+                            }
+                          }, 
+                    }
+
+                    setSaveBarData(saveBarGraphData);
+                    setSaveBarOpt(saveBarGraphOpt);
+                    setLoadedSaveBar(true);
+                }
+                catch (error){
                     
                 }
             }
@@ -743,8 +769,7 @@ function CompareCon (){
             populateSpellPie(class1,class2);
             populateSpellSlotsBarGraph(class1,class2);
             populateProfChoiceDoughnut(class1,class2);
-            populateSaveRadar(class1,class2)
-
+            populateSavingThrowsBar(class1,class2);
         },[selectedClass1,selectedClass2,sliderValue]);
 
     return(
@@ -787,8 +812,8 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="two-chart">
+                            {loadedSaveBar && <BarGraph chartData={saveBarData} chartOpt={saveBarOpt} />}
                             
-                            {loadedSaveRadar && <RadarChart chartData={saveRadarData} chartOpt={saveRadarOpt} />}
                         </div>
                     </Col>
                 </Row>
