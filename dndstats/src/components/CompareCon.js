@@ -105,12 +105,16 @@ function CompareCon (){
         const [spellPieData2, setSpellPieData2] = useState(""); 
         const [spellPieOpt2, setSpellPieOpt2] = useState("");
 
+        const [featureBarData, setFeatureBarData] = useState(""); 
+        const [featureBarOpt, setFeatureBarOpt] = useState("");
+
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
         const [loadedHealthBar, setLoadedHealthBar] = React.useState(false);
         const [loadedMultiBar, setLoadedMutliBar] = React.useState(false);
         const [loadedSpellPie, setLoadedSpellPie] = React.useState(false);
+        const [loadedFeatureBar, setLoadedFeatureBar] = React.useState(false);
         
         // to store the selected classes
         const [selectedClass1, setSelectedClass1] = useState("Select a Class");
@@ -540,7 +544,58 @@ function CompareCon (){
                     
                 }
             }
-            
+            const populateSpellSlotsBarGraph = async (chosenClass,competingClass) =>{
+                try{
+                    const rawDataChosen= await fetchClassData(chosenClass + "/levels/"+sliderValue);
+                    const rawDataCompeting = await fetchClassData(competingClass+ "/levels/"+sliderValue); 
+
+                    
+                    let class1Name = rawDataChosen.class.name;
+                    let class2Name = rawDataCompeting.class.name;
+                    
+                    console.log(rawDataChosen.features.length)
+
+                    // map data
+                    let featureBarGraphData = {
+                        labels: ["Features Gained"],
+                        datasets:[{
+                            label: `${class1Name} Features Gained`,
+                            data: [rawDataChosen.features.length],
+                            backgroundColor: "#51A1C5",
+                            borderRadius:2
+                        },
+                        {
+                            label: `${class2Name} Features Gained`,
+                            data: [rawDataCompeting.features.length],
+                            backgroundColor: "#AB6DAC",
+                            borderRadius:2
+                        }]
+                    }
+
+                    let featureBarGraphOpt = { 
+                        scales:{
+                            y: {
+                                min: 0,
+                                stepSize: 1
+                              },                              
+                        },
+                        responsive: true,
+                        maintainAspectRatio :false,
+                        plugins: {
+                            title: {
+                              display: true,
+                              text: `Comparison of Features Gained at level ${sliderValue} `
+                            }
+                          }, 
+                    }
+                    setFeatureBarData(featureBarGraphData);
+                    setFeatureBarOpt(featureBarGraphOpt);
+                    setLoadedFeatureBar(true);
+                }
+                catch{
+
+                }
+            }
 
             const class1 = selectedClass1.toLowerCase();
             const class2 = selectedClass2.toLowerCase();
@@ -551,6 +606,7 @@ function CompareCon (){
             populateHealthBarGraph(class1,class2);
             populateMulticlassGraph(class1, class2);
             populateSpellPie(class1,class2);
+            populateSpellSlotsBarGraph(class1,class2);
 
         },[selectedClass1,selectedClass2,sliderValue]);
 
@@ -615,7 +671,7 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="three-chart">
-                            <p>bar graph for spells</p>
+                            {loadedFeatureBar && <BarGraph chartData={featureBarData} chartOpt={featureBarOpt} />}
                         </div>
                     </Col>
                     <Col>

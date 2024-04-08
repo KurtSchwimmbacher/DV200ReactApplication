@@ -72,14 +72,14 @@ function Timeline(){
 
 
                     const healthArr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]; // Initialize array with base health
-
+                        healthArr[0] = classGeneralData.hit_die + 5 + 1;
                     for (let i = 1; i < healthArr.length; i++) {
                         healthArr[i] = (classGeneralData.hit_die + 5 + 1) * i + healthArr[i - 1]; // Calculate health gained at current level and add to previous total
                         console.log(healthArr[i]); // Logging for debugging purposes
                     }
 
                     const avHealthArr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]; // Initialize array with base health
-
+                    healthArr[0] = classGeneralData.hit_die + 1 + 1;
                     for (let i = 1; i < avHealthArr.length; i++) {
                         avHealthArr[i] = ((classGeneralData.hit_die/2) + 1 + 1) * i + avHealthArr[i - 1]; // Calculate health gained at current level and add to previous total
                         console.log(avHealthArr[i]); // Logging for debugging purposes
