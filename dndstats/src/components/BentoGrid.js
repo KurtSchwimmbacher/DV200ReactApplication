@@ -7,6 +7,8 @@ import "./BentoGrid.css";
 import Carousel from "../components/Carousel";
 
 import doughnutImg from "../assets/Dash-Imgs/DoughnutChart.png";
+import linechartImg from "../assets/Dash-Imgs/lineChart.png";
+import dndBeyond from "../assets/Dash-Imgs/DndbeyondLogo.png"
 import spellBook from "../assets/Dash-Imgs/SpellBook.jpg";
 
 function BentoGrid() {
@@ -22,7 +24,7 @@ function BentoGrid() {
       </div>
       <div className="grid2 grid-con">
        <p className="bento-title">Those 12 classes have data that shows stats as they progress over levels. An example would be the Bonuses at certain levels. This data is what makes up the Timeline page.</p>
-       {/* insert graphic for timeline data */}
+       <img src={linechartImg} className="doughnut-img"></img>
       </div>
       <div className="grid3 grid-con">
         <p className="bento-title">Some stats only show for level 1, such as Proficiency Choices. These makes up the graphics on the Compare Page.</p>
@@ -30,6 +32,7 @@ function BentoGrid() {
       </div>
       <div className="grid4 grid-con">
         <p className="bento-title">We created data files where we had to using information from DndBeyond.</p>
+        <img src={dndBeyond} className="beyond-img"></img>
       </div>
       <div className="grid5 grid-con">
         <p className="bento-title">We supplemented this data set with a spell list from a second API</p>

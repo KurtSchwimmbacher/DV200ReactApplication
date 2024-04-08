@@ -68,6 +68,7 @@ const fetchClassSpelllist = async (className,level) =>{
     }
 }
 
+
 function CompareCon (){
 
     const handleClassSelect1 = (selectedClassName) => {
@@ -115,8 +116,8 @@ function CompareCon (){
         const [featureBarData, setFeatureBarData] = useState(""); 
         const [featureBarOpt, setFeatureBarOpt] = useState("");
 
-        const [racePolarData,setRacePolarData] = useState("");
-        const [racePolarOpt, setRacePolarOpt] = useState("");
+        const [saveRadarData,setSaveRadarData] = useState("");
+        const [saveRadarOpt, setSaveRadarOpt] = useState("");
 
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
@@ -126,7 +127,7 @@ function CompareCon (){
         const [loadedSpellPie, setLoadedSpellPie] = React.useState(false);
         const [loadedFeatureBar, setLoadedFeatureBar] = React.useState(false);
         const [loadedProfDonut, setLoadedProfDonut] = React.useState(false);
-        const [loadedPolarArea, setLoadedPolarArea] = React.useState(false);
+        const [loadedSaveRadar, setLoadedSaveRadar] = React.useState(false);
         
         // to store the selected classes
         const [selectedClass1, setSelectedClass1] = useState("Select a Class");
@@ -156,14 +157,14 @@ function CompareCon (){
                             data: data1,
                             backgroundColor: 'rgba(42, 80, 161, 0.2)',
                             borderColor: "#51A1C5",
-                            tension: 0.1
+                            
                           },
                           {
                             label: `${competingClass} Recommended Ability Scores`,
                             data: data2,
                             backgroundColor: 'rgba(171, 109, 172, 0.2)',
                             borderColor: "#AB6DAC",
-                            tension: 0.1
+                        
                           }]
                         }
                    
@@ -677,18 +678,24 @@ function CompareCon (){
             }
 
 
-            const populateRacePolar = async (chosenClass,competingClass) =>{
+            const populateSaveRadar = async (chosenClass,competingClass) =>{
                 try {
-                    let races = await fetchExtraData("races")
-                
-                    console.log(races.data)
-                
+                    const rawDataChosen = await fetchClassData(chosenClass);
+                    const rawDataCompeting = await fetchClassData(competingClass);
+
+                    const races = await fetchExtraData("races");
+                    const class1Name = rawDataChosen.name;
+                    const class2Name = rawDataCompeting.name;
+
+                    let raceBonus = [1,1,1,1,1,1,1,1,1]
+
                 let polarAreaData = {
-                    labels: races.data.results.map((race) => race.name),
+                    labels: races.data.results.map((data)=>data.name),
                         datasets: [{
                             label: ` Spell Ratio`,
                             data: [1,1,1,1,1,1,1,1,1],
-                            backgroundColor: ["#AB6DAC",'rgba(171,109,172, 0.6)'],
+                            backgroundColor: 'rgba(171,109,172, 0.6)',
+                            borderColor: "#AB6DAC",
                             borderRadius: 2
                         }]
                 }
@@ -700,7 +707,7 @@ function CompareCon (){
                                 color: 'black',
                                 backdropColor: "#FAF9F6"
                             },
-                            min: -3,
+                            min: 0,
                             max: 3,
                             stepSize: 1,
                           }
@@ -708,7 +715,7 @@ function CompareCon (){
                     plugins: {
                         title: {
                             display: true,
-                            text: `Ratio of Proficiency Choices  `
+                            text: `Races that pair best with ${class1Name} `
                         }
                     },
                     maintainAspectRatio: false,
@@ -716,9 +723,9 @@ function CompareCon (){
                     response : true,
                 };
 
-                setRacePolarData(polarAreaData);
-                setRacePolarOpt(polarAreaOpt)
-                setLoadedPolarArea(true);
+                setSaveRadarData(polarAreaData);
+                setSaveRadarOpt(polarAreaOpt)
+                setLoadedSaveRadar(true);
 
                 } catch (error) {
                     
@@ -736,7 +743,7 @@ function CompareCon (){
             populateSpellPie(class1,class2);
             populateSpellSlotsBarGraph(class1,class2);
             populateProfChoiceDoughnut(class1,class2);
-            populateRacePolar(class1,class2)
+            populateSaveRadar(class1,class2)
 
         },[selectedClass1,selectedClass2,sliderValue]);
 
@@ -781,7 +788,7 @@ function CompareCon (){
                     <Col>
                         <div className="two-chart">
                             
-                            {loadedPolarArea && <PolarArea chartData={racePolarData} chartOpt={racePolarOpt} />}
+                            {loadedSaveRadar && <RadarChart chartData={saveRadarData} chartOpt={saveRadarOpt} />}
                         </div>
                     </Col>
                 </Row>

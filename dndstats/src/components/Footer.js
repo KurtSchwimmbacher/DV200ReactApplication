@@ -8,7 +8,7 @@ function Footer(props){
 
     switch (props.where){
         case("Dash"):
-            footerMargin = "55.5vh";
+            footerMargin = "64.5vh";
         break;
     
         case("Compare"):
