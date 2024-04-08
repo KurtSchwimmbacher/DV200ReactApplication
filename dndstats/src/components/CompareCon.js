@@ -620,7 +620,7 @@ function CompareCon (){
                         labels: ["Profiency Choices","Proficiency Options"],
                         datasets: [{
                             label: `${class1Name} Spell Ratio`,
-                            data: [(rawDataChosen.proficiency_choices[0].desc.split(",").length-1)-rawDataChosen.proficiency_choices[0].choose,rawDataChosen.proficiency_choices[0].choose],
+                            data: [(rawDataChosen.proficiency_choices[0].desc.split(",").length-1),rawDataChosen.proficiency_choices[0].choose],
                             backgroundColor: ["#2A50A1", "#AB6DAC"],
                             borderRadius: 2
                         }]
@@ -631,7 +631,7 @@ function CompareCon (){
                         labels: ["Profiency Choices","Proficiency Options"],
                         datasets: [{
                             label: `${class2Name} Spell Ratio`,
-                            data: [(rawDataCompeting.proficiency_choices[0].desc.split(",").length-1)-rawDataCompeting.proficiency_choices[0].choose,rawDataCompeting.proficiency_choices[0].choose],
+                            data: [(rawDataCompeting.proficiency_choices[0].desc.split(",").length-1),rawDataCompeting.proficiency_choices[0].choose],
                             backgroundColor: ["#2A50A1", "#AB6DAC"],
                             borderRadius: 2
                         }]
