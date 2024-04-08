@@ -12,6 +12,7 @@ import { CategoryScale } from "chart.js/auto";
 
 // import all the chart components
 import Piechart from "./graphs/Piechart";
+import DonutChart from "./graphs/DonutChart";
 import BarGraph from "./graphs/BarGraph";
 import RadarChart from "./graphs/RadarChart";
 
@@ -105,6 +106,11 @@ function CompareCon (){
         const [spellPieData2, setSpellPieData2] = useState(""); 
         const [spellPieOpt2, setSpellPieOpt2] = useState("");
 
+        const [profDonutData1, setProfDonutData1] = useState(""); 
+        const [profDonutOpt1, setProfDonutOpt1] = useState("");
+        const [profDonutData2, setProfDonutData2] = useState(""); 
+        const [profDonutOpt2, setProfDonutOpt2] = useState("");
+
         const [featureBarData, setFeatureBarData] = useState(""); 
         const [featureBarOpt, setFeatureBarOpt] = useState("");
 
@@ -115,6 +121,7 @@ function CompareCon (){
         const [loadedMultiBar, setLoadedMutliBar] = React.useState(false);
         const [loadedSpellPie, setLoadedSpellPie] = React.useState(false);
         const [loadedFeatureBar, setLoadedFeatureBar] = React.useState(false);
+        const [loadedProfDonut, setLoadedProfDonut] = React.useState(false);
         
         // to store the selected classes
         const [selectedClass1, setSelectedClass1] = useState("Select a Class");
@@ -597,6 +604,77 @@ function CompareCon (){
                 }
             }
 
+            const populateProfChoiceDoughnut = async (chosenClass,competingClass) =>{
+                try {
+                    const rawDataChosen= await fetchClassData(chosenClass);
+                    const rawDataCompeting = await fetchClassData(competingClass); 
+
+                    let class1Name = rawDataChosen.name;
+                    let class2Name = rawDataCompeting.name;
+
+                    console.log(rawDataChosen.proficiency_choices[0].desc.split(",").length-1)
+                    console.log(rawDataChosen.proficiency_choices[0].choose)
+                    
+                    // Chart.js data
+                    const profDonutData = {
+                        labels: ["Profiency Choices","Proficiency Options"],
+                        datasets: [{
+                            label: `${class1Name} Spell Ratio`,
+                            data: [(rawDataChosen.proficiency_choices[0].desc.split(",").length-1)-rawDataChosen.proficiency_choices[0].choose,rawDataChosen.proficiency_choices[0].choose],
+                            backgroundColor: ["#2A50A1", "#AB6DAC"],
+                            borderRadius: 2
+                        }]
+                    };
+
+                // Chart.js data
+                    const profDonutData2 = {
+                        labels: ["Profiency Choices","Proficiency Options"],
+                        datasets: [{
+                            label: `${class2Name} Spell Ratio`,
+                            data: [(rawDataCompeting.proficiency_choices[0].desc.split(",").length-1)-rawDataCompeting.proficiency_choices[0].choose,rawDataCompeting.proficiency_choices[0].choose],
+                            backgroundColor: ["#2A50A1", "#AB6DAC"],
+                            borderRadius: 2
+                        }]
+                    };
+
+                    // Chart.js options
+                    const profDonutOptions = {
+                        plugins: {
+                            title: {
+                                display: true,
+                                text: `Ratio of Proficiency Choices ${class1Name} `
+                            }
+                        },
+                        maintainAspectRatio: false,
+                        aspectRatio: 3,
+                        response : true,
+                    };
+                // Chart.js options
+                const profDonutOptions2 = {
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `Ratio of Proficiency Choices ${class2Name} `
+                        }
+                    },
+                    maintainAspectRatio: false,
+                    aspectRatio: 3,
+                    response : true,
+                };
+
+
+
+                setProfDonutData1(profDonutData);
+                setProfDonutData2(profDonutData2);
+                setProfDonutOpt1(profDonutOptions);
+                setProfDonutOpt2(profDonutOptions2);
+                setLoadedProfDonut(true);
+
+                } catch (error) {
+                    
+                }
+            }
+
             const class1 = selectedClass1.toLowerCase();
             const class2 = selectedClass2.toLowerCase();
 
@@ -607,6 +685,7 @@ function CompareCon (){
             populateMulticlassGraph(class1, class2);
             populateSpellPie(class1,class2);
             populateSpellSlotsBarGraph(class1,class2);
+            populateProfChoiceDoughnut(class1,class2);
 
         },[selectedClass1,selectedClass2,sliderValue]);
 
@@ -694,7 +773,13 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="two-chart">
-                            <p>Pie Chart for rests</p>
+                            
+                            <div className="pie-col-comp">
+                            {loadedProfDonut && <DonutChart chartData={profDonutData1} chartOpt={profDonutOpt1} />}
+                            </div>
+                            <div className="pie-col-comp">
+                            {loadedProfDonut && <DonutChart chartData={profDonutData2} chartOpt={profDonutOpt2} />}
+                            </div>
                         </div>
                     </Col>
                 </Row>
