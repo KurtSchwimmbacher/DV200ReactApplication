@@ -66,8 +66,6 @@ function BentoGrid() {
   const [barGraphOpt, setBarGraphOpt] = useState("");
   const [spellPieObj, setSpellPieObj] = useState("");
   const [spellPieOpt, setSpellPieOpt] = useState("");
-  const [spellPieObj2, setSpellPieObj2] = useState("");
-  const [spellPieOpt2, setSpellPieOpt2] = useState("");
   const[loadedbar, setLoadedBar] = useState(false);
   const[loadedSpellPie, setLoadedSpellPie] = useState(false);
     
@@ -152,21 +150,10 @@ function BentoGrid() {
     const fetchDataAndMapSpellPie = async () => {
       try {
         let spellList = (await fetchClassSpelllist("sorcerer",1)).data.results;
-        let spellList2 = (await fetchClassSpelllist("cleric", 1)).data.results;
         
         const spellSchoolName = ["Abjuration", "Conjuration", "Divination", "Enchantment", "Evocation", "Illusion", "Necromancy", "Transmutation"];
 
         const spellSchoolData = [
-            {school : "abjuration",count : 0},
-            {school : "conjuration",count : 0},
-            {school : "divination",count : 0},
-            {school : "enchantment",count : 0},
-            {school : "evocation",count : 0},
-            {school : "illusion",count : 0},
-            {school : "necromancy",count : 0},
-            {school : "transmutation",count : 0},
-        ];
-        const spellSchoolData2 = [
             {school : "abjuration",count : 0},
             {school : "conjuration",count : 0},
             {school : "divination",count : 0},
@@ -185,13 +172,6 @@ function BentoGrid() {
                 }                        
             })
         })
-        spellSchoolData2.forEach(school =>{
-            spellList2.forEach(spell=>{
-                if(school.school === spell.school.toLowerCase()){
-                    school.count ++;
-                }                        
-            })
-        })
         
 
          // Chart.js data
@@ -201,17 +181,6 @@ function BentoGrid() {
                 label: `Sorcerer Spell Ratio`,
                 data: spellSchoolData.map(school => school.count),
                 backgroundColor: ["#2A50A1", "#AB6DAC", "#507F62", "#51A1C5", "#8ED8B7", "#C899F4", "#F0F097", "#91A1B2"],
-                borderRadius: 2
-            }]
-        };
-
-         // Chart.js data
-         const spellPieChartData2 = {
-            labels: spellSchoolName,
-            datasets: [{
-                label: `Cleric Spell Ratio`,
-                data: spellSchoolData2.map(school => school.count),
-                backgroundColor:["#2A50A1", "#AB6DAC", "#507F62", "#51A1C5", "#8ED8B7", "#C899F4", "#F0F097", "#91A1B2"],
                 borderRadius: 2
             }]
         };
@@ -228,25 +197,11 @@ function BentoGrid() {
             aspectRatio: 3,
             response : true,
         };
-        // Chart.js options
-        const spellPieChartOptions2 = {
-            plugins: {
-                title: {
-                    display: true,
-                    text: `Spell Schools for Cleric level 1`
-                }
-            },
-            maintainAspectRatio: false,
-            aspectRatio: 3,
-            response : true,
-        };
 
 
 
         setSpellPieObj(spellPieChartData);
         setSpellPieOpt(spellPieChartOptions);
-        setSpellPieObj2(spellPieChartData2);
-        setSpellPieOpt2(spellPieChartOptions2);
         setLoadedSpellPie(true);
     } catch (error) {
 
@@ -299,9 +254,6 @@ function BentoGrid() {
         <div className="pie-col">
           {loadedSpellPie && <Piechart chartData={spellPieObj} chartOpt={spellPieOpt} />}
         </div>
-        <div className="pie-col">
-          {loadedSpellPie && <Piechart chartData={spellPieObj2} chartOpt={spellPieOpt2} />}
-        </div>
       </div>
       <div className="grid5 grid-con">
        <p>add stat radar graph</p>
@@ -309,10 +261,8 @@ function BentoGrid() {
       <div className="grid6 grid-con">
         <Carousel content= "Classes1" />
       </div>
+
       <div className="grid7 grid-con">
-        <Carousel content= "BG3"/>
-      </div>
-      <div className="grid8 grid-con">
         <Carousel content= "Classes2" />
       </div>
     </div>

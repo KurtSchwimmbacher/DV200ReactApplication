@@ -53,8 +53,10 @@ body{
 
 .car-title{
   font-family: titleFont;
-  font-size: 37px;
+  font-size: 60px;
   letter-spacing: 3px;
+  -webkit-text-stroke-width: 2px;
+  -webkit-text-stroke-color: #383937;
 }
 
 .car-capt{

@@ -36,7 +36,7 @@ function CarouselBento(props) {
                 title: "Bard",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:2,
@@ -44,7 +44,7 @@ function CarouselBento(props) {
                 title: "Barbarian",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:3,
@@ -52,7 +52,7 @@ function CarouselBento(props) {
                 title: "Cleric",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:4,
@@ -60,7 +60,7 @@ function CarouselBento(props) {
                 title: "Druid",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:5,
@@ -68,7 +68,7 @@ function CarouselBento(props) {
                 title: "Fighter",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:6,
@@ -76,7 +76,7 @@ function CarouselBento(props) {
                 title: "Monk",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             }
         ]
             
@@ -146,7 +146,7 @@ function CarouselBento(props) {
                 title: "Paladin",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:2,
@@ -154,7 +154,7 @@ function CarouselBento(props) {
                 title: "Ranger",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:3,
@@ -162,7 +162,7 @@ function CarouselBento(props) {
                 title: "Rogue",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:4,
@@ -170,7 +170,7 @@ function CarouselBento(props) {
                 title: "Sorcerer",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:5,
@@ -178,7 +178,7 @@ function CarouselBento(props) {
                 title: "Warlock",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             },
             {
                 id:6,
@@ -186,7 +186,7 @@ function CarouselBento(props) {
                 title: "Wizard",
                 desc: "",
                 imgHeight: 300,
-                color: "#383937"
+                color: "#faf9f6"
             }
         ]
 
@@ -205,15 +205,15 @@ function CarouselBento(props) {
 
     {infoObj.map(item => (
         <Carousel.Item key={item.id}>
+             <Carousel.Caption >
+            <h3 className='car-title' style={{color: item.color}}>{item.title}</h3>
+        </Carousel.Caption>
         <img
             className="d-block carousel-img" style={{height:item.imgHeight}}
             src={item.image}
             alt={item.title}
         />
-        <Carousel.Caption >
-            <h3 className='car-title' style={{color: item.color}}>{item.title}</h3>
-            {/* <p className='car-capt' style={{color: item.color}}>{item.desc}</p> */}
-        </Carousel.Caption>
+       
         </Carousel.Item>
      ))}
 
