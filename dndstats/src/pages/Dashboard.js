@@ -37,13 +37,13 @@ function Dashboard(){
                     and spells! 
                 </p>
                 <p className="dashboard-subtitle">
-                    Some exampls of the graphs we create using the ChartJS library are shown on our dashboard below!
+                    We did research on what resources we could use to construct this project, and ultimately we made use of Two API's for data, as well as a supplementary data file made by us made from data compiled from the website DndBeyond.
                 </p>
                 
                 <Container fluid="md" className="header-con">
                     <Row>
                         <Col><HeaderBtn where="Compare" /></Col>
-                        <Col><HeaderBtn where="BG3" /></Col>
+                        <Col><HeaderBtn where="Classes" /></Col>
                         <Col><HeaderBtn where = "ViewTimeline" /></Col>                   
                     </Row>
 

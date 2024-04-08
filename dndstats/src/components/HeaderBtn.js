@@ -12,15 +12,15 @@ function HeaderBtn(props){
     switch (props.where){
         case("Compare"):
             titleText = "Compare Classes";
-            descText = "Select Two Classes and compare their stats!";
+            descText = "Select two classes and compare their stats!";
             btnColour = "#51A1C5";
             destination = "/compare";
         
         break;
     
-        case("BG3"):
-            titleText = "Toggle Baldur's Gate 3 Content";
-            descText = "Alter to view the stats of Baldur's Gate Characters!";
+        case("Classes"):
+            titleText = "View Classes";
+            descText = "View the twelve class options you can view the stats of!";
             btnColour = "#AB6DAC";
 
         break;
