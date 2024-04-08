@@ -26,6 +26,7 @@ function Footer(props){
     return(
         <footer  style={{marginTop: footerMargin}}>
             <h1>Adventurer's Almanac</h1>
+            <p>Made using D&D 5e SRD API</p>
         </footer>
     );
 }
