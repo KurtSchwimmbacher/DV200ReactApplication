@@ -238,6 +238,92 @@ function Timeline(){
                         };
                     
                         break;
+                    case 'Class Specific Features':
+
+                        let keyWord = " ";
+                        let data = " ";
+                        switch (chosenClass) {
+                            case "barbarian":
+                                keyWord = "Rage Count"
+                                data = classData.map((data)=>data.class_specific.rage_count)
+                                data[19] = 20;
+                                break;
+                            case "bard":
+                                keyWord = "Bardic Inspiration Dice"
+                                data = classData.map((data)=>data.class_specific.bardic_inspiration_die)
+                                break;
+                            case "cleric":
+                                keyWord = "Channel Divinity Charges"
+                                data = classData.map((data)=>data.class_specific.channel_divinity_charges)
+                                break;
+                            case "druid":
+                                keyWord = "Wildshape Max CR"
+                                data = classData.map((data)=>data.class_specific.wild_shape_max_cr)
+                                break;
+                            case "fighter":
+                                keyWord = "Action Surges"
+                                data = classData.map((data)=>data.class_specific.action_surges)
+                                break;
+                            case "monk":
+                                keyWord = "Ki Points"
+                                data = classData.map((data)=>data.class_specific.ki_points)
+                                break;
+                            case "paladin":
+                                    keyWord = "Aura Range"
+                                    data = classData.map((data)=>data.class_specific.aura_range)
+                                    break;
+                            case "ranger":
+                                    keyWord = "Favoured Enemies"
+                                    data = classData.map((data)=>data.class_specific.favored_enemies)
+                                    break;
+                            case "rogue":
+                                    keyWord = "Sneak Attack Dice Count"
+                                    data = classData.map((data)=>data.class_specific.sneak_attack.dice_count)
+                                    break;
+                            case "sorcerer":
+                                    keyWord = "Sorcery Points"
+                                    data = classData.map((data)=>data.class_specific.sorcery_points)
+                                    break;
+                            case "warlock":
+                                    keyWord = "Invocations Known"
+                                    data = classData.map((data)=>data.class_specific.invocations_known)
+                                    break;
+                            case "wizard":
+                                    keyWord = "Arcane Recovery Levels"
+                                    data = classData.map((data)=>data.class_specific.arcane_recovery_levels)
+                                    break;
+                            default:
+                                break;
+                        }
+                        
+                        console.log(data)
+
+                        linegraphData = {
+                            labels: classData.map((data)=>data.level),
+                            datasets:[{
+                                label: "Data Over Levels",
+                                data: data,
+                                backgroundColor: "#51A1C5",
+                                borderRadius:2
+                            }]
+                        };
+                        lineChartOpt = {
+                            scales:{
+                                y: {
+                                    min: 0
+                                  }
+                            },
+                            plugins:{
+                                title: {
+                                    display: true,
+                                    text: `${keyWord} Over levels for ${chosenClass}`
+                                }
+                            },
+                            responsive : true,
+                            maintainAspectRatio : false,
+                            aspectRatio : 0.2,tension: 0.1
+                        };
+                        break;
                     default:
                         // Handle default case
                         break;
@@ -305,8 +391,8 @@ function Timeline(){
                 <option>Proficiency Bonus</option>
                 <option>Health Over Levels</option>
                 <option>Spell Slots/Known Spells</option>
-                <option>Required XP</option>
                 <option>Features per Level</option>
+                <option>Class Specific Features</option>
             </select>
             {loaded && <TimelineCon lineGraphData={data} lineGraphOpt={options} />}
             <Footer where={"Timeline"} />
