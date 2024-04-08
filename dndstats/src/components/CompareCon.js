@@ -684,10 +684,10 @@ function CompareCon (){
                 <Row>
                     <Col>
                         <div className="two-chart">
-                            <div className="pie-col">
+                            <div className="pie-col-comp">
                                 {loadedSpellPie && <Piechart chartData={spellPieData1} chartOpt={spellPieOpt1} />}
                             </div>
-                            <div className="pie-col">
+                            <div className="pie-col-comp">
                                 {loadedSpellPie && <Piechart chartData={spellPieData2} chartOpt={spellPieOpt2} />}
                             </div>
                         </div>

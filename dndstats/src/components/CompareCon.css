@@ -78,7 +78,8 @@
     color: #383937 !important;
 }
 
-.pie-col{
+.pie-col-comp{
     width: 50%;
+    display: inline-block;
     height: 100%;
 }
