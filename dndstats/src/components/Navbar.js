@@ -11,7 +11,7 @@ function Navbar(props){
 
     switch (props.where){
         case("Dash"):
-            navHeight = "210vh"
+            navHeight = "130vh"
         break;
     
         case("Compare"):
@@ -56,10 +56,6 @@ function Navbar(props){
                     </Link>
                 </li>
             </ul>
-            <div className="bg3-mode">
-                <div className="line-brder"></div>
-                Toggle Baldurs Gate Mode
-            </div>
         </nav>
     );
 }

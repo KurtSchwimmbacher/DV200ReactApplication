@@ -38,6 +38,7 @@ function Dashboard(){
                 </p>
                 <p className="dashboard-subtitle">
                     We did research on what resources we could use to construct this project, and ultimately we made use of Two API's for data, as well as a supplementary data file made by us made from data compiled from the website DndBeyond.
+                    Understanding the data shown on this website does require some familiarity with the game Dungeons and Dragons.
                 </p>
                 
                 <Container fluid="md" className="header-con">

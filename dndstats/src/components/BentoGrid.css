@@ -55,20 +55,21 @@
     height: fit-content;
 }
 
-
-.chart-title{
-    text-align: center;
-    font-family: titleFont;
-}
-.graph-con{
+.bento-title{
     width: 100%;
-    height: 100%;
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-top: 5px;
+    text-align: center;
+    font-family: "bookmania", serif;
+    font-size: 14px;
 }
 
-.chart-container{
-    height: 100%;
-}
+.doughnut-img{
+    width: 100%;
 
-.pie-col{
-    display: contents;
+}
+.spellbook-img{
+    width: 70%;
+    height: 60%;
 }
