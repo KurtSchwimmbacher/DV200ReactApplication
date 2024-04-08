@@ -55,6 +55,24 @@
     height: fit-content;
 }
 
+
+.chart-title{
+    text-align: center;
+    font-family: titleFont;
+}
+.graph-con{
+    width: 100%;
+    height: 100%;
+}
+
+.chart-container{
+    height: 100%;
+}
+
+.pie-col{
+    display: contents;
+}
+
 .bento-title{
     width: 100%;
     padding-left: 5%;
