@@ -394,8 +394,8 @@ function CompareCon (){
                     
                     let class1HPMax = (rawDataChosen.hit_die+5+1)*sliderValue;
                     let class2HPMax = (rawDataCompeting.hit_die+5+1)*sliderValue;
-                    let class1HPAvg = ((rawDataChosen.hit_die)+1+1)*sliderValue;
-                    let class2HPAvg = ((rawDataCompeting.hit_die)+1+1)*sliderValue;
+                    let class1HPAvg = ((rawDataChosen.hit_die/2)+1+1)*sliderValue;
+                    let class2HPAvg = ((rawDataCompeting.hit_die/2)+1+1)*sliderValue;
 
                     // map data
                     let healthBarGraphData = {

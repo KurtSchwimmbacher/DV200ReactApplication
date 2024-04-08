@@ -67,7 +67,7 @@ function Timeline(){
                             aspectRatio : 0.2,
                         };
                         break;
-                    case 'Maximum Possible Health':
+                    case 'Health Over Levels':
 
 
                     const healthArr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]; // Initialize array with base health
@@ -76,12 +76,26 @@ function Timeline(){
                         healthArr[i] = (classGeneralData.hit_die + 5 + 1) * i + healthArr[i - 1]; // Calculate health gained at current level and add to previous total
                         console.log(healthArr[i]); // Logging for debugging purposes
                     }
+
+                    const avHealthArr = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1]; // Initialize array with base health
+
+                    for (let i = 1; i < avHealthArr.length; i++) {
+                        avHealthArr[i] = ((classGeneralData.hit_die/2) + 1 + 1) * i + avHealthArr[i - 1]; // Calculate health gained at current level and add to previous total
+                        console.log(avHealthArr[i]); // Logging for debugging purposes
+                    }
+
                         linegraphData = {
                             labels: classData.map((data)=>data.level),
                             datasets:[{
-                                label: "Data Over Levels",
+                                label: "Maximum Health Over Levels",
                                 data: healthArr,
                                 backgroundColor: "#51A1C5",
+                                borderRadius:2
+                            },
+                            {
+                                label: "Average Health Over Levels",
+                                data: avHealthArr,
+                                backgroundColor: "#AB6DAC",
                                 borderRadius:2
                             }]
                         };
@@ -102,6 +116,93 @@ function Timeline(){
                             aspectRatio : 0.2,
                         };
                         break;
+                    case 'Spell Slots':
+                        if(chosenClass === "bard" || chosenClass === "ranger" || chosenClass === "sorcerer" || chosenClass === "warlock"){
+                            linegraphData = {
+                                labels: classData.map((data)=>data.level),
+                                datasets:[{
+                                    label: "Data Over Levels",
+                                    data: classData.map((data)=>data.spellcasting.spells_known),
+                                    backgroundColor: "#51A1C5",
+                                    borderRadius:2
+                                }]
+                            };
+                            lineChartOpt = {
+                                scales:{
+                                    y: {
+                                        min: 0
+                                      }
+                                },
+                                plugins:{
+                                    title: {
+                                        display: true,
+                                        text: `Known Spells Over levels for ${chosenClass}`
+                                    }
+                                },
+                                responsive : true,
+                                maintainAspectRatio : false,
+                                aspectRatio : 0.2,
+                            };
+                        }
+                        else if(chosenClass === "barbarian" || chosenClass === "fighter" || chosenClass === "rogue" || chosenClass === "monk"){
+                            lineChartOpt = {
+                                scales:{
+                                    y: {
+                                        min: 0
+                                      }
+                                },
+                                plugins:{
+                                    title: {
+                                        display: true,
+                                        text: `This Class cannot learn spells`
+                                    }
+                                },
+                                responsive : true,
+                                maintainAspectRatio : false,
+                                aspectRatio : 0.2,
+                            };
+                        }
+                        else if(chosenClass === "wizard" || chosenClass === "cleric" || chosenClass === "druid" || chosenClass === "paladin"){
+                            const spellSlotsOverLevel = [1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1];
+                            
+                            classData.map((data)=>{
+                                console.log(data.spellcasting)
+                                spellSlotsOverLevel[data.level-1] = data.spellcasting.cantrips_known + data.spellcasting.spell_slots_level_1 + data.spellcasting.spell_slots_level_2 +data.spellcasting.spell_slots_level_3 +data.spellcasting.spell_slots_level_4+data.spellcasting.spell_slots_level_5 + data.spellcasting.spell_slots_level_6 +data.spellcasting.spell_slots_level_7 +data.spellcasting.spell_slots_level_8 + data.spellcasting.spell_slots_level_9;
+                                
+                            })
+
+
+                            linegraphData = {
+                                labels: classData.map((data)=>data.level),
+                                datasets:[{
+                                    label: "Data Over Levels",
+                                    data: spellSlotsOverLevel,
+                                    backgroundColor: "#51A1C5",
+                                    borderRadius:2
+                                }]
+                            };
+                            lineChartOpt = {
+                                scales:{
+                                    y: {
+                                        min: 0
+                                      }
+                                },
+                                plugins:{
+                                    title: {
+                                        display: true,
+                                        text: `Spell Slots Over levels for ${chosenClass}`
+                                    }
+                                },
+                                responsive : true,
+                                maintainAspectRatio : false,
+                                aspectRatio : 0.2,
+                            };
+                        }
+
+                       
+
+                        break;
+                       
                     default:
                         // Handle default case
                         break;
@@ -167,8 +268,10 @@ function Timeline(){
             </select>
             <select className="graph-parameter-input" onChange={(event) => setGraphParameter(event.target.value)} >
                 <option>Proficiency Bonus</option>
-                <option>Maximum Possible Health</option>
-                <option>Average Health</option>
+                <option>Health Over Levels</option>
+                <option>Spell Slots</option>
+                <option>Required XP</option>
+                <option>Features per Level</option>
             </select>
             {loaded && <TimelineCon lineGraphData={data} lineGraphOpt={options} />}
             <Footer where={"Timeline"} />
