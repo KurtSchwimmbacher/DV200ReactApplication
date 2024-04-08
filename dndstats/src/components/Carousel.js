@@ -4,18 +4,18 @@ import "../App.css"
 
 
 // import dnd images
-import Bard from "../assets/images/Bard.png";
-import Cleric from "../assets/images/Cleric.png";
-import Druid from "../assets/images/Druid.png";
-import Fighter from "../assets/images/Fighter.png";
-import Monk from "../assets/images/Monk.png";
-import Paladin from "../assets/images/Paladin.png";
-import Ranger from "../assets/images/Ranger.png";
-import Rogue from "../assets/images/Rogue.png";
+import Bard from "../assets/Carousel-Images/Bard.jpg";
+import Cleric from "../assets/Carousel-Images/Cleric.jpg";
+import Druid from "../assets/Carousel-Images/Druid.jpg";
+import Fighter from "../assets/Carousel-Images/Fighter.jpg";
+import Monk from "../assets/Carousel-Images/Monk.jpg";
+import Paladin from "../assets/Carousel-Images/Paladin.jpg";
+import Ranger from "../assets/Carousel-Images/Ranger.jpg";
+import Rogue from "../assets/Carousel-Images/Rogue.jpg";
 import Sorcerer from "../assets/Carousel-Images/Sorcerer.jpg";
-import Warlock from "../assets/images/Warlock.png";
-import Wizard from "../assets/images/Wizard.png";
-import Barbarian from "../assets/images/Barbarian.png";
+import Warlock from "../assets/Carousel-Images/Warlock.jpg";
+import Wizard from "../assets/Carousel-Images/Wizard.jpg";
+import Barbarian from "../assets/Carousel-Images/Barbarian.jpg";
 
 function CarouselBento() {
     let infoObj = [];

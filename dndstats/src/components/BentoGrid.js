@@ -29,7 +29,7 @@ function BentoGrid() {
         <img src={doughnutImg} className="doughnut-img"></img>
       </div>
       <div className="grid4 grid-con">
-        
+        <p className="bento-title">We created data files where we had to using information from DndBeyond.</p>
       </div>
       <div className="grid5 grid-con">
         <p className="bento-title">We supplemented this data set with a spell list from a second API</p>
