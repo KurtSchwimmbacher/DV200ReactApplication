@@ -64,7 +64,7 @@ function Timeline(){
                             },
                             responsive : true,
                             maintainAspectRatio : false,
-                            aspectRatio : 0.2,
+                            aspectRatio : 0.2,tension: 0.1
                         };
                         break;
                     case 'Health Over Levels':
@@ -114,9 +114,10 @@ function Timeline(){
                             responsive : true,
                             maintainAspectRatio : false,
                             aspectRatio : 0.2,
+                            tension: 0.1
                         };
                         break;
-                    case 'Spell Slots':
+                    case 'Spell Slots/Known Spells':
                         if(chosenClass === "bard" || chosenClass === "ranger" || chosenClass === "sorcerer" || chosenClass === "warlock"){
                             linegraphData = {
                                 labels: classData.map((data)=>data.level),
@@ -142,6 +143,7 @@ function Timeline(){
                                 responsive : true,
                                 maintainAspectRatio : false,
                                 aspectRatio : 0.2,
+                                tension: 0.1
                             };
                         }
                         else if(chosenClass === "barbarian" || chosenClass === "fighter" || chosenClass === "rogue" || chosenClass === "monk"){
@@ -160,6 +162,7 @@ function Timeline(){
                                 responsive : true,
                                 maintainAspectRatio : false,
                                 aspectRatio : 0.2,
+                                tension: 0.1
                             };
                         }
                         else if(chosenClass === "wizard" || chosenClass === "cleric" || chosenClass === "druid" || chosenClass === "paladin"){
@@ -196,13 +199,45 @@ function Timeline(){
                                 responsive : true,
                                 maintainAspectRatio : false,
                                 aspectRatio : 0.2,
+                                tension: 0.1
                             };
                         }
 
                        
 
                         break;
-                       
+                    case 'Features per Level':
+
+
+
+                        linegraphData = {
+                            labels: classData.map((data)=>data.level),
+                            datasets:[{
+                                label: "Data Over Levels",
+                                data: classData.map((data)=>data.features.length),
+                                backgroundColor: "#51A1C5",
+                                borderRadius:2
+                            }]
+                        };
+                        lineChartOpt = {
+                            scales:{
+                                y: {
+                                    min: 0
+                                  }
+                            },
+                            plugins:{
+                                title: {
+                                    display: true,
+                                    text: `${graphParameter} Over levels for ${chosenClass}`
+                                }
+                            },
+                            responsive : true,
+                            maintainAspectRatio : false,
+                            aspectRatio : 0.2,
+                            tension: 0.1
+                        };
+                    
+                        break;
                     default:
                         // Handle default case
                         break;
@@ -269,7 +304,7 @@ function Timeline(){
             <select className="graph-parameter-input" onChange={(event) => setGraphParameter(event.target.value)} >
                 <option>Proficiency Bonus</option>
                 <option>Health Over Levels</option>
-                <option>Spell Slots</option>
+                <option>Spell Slots/Known Spells</option>
                 <option>Required XP</option>
                 <option>Features per Level</option>
             </select>
