@@ -64,7 +64,8 @@ function Timeline(){
                             },
                             responsive : true,
                             maintainAspectRatio : false,
-                            aspectRatio : 0.2,tension: 0.1
+                            aspectRatio : 0.2,
+                            tension: 0.2
                         };
                         break;
                     case 'Health Over Levels':
@@ -114,7 +115,7 @@ function Timeline(){
                             responsive : true,
                             maintainAspectRatio : false,
                             aspectRatio : 0.2,
-                            tension: 0.1
+                            tension: 0.2
                         };
                         break;
                     case 'Spell Slots/Known Spells':
@@ -143,7 +144,7 @@ function Timeline(){
                                 responsive : true,
                                 maintainAspectRatio : false,
                                 aspectRatio : 0.2,
-                                tension: 0.1
+                                tension: 0.2
                             };
                         }
                         else if(chosenClass === "barbarian" || chosenClass === "fighter" || chosenClass === "rogue" || chosenClass === "monk"){
@@ -162,7 +163,7 @@ function Timeline(){
                                 responsive : true,
                                 maintainAspectRatio : false,
                                 aspectRatio : 0.2,
-                                tension: 0.1
+                                tension: 0.2
                             };
                         }
                         else if(chosenClass === "wizard" || chosenClass === "cleric" || chosenClass === "druid" || chosenClass === "paladin"){
@@ -199,7 +200,7 @@ function Timeline(){
                                 responsive : true,
                                 maintainAspectRatio : false,
                                 aspectRatio : 0.2,
-                                tension: 0.1
+                                tension: 0.2
                             };
                         }
 
@@ -234,7 +235,7 @@ function Timeline(){
                             responsive : true,
                             maintainAspectRatio : false,
                             aspectRatio : 0.2,
-                            tension: 0.1
+                            tension: 0.2
                         };
                     
                         break;
@@ -295,8 +296,6 @@ function Timeline(){
                             default:
                                 break;
                         }
-                        
-                        console.log(data)
 
                         linegraphData = {
                             labels: classData.map((data)=>data.level),
@@ -321,9 +320,42 @@ function Timeline(){
                             },
                             responsive : true,
                             maintainAspectRatio : false,
-                            aspectRatio : 0.2,tension: 0.1
+                            aspectRatio : 0.2,
+                            tension: 0.2
                         };
                         break;
+                    case 'XP Required To Reach Level':
+
+                        const xpNeeded = [0,300,900,2700,6500,14000,23000,34000,48000,64000,85000,100000,120000,140000,165000,195000,225000,265000,305000,355000]
+
+                        linegraphData = {
+                            labels: classData.map((data)=>data.level),
+                            datasets:[{
+                                label: "Data Over Levels",
+                                data: xpNeeded,
+                                backgroundColor: "#51A1C5",
+                                borderRadius:2
+                            }]
+                        };
+                        lineChartOpt = {
+                            scales:{
+                                y: {
+                                    min: 0
+                                  }
+                            },
+                            plugins:{
+                                title: {
+                                    display: true,
+                                    text: `XP Points needed to Reach Level for ${chosenClass}`
+                                }
+                            },
+                            responsive : true,
+                            maintainAspectRatio : false,
+                            aspectRatio : 0.2,
+                            tension: 0.2
+                        };
+                        break;
+
                     default:
                         // Handle default case
                         break;
@@ -393,6 +425,7 @@ function Timeline(){
                 <option>Spell Slots/Known Spells</option>
                 <option>Features per Level</option>
                 <option>Class Specific Features</option>
+                <option>XP Required To Reach Level</option>
             </select>
             {loaded && <TimelineCon lineGraphData={data} lineGraphOpt={options} />}
             <Footer where={"Timeline"} />
