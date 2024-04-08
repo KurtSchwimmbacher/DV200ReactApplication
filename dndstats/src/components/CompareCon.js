@@ -25,6 +25,7 @@ import Modal from "./Modal";
 
 import recommendedStatsData from '../data/RadarData.json';
 import RangeSlider from "./RangeSlider";
+import PolarArea from "./graphs/PolarArea";
 
 ChartJS.register(CategoryScale);
 // global chart settings, they fit in the containers better with these defaults set this way.
@@ -114,6 +115,9 @@ function CompareCon (){
         const [featureBarData, setFeatureBarData] = useState(""); 
         const [featureBarOpt, setFeatureBarOpt] = useState("");
 
+        const [racePolarData,setRacePolarData] = useState("");
+        const [racePolarOpt, setRacePolarOpt] = useState("");
+
         // use state to control data loading and errors
         const [loaded, setLoaded] = React.useState(false);
         const [loadedProfBar, setLoadedProfBar] = React.useState(false);
@@ -122,6 +126,7 @@ function CompareCon (){
         const [loadedSpellPie, setLoadedSpellPie] = React.useState(false);
         const [loadedFeatureBar, setLoadedFeatureBar] = React.useState(false);
         const [loadedProfDonut, setLoadedProfDonut] = React.useState(false);
+        const [loadedPolarArea, setLoadedPolarArea] = React.useState(false);
         
         // to store the selected classes
         const [selectedClass1, setSelectedClass1] = useState("Select a Class");
@@ -560,7 +565,6 @@ function CompareCon (){
                     let class1Name = rawDataChosen.class.name;
                     let class2Name = rawDataCompeting.class.name;
                     
-                    console.log(rawDataChosen.features.length)
 
                     // map data
                     let featureBarGraphData = {
@@ -611,9 +615,6 @@ function CompareCon (){
 
                     let class1Name = rawDataChosen.name;
                     let class2Name = rawDataCompeting.name;
-
-                    console.log(rawDataChosen.proficiency_choices[0].desc.split(",").length-1)
-                    console.log(rawDataChosen.proficiency_choices[0].choose)
                     
                     // Chart.js data
                     const profDonutData = {
@@ -621,7 +622,7 @@ function CompareCon (){
                         datasets: [{
                             label: `${class1Name} Spell Ratio`,
                             data: [(rawDataChosen.proficiency_choices[0].desc.split(",").length-1),rawDataChosen.proficiency_choices[0].choose],
-                            backgroundColor: ["#2A50A1", "#AB6DAC"],
+                            backgroundColor: ["#2A50A1", 'rgba(42, 80, 161, 0.6)'],
                             borderRadius: 2
                         }]
                     };
@@ -632,7 +633,7 @@ function CompareCon (){
                         datasets: [{
                             label: `${class2Name} Spell Ratio`,
                             data: [(rawDataCompeting.proficiency_choices[0].desc.split(",").length-1),rawDataCompeting.proficiency_choices[0].choose],
-                            backgroundColor: ["#2A50A1", "#AB6DAC"],
+                            backgroundColor: ["#AB6DAC",'rgba(171,109,172, 0.6)'],
                             borderRadius: 2
                         }]
                     };
@@ -675,6 +676,55 @@ function CompareCon (){
                 }
             }
 
+
+            const populateRacePolar = async (chosenClass,competingClass) =>{
+                try {
+                    let races = await fetchExtraData("races")
+                
+                    console.log(races.data)
+                
+                let polarAreaData = {
+                    labels: races.data.results.map((race) => race.name),
+                        datasets: [{
+                            label: ` Spell Ratio`,
+                            data: [1,1,1,1,1,1,1,1,1],
+                            backgroundColor: ["#AB6DAC",'rgba(171,109,172, 0.6)'],
+                            borderRadius: 2
+                        }]
+                }
+
+                let polarAreaOpt = {
+                    scales:{
+                        r: {
+                            ticks: {
+                                color: 'black',
+                                backdropColor: "#FAF9F6"
+                            },
+                            min: -3,
+                            max: 3,
+                            stepSize: 1,
+                          }
+                    },
+                    plugins: {
+                        title: {
+                            display: true,
+                            text: `Ratio of Proficiency Choices  `
+                        }
+                    },
+                    maintainAspectRatio: false,
+                    aspectRatio: 3,
+                    response : true,
+                };
+
+                setRacePolarData(polarAreaData);
+                setRacePolarOpt(polarAreaOpt)
+                setLoadedPolarArea(true);
+
+                } catch (error) {
+                    
+                }
+            }
+
             const class1 = selectedClass1.toLowerCase();
             const class2 = selectedClass2.toLowerCase();
 
@@ -686,6 +736,7 @@ function CompareCon (){
             populateSpellPie(class1,class2);
             populateSpellSlotsBarGraph(class1,class2);
             populateProfChoiceDoughnut(class1,class2);
+            populateRacePolar(class1,class2)
 
         },[selectedClass1,selectedClass2,sliderValue]);
 
@@ -729,7 +780,8 @@ function CompareCon (){
                     </Col>
                     <Col>
                         <div className="two-chart">
-                            <p>RadarChart for builds</p>
+                            
+                            {loadedPolarArea && <PolarArea chartData={racePolarData} chartOpt={racePolarOpt} />}
                         </div>
                     </Col>
                 </Row>
@@ -764,10 +816,10 @@ function CompareCon (){
                     <Col>
                         <div className="two-chart">
                             <div className="pie-col-comp">
-                                {loadedSpellPie && <Piechart chartData={spellPieData1} chartOpt={spellPieOpt1} />}
+                                {loadedSpellPie && <DonutChart chartData={spellPieData1} chartOpt={spellPieOpt1} />}
                             </div>
                             <div className="pie-col-comp">
-                                {loadedSpellPie && <Piechart chartData={spellPieData2} chartOpt={spellPieOpt2} />}
+                                {loadedSpellPie && <DonutChart chartData={spellPieData2} chartOpt={spellPieOpt2} />}
                             </div>
                         </div>
                     </Col>
