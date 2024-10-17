@@ -1,4 +1,4 @@
-runtime: nodejs20 # or the latest version you want to use
+runtime: nodejs20  # or the latest version you want to use
 handlers:
   - url: /.*
     static_files: build/index.html
