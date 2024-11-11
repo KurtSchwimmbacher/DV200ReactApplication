@@ -1,76 +1,117 @@
-# Adventurer's Almanac - a Dungeons and Dragons themed React App
+![ClearView Header Image](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/Adventurer's_Almanac_Banner.png)
 
-## Video Explanation
-- The link below is to google drive version of a recording where I showcase and explain some of the key features of this website
-- https://drive.google.com/file/d/1-5WoQzsqvYWvj98kGJeHJ21AYchJlkYP/view?usp=sharing
+- - - -
 
-## Overview
+# About Adventurer's Almanac
 
 Adventurer's Almanac is a React Application that makes use of the Chart.js library and the Dnd 5e API to take data relating to dungeons and dragons classes and display statistics about those classes compared to each other on the Compare Page and how the class changes as it levels up on the Timeline Page.
 
+## Built With
+[![React](https://img.shields.io/badge/React-61DAFB?style=for-the-badge&logo=React&logoColor=black)](https://react.dev/)
+[![CSS3](https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white)](https://www.w3.org/Style/CSS/Overview.en.html)
+[![ReactBootstrap](https://img.shields.io/badge/ReactBootStrap-41E0FD?style=for-the-badge&logo=reactbootstrap&logoColor=black)](https://react-bootstrap.netlify.app/)
+[![ReactRouter](https://img.shields.io/badge/ReactRouter-CA4245?style=for-the-badge&logo=ReactRouter&logoColor=white)](https://reactrouter.com/en/main)
+[![ChartJS](https://img.shields.io/badge/Chart.js-FF6384?style=for-the-badge&logo=Chart.js&logoColor=white)](https://www.chartjs.org/)
+
+### API: https://5e-bits.github.io/docs/api
+
+## How To Install
+Prerequisites
+```
+Node.js (version 20.18.0 or later)
+```
+```
+Git or Github
+```
+```
+A code editor (e.g., Visual Studio Code, Sublime Text)
+```
+
+
+Step 1: Clone the Repository
+```
+git clone https://github.com/KurtSchwimmbacher/DV200ReactApplication.git
+```
+Step 2:  Install frontend dependencies in Terminal
+```
+cd dndstats
+```
+```
+npm install( axios, Chart.js, react-bootsrap, react-chartjs-2, react-router )
+```
+Step 3: Start the server in the Terminal
+```
+npm start
+``` 
+
+
 ## Features
 
-- **Dashboard**: Highlights the features of the wesbite graphically
-- **Compare**: Allows for the comparison of two classes selected by the users and displays data using chart. in a selection of radar charts, bar graphs and donut charts
-- **Timeline**: Allows for the viewing of the statistics of one class as it levels up. The data is shown in a Line Graph ranging from level 1 to level 20. 
+| Page                  | Description                                                              |
+| --------------------- | --------------------------------------------------------------           |
+| Home Page             | - Highlights the other functionality of the app and data used            |
+|                       | - Links to other pages of the app and the API used                       |
+| Compare Page          | - Allows users to select 2 different Dungeons and Dragons classes        |
+|                       | - Shows comparitive data between the two chosen classes                  |
+|                       | - Allows Users to change the levels of the chosen classes on select data |
+| Timeline Page         | - Allows Users to select a single Dungeons and Dragons class             |
+|                       | - Allows Users to select a field to be shown on the timeline graph       |
+|                       | - Shows Users a progress of chosen data set across the classes' levels   |
+  
 
-## Setup and Installation
+# UI Design
+### Home Page
+![Home Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Dashboard.png)
 
-1. **Clone the Repository**: 
-git clone https://github.com/KurtSchwimmbacher/DV200ReactApplication.git
+### Compare Page
+![Compare Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Compare_1.png)
+![Compare Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Compare_2.png)
+![Compare Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Compare_3.png)
+![Compare Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Compare_4.png)
+![Compare Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Compare_5.png)
 
-2. **Frontend Setup**:
-- Navigate to the `dndstats` directory:
-  ```
-  cd DV200ReactApplicatoin/dndstats
-  ```
-- Install dependencies:
-  ```
-  npm install axios
-  npm install react-bootstrap
-  npm install chart.js
-  npm install react-router-dom
-  ```
-- Start the backend server:
-  ```
-  npm start
-  ```
+### Timeline Page
+![Timeline Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Timeline_1.png)
+![Timeline Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Timeline_2.png)
+![Timeline Page](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/UI_Designs/UI_Design_Timeline_3.png)
+
+## Development Process
+
+### Highlights
+* UI that is reminiscient of DNDBeyond - Dungeons and Dragons official website 
+* Bento Box layout to lean into the dashboard feel
+* Custom Cursor and other imagery to lean into Adventure / D&D feel
+
+### Challenges
+* Having the Select Class Butttons on the Compare Page reflect the image of the selected class posed to be difficult
+* Curating the graphs to show data in a coherent way involved a lot of planning and data manipulation to get correct
+
+## Future Implementations
+* Add Data of D&D based games such as Baldurs Gate 3, Solasta, Divinity etc.
+* Improving the Timeline UI to match the UI of the rest of the Page more cohesively
+
+## Technical Docoments
 
 
-3. **Open the Application**:
-- Once the frontend servers is running, open your browser and navigate to `http://localhost:3000` to access Adventurer's Almanac.
+## Mockups
+### Home Page Mockup
+![Home Mockup](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/Mockups/Mockup_Dashboard.png)
 
-## Technologies Used
-- React
-- Axios
-- React Router
-- React Bootstrap
-- Chart.js
-- Dnd 5e API
-- **Styling**:
-- CSS (with optional frameworks like Bootstrap or Material-UI)
+### Compare Page Mockup
+![Compare Mockup](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/Mockups/Mockup_Compare.png)
 
-## Usage
+### Timeline Page Mockup
+![Timeline Mockup](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/Mockups/Mockup_Timeline.png)
 
-1. **Explore Compare Page**:
-- Use the modals on the Compare Page to to select two classes to compare.
-- Adjust the level slider to control which levels the classes being compared should be.
-- Browse displayed data comparing two classes.
+## Demonstration
+https://drive.google.com/file/d/1-5WoQzsqvYWvj98kGJeHJ21AYchJlkYP/view?usp=sharing
 
-2. **Explore Timeline Page**:
-- Use the dropdown to select a single class to view a timeline off.
-- Use the secondary dropdown to select the field to be viewed over levels , such as as healh over levels.
-- View the displayed data over levels 1 to 20 on the timeline graph displayed.
+### License
+[MIT](LICENSE) © Kurt Schwimmbacher
 
-## Visual Designs
-- All graphs used on this website are renderd by chart.js
-- The class illustrations used for the compare page and the carousel on the dashboard page were edited versions of instagram user yaniir's (https://www.instagram.com/_yaniir_/) class illustrations
-- The icons used in this 
-## Credits
+### Author
+Kurt Schwimmbacher - 231002@virtualwindow.co.za
 
-This project was developed by Kurt Schwimmbacher as an assignment for Open Window DV200. 
-
-## License
-
-This project is licensed under the [MIT License](LICENSE).
+### Contribution
+In order to contribute to this project, clone the project according the instructions layed out above and create a new branch.
 
