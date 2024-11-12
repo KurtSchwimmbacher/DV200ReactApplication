@@ -1,6 +1,25 @@
+# Adventurer's Almanac
+## Kurt Schwimmbacher
+
 ![ClearView Header Image](https://github.com/KurtSchwimmbacher/DV200ReactApplication/blob/main/dndstats/src/assets/ReadMeAssets/Adventurer's_Almanac_Banner.png)
 
 - - - -
+## Table of Contents
+1. [About Adventurer's Almanac](#about-adventurers-almanac)
+2. [Built With](#built-with)
+3. [How To Install](#how-to-install)
+4. [Features](#features)
+5. [UI Design](#ui-design)
+6. [Development Process](#development-process)
+7. [Future Implementations](#future-implementations)
+8. [Technical Documentation](#technical-documentation)
+9. [Mockups](#mockups)
+10. [Demonstration](#demonstration)
+11. [License](#license)
+12. [Author](#author)
+13. [Contribution](#contribution)
+
+
 
 # About Adventurer's Almanac
 
